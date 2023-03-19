@@ -44,9 +44,10 @@
 
   .lower {
     padding: 0.6rem 16rem;
-    background: url(../../backgrounds/white-nav.png);
+    background: url('../../backgrounds/nav-white.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     font-family: $font-raleway;
     font-weight: 600;
     font-size: 2.4rem;
@@ -114,6 +115,7 @@
             font-size: 1.8rem;
             color: white;
             width: 25rem;
+            border: none;
 
             &::placeholder {
               color: white;
@@ -124,7 +126,7 @@
             content: '';
             position: absolute;
             right: 1.8rem;
-            background-image: url('../../icons/white-search.svg');
+            background: url('../../icons/white-search.svg');
             background-repeat: no-repeat;
             top: 50%;
             transform: translateY(-50%);

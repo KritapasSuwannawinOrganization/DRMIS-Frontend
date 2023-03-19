@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import './Nav.scss';
 
@@ -10,9 +10,17 @@ import blueLogo from '../../icons/blue-logo.svg';
 import blueSearch from '../../icons/blue-search.svg';
 
 function Nav() {
+  const { pathname } = useLocation();
+
   const [memberIsActive, setMemberIsActive] = useState(false);
   const [accomplishmentIsActive, setAccomplishmentIsActive] = useState(false);
   const [searchIsActive, setSearchIsActive] = useState(false);
+
+  useEffect(() => {
+    setMemberIsActive(false);
+    setAccomplishmentIsActive(false);
+    setSearchIsActive(false);
+  }, [pathname]);
 
   function navClickHandler() {
     this !== 'member' && setMemberIsActive(false);
