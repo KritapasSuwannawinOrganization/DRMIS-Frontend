@@ -1,3 +1,6 @@
+import { useSelector } from 'react-redux';
+
+import Slider from '../../components/slider/Slider';
 import './Home.scss';
 
 import landingHome from '../../backgrounds/home-landing.png';
@@ -13,6 +16,9 @@ import homeInfo2 from '../../icons/home-info-2.svg';
 import homeInfo3 from '../../icons/home-info-3.svg';
 
 function Home() {
+  const researchPublicationArr = useSelector((store) => store.resource.researchPublicationArr);
+  const projectArr = useSelector((store) => store.resource.projectArr);
+
   return (
     <div className="home">
       <img className="landing" src={landingHome} alt=""></img>
@@ -72,6 +78,12 @@ function Home() {
             </ul>
           </div>
         </div>
+      </div>
+      <div className="home__research-publication">
+        <Slider title="Research Publications - Journal Articles" dataArr={researchPublicationArr} type="dark-bg"></Slider>
+      </div>
+      <div className="home__project">
+        <Slider title="Selected DRMIS projects" dataArr={projectArr} type="light-bg"></Slider>
       </div>
     </div>
   );

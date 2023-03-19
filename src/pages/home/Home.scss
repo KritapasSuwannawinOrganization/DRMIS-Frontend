@@ -61,6 +61,7 @@
 
         img {
           position: absolute;
+          background: $color-gray;
         }
       }
 
@@ -156,5 +157,21 @@
         }
       }
     }
+  }
+
+  &__research-publication,
+  &__project {
+    padding: 14rem 23rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__research-publication {
+    background: url('../../backgrounds/home-research-publication.png');
+  }
+
+  &__project {
+    background: url('../../backgrounds/home-project.png');
   }
 }
