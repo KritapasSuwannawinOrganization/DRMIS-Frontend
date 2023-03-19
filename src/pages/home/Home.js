@@ -21,8 +21,8 @@ function Home() {
 
   return (
     <div className="home">
-      <img className="landing" src={landingHome} alt=""></img>
-      <div className="info">
+      <img className="home__landing" src={landingHome} alt=""></img>
+      <div className="home__info">
         <div>
           <img className="green" src={homeInfo1} alt=""></img>
           <p>チュラーロンコーン大学災害リスク管理情報システム研究室</p>
@@ -40,42 +40,45 @@ function Home() {
           <p>朱拉隆功大学灾害风险管理信息系统实验室</p>
         </div>
       </div>
-      <div className="about-us">
-        <div className="upper">
-          <div className="img-container">
-            <img src={homeAboutUs1} alt=""></img>
-            <img src={homeAboutUs2} alt=""></img>
-            <img src={homeAboutUs3} alt=""></img>
+      <div className="home__about-us">
+        <div className="content">
+          <div className="upper">
+            <div className="img-container">
+              <img src={homeAboutUs1} alt=""></img>
+              <img src={homeAboutUs2} alt=""></img>
+              <img src={homeAboutUs3} alt=""></img>
+            </div>
+            <div className="right">
+              <p className="title">About Us</p>
+              <p>
+                <span>DRMIS</span> is a research unit at Chulalongkorn University. DRMIS laboratory has been established as the research
+                group since 2018 by Asst. Prof. Natt Leelawat, D.Eng., and his kind colleagues from the Department of Industrial
+                Engineering, Department of Water Resources Engineering, Department of Civil Engineering, and the International School of
+                Engineering, Chulalongkorn University. DRMIS has been upgraded to a research unit since 2021. Currently, we are doing
+                research on disaster management, management information systems, business continuity management, and data analysis related
+                to disasters.
+              </p>
+            </div>
           </div>
-          <div className="right">
-            <p className="title">About Us</p>
-            <p>
-              <span>DRMIS</span> is a research unit at Chulalongkorn University. DRMIS laboratory has been established as the research group
-              since 2018 by Asst. Prof. Natt Leelawat, D.Eng., and his kind colleagues from the Department of Industrial Engineering,
-              Department of Water Resources Engineering, Department of Civil Engineering, and the International School of Engineering,
-              Chulalongkorn University. DRMIS has been upgraded to a research unit since 2021. Currently, we are doing research on disaster
-              management, management information systems, business continuity management, and data analysis related to disasters.
-            </p>
-          </div>
-        </div>
-        <div className="lower">
-          <div className="img-container">
-            <img src={homeGoalObj1} alt=""></img>
-            <img src={homeGoalObj2} alt=""></img>
-          </div>
-          <div className="right">
-            <p className="title">Goals and objectives</p>
-            <ul>
-              <li>To create knowledge and research for the society</li>
-              <li>
-                To provide information related to
-                <ul>
-                  <li>Disaster Management</li>
-                  <li>Business Continuity Management</li>
-                  <li>Management Information Systems</li>
-                </ul>
-              </li>
-            </ul>
+          <div className="lower">
+            <div className="img-container">
+              <img src={homeGoalObj1} alt=""></img>
+              <img src={homeGoalObj2} alt=""></img>
+            </div>
+            <div className="right">
+              <p className="title">Goals and objectives</p>
+              <ul>
+                <li>To create knowledge and research for the society</li>
+                <li>
+                  To provide information related to
+                  <ul>
+                    <li>Disaster Management</li>
+                    <li>Business Continuity Management</li>
+                    <li>Management Information Systems</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

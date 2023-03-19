@@ -57,7 +57,7 @@ function Slider(props) {
 
   return (
     <div className="slider">
-      <p className={`title ${type}`}>{title}</p>
+      <p className={`slider__title ${type}`}>{title}</p>
       <div className={`slider__nav ${type}`}>
         <button onClick={categoryChangeHandler} className={!currentCategory ? 'current' : ''}>
           Show All

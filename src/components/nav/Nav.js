@@ -44,67 +44,71 @@ function Nav() {
 
   return (
     <div className="nav">
-      <div className="upper">
-        <div className="blank"></div>
-        <div className="addr-working-container">
-          <div className="addr">
-            <img src={yellowLocation} alt=""></img>
-            <p>Address : Room 511, 5F, Engineering Building 4, Faculty of Engineering, CU</p>
+      <div className="nav__upper">
+        <div className="content">
+          <div className="blank"></div>
+          <div className="addr-working-container">
+            <div className="addr">
+              <img src={yellowLocation} alt=""></img>
+              <p>Address : Room 511, 5F, Engineering Building 4, Faculty of Engineering, CU</p>
+            </div>
+            <div className="separator"></div>
+            <div className="working">
+              <img src={yellowClock} alt=""></img>
+              <p>Working : Monday - Friday, 9:00am - 4:00pm</p>
+            </div>
           </div>
-          <div className="separator"></div>
-          <div className="working">
-            <img src={yellowClock} alt=""></img>
-            <p>Working : Monday - Friday, 9:00am - 4:00pm</p>
+          <div className="login">
+            <img src={yellowUser} alt=""></img>
+            <Link>Login</Link>
           </div>
-        </div>
-        <div className="login">
-          <img src={yellowUser} alt=""></img>
-          <Link>Login</Link>
         </div>
       </div>
-      <div className="lower">
-        <Link to="/">
-          <img className="logo" src={blueLogo} alt=""></img>
-        </Link>
-        <div className="btn-container">
-          <div>
-            <button onClick={navClickHandler.bind('member')}>Members</button>
-            {memberIsActive && (
-              <div className="link-container">
-                <Link to="/member-current">Current</Link>
-                <Link to="/member-alumni">Alumni</Link>
-              </div>
-            )}
-          </div>
-          <div>
-            <button onClick={navClickHandler.bind('accomplishment')}>Accomplishments</button>
-            {accomplishmentIsActive && (
-              <div className="link-container">
-                <Link to="/accomplishment-publication">Publications</Link>
-                <Link to="/accomplishment-activity">Activities</Link>
-                <Link to="/accomplishment-project">Projects</Link>
-              </div>
-            )}
-          </div>
-          <div>
-            <Link to="/recruitment">Recruitment</Link>
-          </div>
-          <div>
-            <Link to="/contact-us">Contact Us</Link>
-          </div>
-        </div>
-        <div className="search-container">
-          <button onClick={navClickHandler.bind('search')}>
-            <img src={blueSearch} alt=""></img>
-            <p>Search</p>
-          </button>
-          {searchIsActive && (
-            <div className="input-container">
-              <div className="input">
-                <input placeholder="Search"></input>
-              </div>
+      <div className="nav__lower">
+        <div className="content">
+          <Link to="/">
+            <img className="logo" src={blueLogo} alt=""></img>
+          </Link>
+          <div className="btn-container">
+            <div>
+              <button onClick={navClickHandler.bind('member')}>Members</button>
+              {memberIsActive && (
+                <div className="link-container">
+                  <Link to="/member-current">Current</Link>
+                  <Link to="/member-alumni">Alumni</Link>
+                </div>
+              )}
             </div>
-          )}
+            <div>
+              <button onClick={navClickHandler.bind('accomplishment')}>Accomplishments</button>
+              {accomplishmentIsActive && (
+                <div className="link-container">
+                  <Link to="/accomplishment-publication">Publications</Link>
+                  <Link to="/accomplishment-activity">Activities</Link>
+                  <Link to="/accomplishment-project">Projects</Link>
+                </div>
+              )}
+            </div>
+            <div>
+              <Link to="/recruitment">Recruitment</Link>
+            </div>
+            <div>
+              <Link to="/contact-us">Contact Us</Link>
+            </div>
+          </div>
+          <div className="search-container">
+            <button onClick={navClickHandler.bind('search')}>
+              <img src={blueSearch} alt=""></img>
+              <p>Search</p>
+            </button>
+            {searchIsActive && (
+              <div className="input-container">
+                <div className="input">
+                  <input placeholder="Search"></input>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

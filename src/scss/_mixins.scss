@@ -1,1 +1,12 @@
 @import './variables';
+
+@mixin container-style($padding-container-vertical, $content-width) {
+  padding: $padding-container-vertical $padding-container-horizontal;
+  display: flex;
+  justify-content: center;
+
+  & > div {
+    width: 100%;
+    max-width: $content-width;
+  }
+}
