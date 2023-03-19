@@ -14,16 +14,31 @@ html {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: $font-raleway;
   box-sizing: border-box;
-  background-color: white;
+  max-width: 192rem;
+  margin: 0 auto;
 }
 
 a {
   text-decoration: none;
-  color: inherit;
 }
 
 button {
   border: none;
+  background: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+a,
+button,
+input,
+textarea {
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
 }
