@@ -10,7 +10,9 @@ import blueLogo from '../../icons/blue-logo.svg';
 import blueSearch from '../../icons/blue-search.svg';
 import whiteSearch from '../../icons/white-search.svg';
 
-function Nav() {
+function Nav(props) {
+  const { noBackground } = props;
+
   const { pathname } = useLocation();
 
   const [memberIsActive, setMemberIsActive] = useState(false);
@@ -71,7 +73,7 @@ function Nav() {
           </div>
         </div>
       </div>
-      <div className="nav__lower">
+      <div className={`nav__lower ${noBackground ? 'no-bg' : ''}`}>
         <div className="content">
           <Link to="/">
             <img className="logo" src={blueLogo} alt=""></img>

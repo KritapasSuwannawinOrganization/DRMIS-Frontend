@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import Slider from '../../components/slider/Slider';
 import './Home.scss';
 
-import landingHome from '../../backgrounds/home-landing.png';
-
 import homeAboutUs1 from '../../images/home-about-us-1.png';
 import homeAboutUs2 from '../../images/home-about-us-2.png';
 import homeAboutUs3 from '../../images/home-about-us-3.png';
@@ -24,7 +22,7 @@ function Home() {
 
   return (
     <div className="home">
-      <img className="home__landing" src={landingHome} alt=""></img>
+      <div className="home__landing"></div>
       <div className="home__info">
         <div>
           <img className="green" src={homeInfo1} alt=""></img>

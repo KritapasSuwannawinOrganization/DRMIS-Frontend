@@ -2,7 +2,7 @@
 
 .footer {
   @include container-style(125rem, 17.6rem, 2.6rem);
-  background: url('../../backgrounds/footer-blue.png');
+  background: url('../../backgrounds/footer-blue.png') $color-gray;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

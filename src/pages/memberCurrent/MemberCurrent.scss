@@ -1,0 +1,67 @@
+@import '../../scss/main.scss';
+
+.member-current {
+  background-image: url('../../backgrounds/member-current.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  &__title {
+    height: 16.8rem;
+    margin: 0 auto 3rem;
+    display: block;
+  }
+
+  &__member-container {
+    @include container-style(fit-content, 0, 15.8rem);
+
+    .content {
+      & > img {
+        aspect-ratio: 252/332;
+        object-fit: cover;
+        background: $color-gray;
+        width: 25.2rem;
+        margin: 0 auto 3.4rem;
+        display: block;
+      }
+
+      & > div {
+        padding: 3.3rem;
+        background: $color-blue;
+        font-size: 2rem;
+        font-weight: 600;
+        color: white;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+
+        ul {
+          margin-left: 3rem;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 17rem;
+        }
+      }
+
+      &__publication {
+        display: flex;
+
+        a {
+          text-decoration: underline;
+
+          &:not(:last-child) {
+            margin-right: 1rem;
+
+            &::after {
+              content: '|';
+              margin-left: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

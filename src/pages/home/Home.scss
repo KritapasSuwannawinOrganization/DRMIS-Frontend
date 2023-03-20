@@ -2,6 +2,11 @@
 
 .home {
   &__landing {
+    aspect-ratio: 1600/715;
+    background: url('../../backgrounds/home-landing.png') $color-gray;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 100%;
     margin-bottom: -0.5rem;
   }
@@ -170,7 +175,7 @@
   }
 
   &__research-publication {
-    background: url('../../backgrounds/home-research-publication.png');
+    background: url('../../backgrounds/home-research-publication.png') $color-gray;
   }
 
   &__project {
