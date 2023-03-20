@@ -41,7 +41,7 @@
   }
 
   &__about-us {
-    @include container-style(15rem, 120rem);
+    @include container-style(120rem, 15rem);
     background: url('../../backgrounds/home-about-us.png');
     background-size: cover;
     background-position: center -7rem;
@@ -163,7 +163,7 @@
 
   &__research-publication,
   &__project {
-    @include container-style(14rem, 144rem);
+    @include container-style(144rem, 14rem);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -175,5 +175,29 @@
 
   &__project {
     background: url('../../backgrounds/home-project.png');
+  }
+
+  &__partner {
+    padding: 8rem 2rem;
+
+    p {
+      font-size: 5rem;
+      font-weight: 700;
+      color: $color-blue;
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    div {
+      text-align: center;
+
+      img {
+        height: 13.6rem;
+
+        &:not(:last-child) {
+          margin-right: 11rem;
+        }
+      }
+    }
   }
 }

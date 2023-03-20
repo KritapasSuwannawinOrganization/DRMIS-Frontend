@@ -15,6 +15,9 @@ import homeInfo1 from '../../icons/home-info-1.svg';
 import homeInfo2 from '../../icons/home-info-2.svg';
 import homeInfo3 from '../../icons/home-info-3.svg';
 
+import homePartner1 from '../../icons/home-partner-1.svg';
+import homePartner2 from '../../icons/home-partner-2.svg';
+
 function Home() {
   const researchPublicationArr = useSelector((store) => store.resource.researchPublicationArr);
   const projectArr = useSelector((store) => store.resource.projectArr);
@@ -87,6 +90,13 @@ function Home() {
       </div>
       <div className="home__project">
         <Slider title="Selected DRMIS projects" dataArr={projectArr} type="light-bg"></Slider>
+      </div>
+      <div className="home__partner">
+        <p>Our Partners</p>
+        <div>
+          <img src={homePartner1} alt=""></img>
+          <img src={homePartner2} alt=""></img>
+        </div>
       </div>
     </div>
   );

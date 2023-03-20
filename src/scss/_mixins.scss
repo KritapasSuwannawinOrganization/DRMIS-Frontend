@@ -1,9 +1,13 @@
 @import './variables';
 
-@mixin container-style($padding-container-vertical, $content-width) {
+@mixin container-style($content-width, $padding-container-vertical, $padding-container-bottom: 0) {
   padding: $padding-container-vertical $padding-container-horizontal;
   display: flex;
   justify-content: center;
+
+  @if ($padding-container-bottom > 0) {
+    padding-bottom: $padding-container-bottom;
+  }
 
   & > div {
     width: 100%;

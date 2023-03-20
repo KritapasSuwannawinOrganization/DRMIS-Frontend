@@ -8,6 +8,7 @@ import yellowClock from '../../icons/yellow-clock.svg';
 import yellowUser from '../../icons/yellow-user.svg';
 import blueLogo from '../../icons/blue-logo.svg';
 import blueSearch from '../../icons/blue-search.svg';
+import whiteSearch from '../../icons/white-search.svg';
 
 function Nav() {
   const { pathname } = useLocation();
@@ -40,6 +41,12 @@ function Nav() {
       default:
         break;
     }
+  }
+
+  function searchSubmitHandler(e) {
+    e.preventDefault();
+    console.log(e.target[0].value);
+    e.target[0].value = '';
   }
 
   return (
@@ -102,11 +109,14 @@ function Nav() {
               <p>Search</p>
             </button>
             {searchIsActive && (
-              <div className="input-container">
+              <form className="input-container" onSubmit={searchSubmitHandler}>
                 <div className="input">
                   <input placeholder="Search"></input>
+                  <button type="submit">
+                    <img src={whiteSearch} alt=""></img>
+                  </button>
                 </div>
-              </div>
+              </form>
             )}
           </div>
         </div>

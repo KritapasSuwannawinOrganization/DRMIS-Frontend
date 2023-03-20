@@ -5,6 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { resourceActions } from './store/resourceSlice';
 
 import Nav from './components/nav/Nav';
+import Footer from './components/footer/Footer';
 import Home from './pages/home/Home';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/*" element={<Navigate replace to="/"></Navigate>}></Route>
       </Routes>
+      <Footer></Footer>
     </>
   );
 }
