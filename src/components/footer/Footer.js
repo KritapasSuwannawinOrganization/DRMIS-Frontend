@@ -66,11 +66,9 @@ function Footer() {
             <a href="https://google.com" target="_blank" rel="noreferrer">
               Support
             </a>
-            <div className="separator"></div>
             <a href="https://google.com" target="_blank" rel="noreferrer">
               Privacy
             </a>
-            <div className="separator"></div>
             <a href="https://google.com" target="_blank" rel="noreferrer">
               Policy
             </a>

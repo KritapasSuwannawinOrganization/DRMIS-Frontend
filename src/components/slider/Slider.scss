@@ -56,15 +56,15 @@
     align-items: center;
 
     button {
+      &.hide {
+        visibility: hidden;
+      }
+
       img {
         width: 5.8rem;
 
         &.invert {
           transform: scaleX(-1);
-        }
-
-        &.hide {
-          visibility: hidden;
         }
       }
     }
@@ -103,6 +103,7 @@
               padding: 0.6rem 1.5rem;
               background: url('../../icons/purple-ribbon.svg');
               background-repeat: no-repeat;
+              background-position: center right;
               font-size: 1.4rem;
               font-weight: 500;
               color: #5b63fe;
@@ -156,6 +157,100 @@
             }
           }
         }
+      }
+    }
+
+    .bottom-btn-container {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .slider {
+    max-width: 95rem !important;
+
+    &__title {
+      font-size: 4.5rem;
+    }
+
+    &__body {
+      .card-container {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 70rem;
+
+        .card {
+          &__content {
+            padding: 2rem;
+
+            &--header {
+              margin-bottom: 1.5rem;
+            }
+
+            &--footer {
+              margin-top: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .slider {
+    &__title {
+      font-size: 3.5rem;
+    }
+
+    &__body {
+      flex-direction: column;
+
+      & > button {
+        display: none;
+      }
+
+      .card-container {
+        width: 90%;
+      }
+
+      .bottom-btn-container {
+        display: flex;
+        column-gap: 3rem;
+        margin-top: 5rem;
+
+        img {
+          width: 5rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .slider {
+    &__body {
+      .card-container {
+        gap: 2.5rem;
+        width: 100%;
+
+        .card {
+          &__content {
+            &--header {
+              .view-count {
+                display: none;
+              }
+            }
+
+            &--title {
+              font-size: 1.8rem;
+            }
+          }
+        }
+      }
+
+      .bottom-btn-container {
+        column-gap: 2.5rem;
       }
     }
   }

@@ -4,19 +4,23 @@
   background-image: url('../../backgrounds/member-current.png');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center 35rem;
   background-attachment: fixed;
 
   &__title {
     height: 16.8rem;
-    margin: 0 auto 3rem;
+    margin: 0 auto 3.5rem;
     display: block;
   }
 
   &__member-container {
-    @include container-style(fit-content, 0, 15.8rem);
+    @include container-style(fit-content, 0, 8rem);
 
     .content {
+      font-size: 2rem;
+      font-weight: 600;
+      color: white;
+
       & > img {
         aspect-ratio: 252/332;
         object-fit: cover;
@@ -29,9 +33,6 @@
       & > div {
         padding: 3.3rem;
         background: $color-blue;
-        font-size: 2rem;
-        font-weight: 600;
-        color: white;
         border-radius: 1rem;
         display: flex;
         flex-direction: column;
@@ -42,7 +43,7 @@
         }
 
         &:not(:last-child) {
-          margin-bottom: 17rem;
+          margin-bottom: 15rem;
         }
       }
 
@@ -59,6 +60,100 @@
               content: '|';
               margin-left: 1rem;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .member-current {
+    &__title {
+      height: 15rem;
+    }
+
+    &__member-container {
+      .content {
+        & > img {
+          width: 24rem;
+        }
+
+        & > div {
+          &:not(:last-child) {
+            margin-bottom: 13rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .member-current {
+    &__title {
+      height: 12rem;
+    }
+
+    &__member-container {
+      .content {
+        font-size: 1.8rem;
+
+        & > img {
+          width: 22rem;
+          margin-bottom: 2.5rem;
+        }
+
+        & > div {
+          ul {
+            li {
+              &:not(:last-child) {
+                margin-bottom: 0.5rem;
+              }
+            }
+          }
+
+          &:not(:last-child) {
+            margin-bottom: 10rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .member-current {
+    &__title {
+      height: 10rem;
+    }
+
+    &__member-container {
+      .content {
+        font-size: 1.6rem;
+
+        & > img {
+          width: 20rem;
+        }
+
+        & > div {
+          ul {
+            li {
+              &:not(:last-child) {
+                margin-bottom: 0.65rem;
+              }
+            }
+          }
+        }
+
+        &__publication {
+          div {
+            display: flex;
+            flex-wrap: wrap;
+          }
+
+          a {
+            white-space: nowrap;
           }
         }
       }

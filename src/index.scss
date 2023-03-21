@@ -9,15 +9,49 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 62.5%; // normal text: 18px
   scroll-behavior: smooth;
+
+  @media (max-width: 1750px) {
+    font-size: 59%;
+  }
+
+  @media (max-width: 1600px) {
+    font-size: 55.55%; // normal text: 16px
+  }
+
+  @media (max-width: 1480px) {
+    font-size: 53%;
+  }
+
+  @media (max-width: 1375px) {
+    font-size: 50%;
+  }
+
+  @media (max-width: 1280px) {
+    font-size: 48.61%; // normal text: 14px
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 47%;
+  }
+
+  @media (max-width: 1130px) {
+    font-size: 45%;
+  }
+
+  @media (max-width: 1070px) {
+    font-size: 43%;
+  }
+
+  @media (max-width: 1015px) {
+    font-size: 41.67%; // normal text: 12px
+  }
 }
 
 body {
   font-family: $font-raleway;
   box-sizing: border-box;
-  max-width: 192rem;
-  margin: 0 auto;
 }
 
 a {

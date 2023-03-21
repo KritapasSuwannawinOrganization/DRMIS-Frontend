@@ -61,7 +61,6 @@ function Nav(props) {
               <img src={yellowLocation} alt=""></img>
               <p>Address : Room 511, 5F, Engineering Building 4, Faculty of Engineering, CU</p>
             </div>
-            <div className="separator"></div>
             <div className="working">
               <img src={yellowClock} alt=""></img>
               <p>Working : Monday - Friday, 9:00am - 4:00pm</p>
@@ -75,8 +74,8 @@ function Nav(props) {
       </div>
       <div className={`nav__lower ${noBackground ? 'no-bg' : ''}`}>
         <div className="content">
-          <Link to="/">
-            <img className="logo" src={blueLogo} alt=""></img>
+          <Link className="logo" to="/">
+            <img src={blueLogo} alt=""></img>
           </Link>
           <div className="btn-container">
             <div>

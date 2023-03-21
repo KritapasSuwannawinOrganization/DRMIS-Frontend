@@ -6,9 +6,7 @@
     background: url('../../backgrounds/home-landing.png') $color-gray;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     width: 100%;
-    margin-bottom: -0.5rem;
   }
 
   &__info {
@@ -29,10 +27,10 @@
       column-gap: 3rem;
 
       img {
+        aspect-ratio: 1/1;
         padding: 2.4rem;
         border-radius: 50%;
         width: 9rem;
-        height: 9rem;
 
         &.green {
           background: #17b8c1;
@@ -50,7 +48,6 @@
     background: url('../../backgrounds/home-about-us.png');
     background-size: cover;
     background-position: center -7rem;
-    background-repeat: no-repeat;
 
     .content {
       .upper,
@@ -129,9 +126,9 @@
               aspect-ratio: 227/227;
               object-fit: cover;
               width: 22.7rem;
-              bottom: 0;
-              right: 0;
-              margin: 4rem 0 4rem 4rem;
+              top: 25rem;
+              left: 32rem;
+              margin: 4rem 0 0 4rem;
             }
           }
         }
@@ -157,21 +154,12 @@
               object-fit: cover;
               width: 22.7rem;
               top: 0;
-              right: 0;
-              margin-right: 2.2rem;
+              left: 32rem;
             }
           }
         }
       }
     }
-  }
-
-  &__research-publication,
-  &__project {
-    @include container-style(144rem, 14rem);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 
   &__research-publication {
@@ -180,6 +168,13 @@
 
   &__project {
     background: url('../../backgrounds/home-project.png');
+  }
+
+  &__research-publication,
+  &__project {
+    @include container-style(144rem, 14rem);
+    background-size: cover;
+    background-position: center;
   }
 
   &__partner {
@@ -201,6 +196,130 @@
 
         &:not(:last-child) {
           margin-right: 11rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .home {
+    &__info {
+      padding: 2.5rem $padding-container-horizontal;
+      column-gap: 2rem;
+
+      & > div {
+        column-gap: 3rem;
+        flex: 1;
+
+        img {
+          width: 7.5rem;
+        }
+
+        br {
+          display: none;
+        }
+      }
+    }
+
+    &__about-us {
+      padding: 10rem $padding-container-horizontal;
+
+      .content {
+        .upper,
+        .lower {
+          column-gap: 5rem;
+        }
+      }
+    }
+
+    &__research-publication,
+    &__project {
+      padding: 10rem $padding-container-horizontal 12rem;
+    }
+
+    &__partner {
+      padding: 5rem $padding-container-horizontal;
+
+      p {
+        font-size: 4.5rem;
+      }
+
+      div {
+        img {
+          height: 12rem;
+
+          &:not(:last-child) {
+            margin-right: 8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .home {
+    &__info {
+      display: none;
+    }
+
+    &__about-us {
+      padding: 6rem $padding-container-horizontal;
+
+      .content {
+        .upper,
+        .lower {
+          height: fit-content;
+
+          .img-container {
+            display: none;
+          }
+
+          .right {
+            ul {
+              padding-left: 2.8rem;
+            }
+          }
+        }
+      }
+    }
+
+    &__research-publication,
+    &__project {
+      padding: 6rem $padding-container-horizontal 8rem;
+    }
+
+    &__partner {
+      padding: 4rem $padding-container-horizontal;
+
+      p {
+        font-size: 3.5rem;
+      }
+
+      div {
+        img {
+          height: 8rem;
+
+          &:not(:last-child) {
+            margin-right: 5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .home {
+    &__partner {
+      div {
+        img {
+          height: 6rem;
+
+          &:not(:last-child) {
+            margin-right: 3rem;
+          }
         }
       }
     }

@@ -70,12 +70,8 @@ function Slider(props) {
       </div>
       <div className={`slider__body ${type}`}>
         {hasMore && (
-          <button onClick={previousClickHandler}>
-            <img
-              className={`invert ${showingDataArr[0].id === categorizedDataArr[0].id ? 'hide' : ''}`}
-              src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight}
-              alt=""
-            ></img>
+          <button onClick={previousClickHandler} className={`${showingDataArr[0].id === categorizedDataArr[0].id ? 'hide' : ''}`}>
+            <img className="invert" src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight} alt=""></img>
           </button>
         )}
         <div className="card-container">
@@ -102,15 +98,29 @@ function Slider(props) {
           ))}
         </div>
         {hasMore && (
-          <button onClick={nextClickHandler}>
-            <img
+          <button
+            onClick={nextClickHandler}
+            className={`${
+              showingDataArr[showingDataArr.length - 1].id === categorizedDataArr[categorizedDataArr.length - 1].id ? 'hide' : ''
+            }`}
+          >
+            <img src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight} alt=""></img>
+          </button>
+        )}
+        {hasMore && (
+          <div className="bottom-btn-container">
+            <button onClick={previousClickHandler} className={`${showingDataArr[0].id === categorizedDataArr[0].id ? 'hide' : ''}`}>
+              <img className="invert" src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight} alt=""></img>
+            </button>
+            <button
+              onClick={nextClickHandler}
               className={`${
                 showingDataArr[showingDataArr.length - 1].id === categorizedDataArr[categorizedDataArr.length - 1].id ? 'hide' : ''
               }`}
-              src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight}
-              alt=""
-            ></img>
-          </button>
+            >
+              <img src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight} alt=""></img>
+            </button>
+          </div>
         )}
       </div>
     </div>
