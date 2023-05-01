@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     dispatch(resourceActions.setResearchPublicationArr());
     dispatch(resourceActions.setProjectArr());
-    dispatch(resourceActions.setMember());
+    dispatch(resourceActions.setAllMember());
     dispatch(resourceActions.setMemberPublicationArr());
   }, [dispatch]);
 

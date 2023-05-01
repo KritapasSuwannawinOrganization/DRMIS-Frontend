@@ -281,9 +281,10 @@ const researchPublicationAndProjectArrTest = [
   },
 ];
 
-const memberArrTest = [
+const allMemberArrTest = [
   // - id serial primary_key
   // - status text
+  // - type text
   // - img_file_path text
   // - name text
   // - education_arr text[]
@@ -291,6 +292,7 @@ const memberArrTest = [
   {
     id: 1,
     status: 'current',
+    type: 'member',
     img_file_path: '',
     name: 'Associate Professor Natt Leelawat, D.Eng.',
     rank: 'Head of DRMIS',
@@ -304,6 +306,7 @@ const memberArrTest = [
   {
     id: 2,
     status: 'current',
+    type: 'member',
     img_file_path: '',
     name: 'Assistant Professor Supattra Visessri, Ph.D.',
     rank: 'Deputy Head of DRMIS',
@@ -318,6 +321,7 @@ const memberArrTest = [
   {
     id: 3,
     status: 'current',
+    type: 'member',
     img_file_path: '',
     name: 'Assistant Professor Prasert Akkharaprathomphong',
     rank: 'Faculty Member of DRMIS',
@@ -331,6 +335,7 @@ const memberArrTest = [
   {
     id: 4,
     status: 'current',
+    type: 'member',
     img_file_path: '',
     name: 'Assistant Professor Chatpan Chintanapakdee, Ph.D.',
     rank: 'Faculty Member of DRMIS',
@@ -345,6 +350,7 @@ const memberArrTest = [
   {
     id: 5,
     status: 'current',
+    type: 'member',
     img_file_path: '',
     name: 'Jing Tang, D.Eng.',
     rank: 'Faculty Member of DRMIS',
@@ -354,6 +360,112 @@ const memberArrTest = [
       'B.Sc. (First Class Honours) (Information Technology), Sirindhorn International Institute of Technology, Thammasat University, Thailand',
     ],
     publication_id_arr: [16, 17, 18, 19, 20],
+  },
+  {
+    id: 6,
+    status: 'current',
+    type: 'visiting member',
+    name: 'Professor Watanabe Kenji, Ph.D.',
+    education_arr: ['Nagoya Institute of Technology, Japan'],
+    publication_id_arr: [16, 17, 18, 19, 20],
+  },
+  {
+    id: 7,
+    status: 'current',
+    type: 'visiting member',
+    img_file_path: '',
+    name: 'Project Associate Professor Kodaka Akira, Ph.D.',
+    education_arr: ['Keio University, Japan'],
+    publication_id_arr: [16, 20],
+  },
+  {
+    id: 8,
+    status: 'current',
+    type: 'visiting member',
+    name: 'Ampan Laosunthara',
+    education_arr: ['Tokyo Institute of Technology, Japan'],
+    publication_id_arr: [16, 17, 18, 20],
+  },
+  {
+    id: 9,
+    status: 'current',
+    type: 'visiting member',
+    name: 'Kodchakorn Krutphong',
+    education_arr: ['Mahidol University Kanchanaburi Campus, Thailand'],
+    publication_id_arr: [16, 19, 20],
+  },
+  {
+    id: 10,
+    status: 'current',
+    type: 'graduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+    rank: 'Ph.D. student',
+  },
+  {
+    id: 11,
+    status: 'current',
+    type: 'graduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+    rank: 'Ph.D. student',
+    publication_id_arr: [16, 20],
+  },
+  {
+    id: 12,
+    status: 'current',
+    type: 'graduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+    rank: 'Ph.D. student',
+  },
+  {
+    id: 13,
+    status: 'current',
+    type: 'graduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+    rank: "Master's student",
+  },
+  {
+    id: 14,
+    status: 'current',
+    type: 'graduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+    rank: "Master's student",
+    publication_id_arr: [16, 19, 20],
+  },
+  {
+    id: 15,
+    status: 'current',
+    type: 'undergraduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+  },
+  {
+    id: 16,
+    status: 'current',
+    type: 'undergraduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+  },
+  {
+    id: 17,
+    status: 'current',
+    type: 'undergraduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+  },
+  {
+    id: 18,
+    status: 'current',
+    type: 'undergraduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+  },
+  {
+    id: 19,
+    status: 'current',
+    type: 'undergraduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
+  },
+  {
+    id: 20,
+    status: 'current',
+    type: 'undergraduate student',
+    name: 'Mr. Alfan Kurnia Yudha',
   },
 ];
 
@@ -385,7 +497,7 @@ const memberPublicationArrTest = [
 
 const resourceSlice = createSlice({
   name: 'resource',
-  initialState: { researchPublicationArr: [], projectArr: [], memberArr: [], memberPublicationArr: [] },
+  initialState: { researchPublicationArr: [], projectArr: [], allMemberArr: [], memberPublicationArr: [] },
   reducers: {
     setResearchPublicationArr(state, action) {
       state.researchPublicationArr = action.payload || researchPublicationAndProjectArrTest;
@@ -393,8 +505,8 @@ const resourceSlice = createSlice({
     setProjectArr(state, action) {
       state.projectArr = action.payload || researchPublicationAndProjectArrTest;
     },
-    setMember(state, action) {
-      state.memberArr = action.payload || memberArrTest;
+    setAllMember(state, action) {
+      state.allMemberArr = action.payload || allMemberArrTest;
     },
     setMemberPublicationArr(state, action) {
       state.memberPublicationArr = action.payload || memberPublicationArrTest;

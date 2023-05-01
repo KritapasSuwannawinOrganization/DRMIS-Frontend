@@ -216,8 +216,15 @@
 
       .bottom-btn-container {
         display: flex;
-        column-gap: 3rem;
+        column-gap: 1.5rem;
         margin-top: 5rem;
+        align-self: flex-end;
+
+        button {
+          &.hide {
+            display: none;
+          }
+        }
 
         img {
           width: 5rem;
@@ -247,10 +254,6 @@
             }
           }
         }
-      }
-
-      .bottom-btn-container {
-        column-gap: 2.5rem;
       }
     }
   }

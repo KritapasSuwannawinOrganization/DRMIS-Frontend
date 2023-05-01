@@ -1,25 +1,27 @@
 @import '../../scss/main.scss';
 
 .member-current {
-  background-image: url('../../backgrounds/member-current.png');
+  background-image: url('../../backgrounds/background.png');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center 35rem;
+  background-position: center;
   background-attachment: fixed;
 
   &__title {
     height: 16.8rem;
+    max-width: 90%;
     margin: 0 auto 3.5rem;
     display: block;
   }
 
   &__member-container {
-    @include container-style(fit-content, 0, 8rem);
+    @include container-style(135rem, 0, 8rem);
 
     .content {
       font-size: 2rem;
       font-weight: 600;
       color: white;
+      line-height: 150%;
 
       & > img {
         aspect-ratio: 252/332;
@@ -28,6 +30,11 @@
         width: 25.2rem;
         margin: 0 auto 3.4rem;
         display: block;
+
+        &.full-width {
+          aspect-ratio: unset;
+          width: 100%;
+        }
       }
 
       & > div {
@@ -36,19 +43,22 @@
         border-radius: 1rem;
         display: flex;
         flex-direction: column;
-        row-gap: 1rem;
 
         ul {
           margin-left: 3rem;
         }
 
         &:not(:last-child) {
-          margin-bottom: 15rem;
+          margin-bottom: 10rem;
         }
       }
 
       &__publication {
         display: flex;
+
+        &.padding-left {
+          padding-left: 1.9rem;
+        }
 
         a {
           text-decoration: underline;
@@ -78,12 +88,6 @@
         & > img {
           width: 24rem;
         }
-
-        & > div {
-          &:not(:last-child) {
-            margin-bottom: 13rem;
-          }
-        }
       }
     }
   }
@@ -103,20 +107,6 @@
           width: 22rem;
           margin-bottom: 2.5rem;
         }
-
-        & > div {
-          ul {
-            li {
-              &:not(:last-child) {
-                margin-bottom: 0.5rem;
-              }
-            }
-          }
-
-          &:not(:last-child) {
-            margin-bottom: 10rem;
-          }
-        }
       }
     }
   }
@@ -134,16 +124,6 @@
 
         & > img {
           width: 20rem;
-        }
-
-        & > div {
-          ul {
-            li {
-              &:not(:last-child) {
-                margin-bottom: 0.65rem;
-              }
-            }
-          }
         }
 
         &__publication {
