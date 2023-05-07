@@ -18,11 +18,13 @@ function Nav(props) {
   const [memberIsActive, setMemberIsActive] = useState(false);
   const [accomplishmentIsActive, setAccomplishmentIsActive] = useState(false);
   const [searchIsActive, setSearchIsActive] = useState(false);
+  const [menuIsActive, setMenuIsActive] = useState(false);
 
   useEffect(() => {
     setMemberIsActive(false);
     setAccomplishmentIsActive(false);
     setSearchIsActive(false);
+    setMenuIsActive(false);
   }, [pathname]);
 
   function navClickHandler() {
@@ -49,6 +51,10 @@ function Nav(props) {
     e.preventDefault();
     console.log(e.target[0].value);
     e.target[0].value = '';
+  }
+
+  function menuClickHandler() {
+    setMenuIsActive((prev) => !prev);
   }
 
   return (
@@ -118,6 +124,22 @@ function Nav(props) {
                   </button>
                 </div>
               </form>
+            )}
+          </div>
+          <div className={`nav-menu ${menuIsActive ? 'active' : ''}`} onClick={menuClickHandler}>
+            <div className="nav-menu__line top"></div>
+            <div className="nav-menu__line middle"></div>
+            <div className="nav-menu__line bottom"></div>
+            {menuIsActive && (
+              <div className="nav-menu__link-container">
+                <Link to="/member-current">Current Member</Link>
+                <Link to="/member-alumni">Alumni</Link>
+                <Link to="/accomplishment-publication">Publications</Link>
+                <Link to="/accomplishment-activity">Activities</Link>
+                <Link to="/accomplishment-project">Projects</Link>
+                <Link to="/recruitment">Recruitment</Link>
+                <Link to="/contact-us">Contact Us</Link>
+              </div>
             )}
           </div>
         </div>

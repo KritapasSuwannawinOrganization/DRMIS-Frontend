@@ -51,6 +51,8 @@
 
       &__publication {
         display: flex;
+        flex-wrap: wrap;
+        line-height: 140%;
 
         a {
           text-decoration: underline;
@@ -100,7 +102,7 @@
   .member-current {
     &__member-container {
       .content {
-        font-size: 1.6rem;
+        font-size: 1.7rem;
 
         & > img {
           width: 20rem;

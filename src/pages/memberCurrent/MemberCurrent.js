@@ -41,16 +41,14 @@ function MemberCurrent() {
                 {member.publication_id_arr.length > 0 && (
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
-                    <div>
-                      {member.publication_id_arr.map((id) => {
-                        const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
-                        return (
-                          <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
-                            {memberPublication.title}
-                          </a>
-                        );
-                      })}
-                    </div>
+                    {member.publication_id_arr.map((id) => {
+                      const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
+                      return (
+                        <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
+                          {memberPublication.title}
+                        </a>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -71,16 +69,14 @@ function MemberCurrent() {
                 {member.publication_id_arr.length > 0 && (
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
-                    <div>
-                      {member.publication_id_arr.map((id) => {
-                        const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
-                        return (
-                          <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
-                            {memberPublication.title}
-                          </a>
-                        );
-                      })}
-                    </div>
+                    {member.publication_id_arr.map((id) => {
+                      const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
+                      return (
+                        <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
+                          {memberPublication.title}
+                        </a>
+                      );
+                    })}
                   </div>
                 )}
               </li>
@@ -102,16 +98,14 @@ function MemberCurrent() {
                 {member.publication_id_arr && member.publication_id_arr.length > 0 && (
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
-                    <div>
-                      {member.publication_id_arr.map((id) => {
-                        const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
-                        return (
-                          <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
-                            {memberPublication.title}
-                          </a>
-                        );
-                      })}
-                    </div>
+                    {member.publication_id_arr.map((id) => {
+                      const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
+                      return (
+                        <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
+                          {memberPublication.title}
+                        </a>
+                      );
+                    })}
                   </div>
                 )}
               </li>

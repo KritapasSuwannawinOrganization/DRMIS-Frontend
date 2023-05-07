@@ -154,6 +154,10 @@
           }
         }
       }
+
+      .nav-menu {
+        display: none;
+      }
     }
   }
 }
@@ -227,22 +231,84 @@
 @media (max-width: 500px) {
   .nav {
     &__lower {
-      padding: 2.5rem $padding-container-horizontal;
+      padding: 2.5rem $padding-container-horizontal 2rem;
 
       .content {
         .logo {
-          display: none;
+          margin: 0 -1rem;
         }
 
         .btn-container {
-          font-size: 1.8rem;
-          width: 100%;
-          justify-content: space-between;
+          display: none;
+        }
 
-          .link-container {
-            padding: 1.5rem 0.8rem 2.3rem;
-            font-size: 1.6rem;
-            top: 3rem;
+        .nav-menu {
+          display: flex;
+          flex-direction: column;
+          row-gap: 0.7rem;
+          padding: 0.5rem;
+          position: relative;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &__line {
+            background-color: $color-blue;
+            height: 0.25rem;
+            border-radius: 1rem;
+            transition: all 0.2s ease;
+            width: 2.5rem;
+          }
+
+          &.active {
+            row-gap: 0;
+
+            .nav-menu__line {
+              &.top {
+                width: 2.5rem;
+                transform: translateY(0.125rem) rotate(135deg);
+              }
+
+              &.middle {
+                width: 0;
+                height: 0;
+                transition: all 0.05s ease;
+              }
+
+              &.bottom {
+                width: 2.5rem;
+                transform: translateY(-0.125rem) rotate(-135deg);
+              }
+            }
+          }
+
+          &__link-container {
+            position: absolute;
+            top: 4rem;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 1.9rem 1rem;
+            font-size: 1.8rem;
+            background: $color-blue;
+            border-radius: 1rem;
+            color: white;
+
+            a {
+              padding: 0.8rem 2rem;
+              border-bottom: 0.1rem solid white;
+              white-space: nowrap;
+
+              &:first-child {
+                padding-top: 0;
+              }
+
+              &:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+              }
+            }
           }
         }
       }
