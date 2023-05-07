@@ -14,3 +14,30 @@
     max-width: $content-width;
   }
 }
+
+@mixin page-style {
+  background-image: url('../../backgrounds/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  &__title {
+    height: 16.8rem;
+    max-width: 90%;
+    margin: 0 auto 3.5rem;
+    display: block;
+
+    @media (max-width: 960px) {
+      height: 15rem;
+    }
+
+    @media (max-width: 768px) {
+      height: 12rem;
+    }
+
+    @media (max-width: 500px) {
+      height: 10rem;
+    }
+  }
+}

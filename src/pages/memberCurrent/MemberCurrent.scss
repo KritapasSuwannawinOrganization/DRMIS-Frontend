@@ -1,18 +1,7 @@
 @import '../../scss/main.scss';
 
 .member-current {
-  background-image: url('../../backgrounds/background.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-
-  &__title {
-    height: 16.8rem;
-    max-width: 90%;
-    margin: 0 auto 3.5rem;
-    display: block;
-  }
+  @include page-style;
 
   &__member-container {
     @include container-style(135rem, 0, 8rem);
@@ -37,7 +26,8 @@
         }
       }
 
-      & > div {
+      & > div,
+      ol {
         padding: 3.3rem;
         background: $color-blue;
         border-radius: 1rem;
@@ -53,12 +43,14 @@
         }
       }
 
+      & > ol {
+        li {
+          margin-left: 2rem;
+        }
+      }
+
       &__publication {
         display: flex;
-
-        &.padding-left {
-          padding-left: 1.9rem;
-        }
 
         a {
           text-decoration: underline;
@@ -79,10 +71,6 @@
 
 @media (max-width: 960px) {
   .member-current {
-    &__title {
-      height: 15rem;
-    }
-
     &__member-container {
       .content {
         & > img {
@@ -95,10 +83,6 @@
 
 @media (max-width: 768px) {
   .member-current {
-    &__title {
-      height: 12rem;
-    }
-
     &__member-container {
       .content {
         font-size: 1.8rem;
@@ -114,10 +98,6 @@
 
 @media (max-width: 500px) {
   .member-current {
-    &__title {
-      height: 10rem;
-    }
-
     &__member-container {
       .content {
         font-size: 1.6rem;

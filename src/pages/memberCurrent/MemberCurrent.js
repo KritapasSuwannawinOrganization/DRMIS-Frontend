@@ -61,15 +61,15 @@ function MemberCurrent() {
       <img className="member-current__title" src={drmisVisitingMember} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
-          <div>
+          <ol>
             {visitingMemberArr.map((member, i) => (
-              <div key={member.id}>
+              <li key={member.id}>
                 <p>
-                  {i + 1}. {member.name}
+                  {member.name}
                   {member.education_arr ? ` (${member.education_arr[0]})` : ''}
                 </p>
                 {member.publication_id_arr.length > 0 && (
-                  <div className="content__publication padding-left">
+                  <div className="content__publication">
                     <p>Publication:</p>&nbsp;
                     <div>
                       {member.publication_id_arr.map((id) => {
@@ -83,24 +83,24 @@ function MemberCurrent() {
                     </div>
                   </div>
                 )}
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </div>
       <img className="member-current__title" src={drmisGraduateStudent} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
           <img src={memberGraduateStudent} alt="" className="full-width"></img>
-          <div>
+          <ol>
             {graduateStudentArr.map((member, i) => (
-              <div key={member.id}>
+              <li key={member.id}>
                 <p>
-                  {i + 1}. {member.name}
+                  {member.name}
                   {member.rank ? ` (${member.rank})` : ''}
                 </p>
                 {member.publication_id_arr && member.publication_id_arr.length > 0 && (
-                  <div className="content__publication padding-left">
+                  <div className="content__publication">
                     <p>Publication:</p>&nbsp;
                     <div>
                       {member.publication_id_arr.map((id) => {
@@ -114,9 +114,9 @@ function MemberCurrent() {
                     </div>
                   </div>
                 )}
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </div>
       <img className="member-current__title" src={drmisUndergraduateStudent} alt=""></img>
