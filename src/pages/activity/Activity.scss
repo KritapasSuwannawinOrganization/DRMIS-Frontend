@@ -1,0 +1,60 @@
+@import '../../scss/main.scss';
+
+.activity {
+  @include page-style;
+
+  &__container {
+    @include container-style(170rem, 0, 8rem);
+
+    .content {
+      display: flex;
+      column-gap: 3rem;
+      overflow: auto;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:active {
+        cursor: grabbing;
+      }
+
+      .activity-card {
+        border: 2rem solid $color-gray;
+        border-radius: 2rem;
+        height: 61.5rem;
+        width: min-content;
+        background: $color-gray;
+        display: flex;
+        flex-direction: column;
+
+        img {
+          height: 100%;
+
+          &.short {
+            height: 52.5rem;
+          }
+        }
+
+        p,
+        a {
+          font-style: italic;
+          font-weight: 600;
+          font-size: 1.6rem;
+          color: $color-blue;
+          margin-top: 1rem;
+
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

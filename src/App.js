@@ -11,6 +11,7 @@ import MemberCurrent from './pages/memberCurrent/MemberCurrent';
 import MemberAlumni from './pages/memberAlumni/MemberAlumni';
 import Project from './pages/project/Project';
 import Publication from './pages/publication/Publication';
+import Activity from './pages/activity/Activity';
 import Recruitment from './pages/recruitment/Recruitment';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     dispatch(resourceActions.setAllMember());
     dispatch(resourceActions.setMemberPublicationArr());
     dispatch(resourceActions.setRecruitmentArr());
+    dispatch(resourceActions.setActivityArr());
   }, [dispatch]);
 
   function navNoBackground() {
@@ -37,6 +39,7 @@ function App() {
         <Route path="/member-current" element={<MemberCurrent></MemberCurrent>}></Route>
         <Route path="/member-alumni" element={<MemberAlumni></MemberAlumni>}></Route>
         <Route path="/accomplishment-publication" element={<Publication></Publication>}></Route>
+        <Route path="/accomplishment-activity" element={<Activity></Activity>}></Route>
         <Route path="/accomplishment-project" element={<Project></Project>}></Route>
         <Route path="/recruitment" element={<Recruitment></Recruitment>}></Route>
         <Route path="/contact-us" element={<></>}></Route>

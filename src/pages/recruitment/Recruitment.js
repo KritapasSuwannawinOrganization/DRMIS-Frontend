@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import pathToUrl from '../../utils/pathToUrl';
 import './Recruitment.scss';
 
 import drmisRecruitment from '../../icons/drmis-recruitment.svg';
@@ -15,7 +16,7 @@ function Recruitment() {
         <div className="content">
           {recruitmentArr.map((recruitment) => (
             <React.Fragment key={recruitment.id}>
-              <img src={recruitment.poster}></img>
+              <img src={pathToUrl(recruitment.poster_file_path)} alt=""></img>
               <div>
                 <p>{recruitment.title}</p>
                 <ul>

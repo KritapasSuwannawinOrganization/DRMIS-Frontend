@@ -542,7 +542,7 @@ const recruitmentArrTest = [
   // - contact text
   {
     id: 1,
-    poster: '/static/media/recruitment-poster.b2c69ae1db7c59224d8e.png',
+    poster_file_path: 'recruitment/recruitment-poster.png',
     title: 'Call of Postdoctoral Researcher',
     number: 1,
     period: '12 months (able to renew)',
@@ -550,9 +550,48 @@ const recruitmentArrTest = [
   },
 ];
 
+const activityArrTest = [
+  // - id serial primary_key
+  // - poster text
+  // - title text
+  // - link text
+  {
+    id: 1,
+    poster_file_path: 'activity/activity-poster-2.png',
+    title: '',
+    link: '',
+  },
+  {
+    id: 2,
+    poster_file_path: 'activity/activity-poster-1.png',
+    title: '',
+    link: '',
+  },
+  {
+    id: 3,
+    poster_file_path: 'activity/activity-poster-3.png',
+    title: 'Free Online Lecture Series in the “Emergency Management Workshop',
+    link: 'https://www.eng.chula.ac.th/en/30896',
+  },
+  {
+    id: 4,
+    poster_file_path: 'activity/activity-poster-4.png',
+    title:
+      'Association of Pacific Rim Universities (APRU) published the Universities’ Preparedness and Response Towards Multi-Hazards: COVID-19, Natural, and Human-Induced Hazards',
+    link: 'https://www.eng.chula.ac.th/en/30654',
+  },
+];
+
 const resourceSlice = createSlice({
   name: 'resource',
-  initialState: { researchPublicationArr: [], projectArr: [], allMemberArr: [], memberPublicationArr: [], recruitmentArr: [] },
+  initialState: {
+    researchPublicationArr: [],
+    projectArr: [],
+    allMemberArr: [],
+    memberPublicationArr: [],
+    recruitmentArr: [],
+    activityArr: [],
+  },
   reducers: {
     setResearchPublicationArr(state, action) {
       state.researchPublicationArr = action.payload || researchPublicationArrTest;
@@ -568,6 +607,9 @@ const resourceSlice = createSlice({
     },
     setRecruitmentArr(state, action) {
       state.recruitmentArr = action.payload || recruitmentArrTest;
+    },
+    setActivityArr(state, action) {
+      state.activityArr = action.payload || activityArrTest;
     },
   },
 });
