@@ -1,0 +1,62 @@
+@import '../../scss/main.scss';
+
+.recruitment {
+  @include page-style;
+
+  &__container {
+    @include container-style(100rem, 0, 8rem);
+
+    .content {
+      font-size: 2rem;
+      font-weight: 600;
+      color: white;
+      line-height: 150%;
+
+      & > img {
+        width: 100%;
+      }
+
+      & > div {
+        padding: 3.3rem;
+        background: $color-blue;
+        border-radius: 1rem;
+
+        &:not(:first-child) {
+          margin-top: 3rem;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 6.4rem;
+        }
+
+        p {
+          margin-bottom: 0.8em;
+        }
+
+        li {
+          margin-left: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .recruitment {
+    &__container {
+      .content {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .recruitment {
+    &__container {
+      .content {
+        font-size: 1.7rem;
+      }
+    }
+  }
+}

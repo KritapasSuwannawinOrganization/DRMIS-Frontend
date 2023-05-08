@@ -11,6 +11,7 @@ import MemberCurrent from './pages/memberCurrent/MemberCurrent';
 import MemberAlumni from './pages/memberAlumni/MemberAlumni';
 import Project from './pages/project/Project';
 import Publication from './pages/publication/Publication';
+import Recruitment from './pages/recruitment/Recruitment';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
     dispatch(resourceActions.setProjectArr());
     dispatch(resourceActions.setAllMember());
     dispatch(resourceActions.setMemberPublicationArr());
+    dispatch(resourceActions.setRecruitmentArr());
   }, [dispatch]);
 
   function navNoBackground() {
@@ -36,6 +38,7 @@ function App() {
         <Route path="/member-alumni" element={<MemberAlumni></MemberAlumni>}></Route>
         <Route path="/accomplishment-publication" element={<Publication></Publication>}></Route>
         <Route path="/accomplishment-project" element={<Project></Project>}></Route>
+        <Route path="/recruitment" element={<Recruitment></Recruitment>}></Route>
         <Route path="/contact-us" element={<></>}></Route>
         <Route path="/*" element={<Navigate replace to="/"></Navigate>}></Route>
       </Routes>

@@ -248,6 +248,7 @@
           row-gap: 0.7rem;
           padding: 0.5rem;
           position: relative;
+          z-index: 1;
 
           &:hover {
             cursor: pointer;
@@ -296,7 +297,7 @@
             color: white;
 
             a {
-              padding: 0.8rem 2rem;
+              padding: 0.8rem 1.5rem;
               border-bottom: 0.1rem solid white;
               white-space: nowrap;
 

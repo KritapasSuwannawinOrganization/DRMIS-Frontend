@@ -533,9 +533,26 @@ const memberPublicationArrTest = [
   { id: 20, title: 'Scopus', link: 'https://google.com' },
 ];
 
+const recruitmentArrTest = [
+  // - id serial primary_key
+  // - poster text
+  // - title text
+  // - number integer
+  // - period text
+  // - contact text
+  {
+    id: 1,
+    poster: '/static/media/recruitment-poster.b2c69ae1db7c59224d8e.png',
+    title: 'Call of Postdoctoral Researcher',
+    number: 1,
+    period: '12 months (able to renew)',
+    contact: 'natt.l@chula.ac.th',
+  },
+];
+
 const resourceSlice = createSlice({
   name: 'resource',
-  initialState: { researchPublicationArr: [], projectArr: [], allMemberArr: [], memberPublicationArr: [] },
+  initialState: { researchPublicationArr: [], projectArr: [], allMemberArr: [], memberPublicationArr: [], recruitmentArr: [] },
   reducers: {
     setResearchPublicationArr(state, action) {
       state.researchPublicationArr = action.payload || researchPublicationArrTest;
@@ -548,6 +565,9 @@ const resourceSlice = createSlice({
     },
     setMemberPublicationArr(state, action) {
       state.memberPublicationArr = action.payload || memberPublicationArrTest;
+    },
+    setRecruitmentArr(state, action) {
+      state.recruitmentArr = action.payload || recruitmentArrTest;
     },
   },
 });
