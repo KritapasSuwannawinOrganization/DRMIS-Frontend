@@ -6,7 +6,7 @@ import './Nav.scss';
 import yellowLocation from '../../icons/yellow-location.svg';
 import yellowClock from '../../icons/yellow-clock.svg';
 import yellowUser from '../../icons/yellow-user.svg';
-import blueLogo from '../../icons/blue-logo.svg';
+import blueLogo from '../../icons/blue-logo.png';
 import blueSearch from '../../icons/blue-search.svg';
 import whiteSearch from '../../icons/white-search.svg';
 

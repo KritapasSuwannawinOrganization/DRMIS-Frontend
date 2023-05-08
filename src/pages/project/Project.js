@@ -13,9 +13,9 @@ function Project() {
       <div className="project__container">
         <div className="content">
           {projectArr.map((project) => (
-            <div key={project.id}>
+            <a key={project.id} href={project.link} target="_blank" rel="noreferrer">
               <p>
-                {project.start_date} - {project.end_date}: {project.showing_title}
+                {project.start_date} - {project.end_date}: {project.description}
               </p>
               <ul>
                 {project.title && <li>Title: {project.title}</li>}
@@ -23,7 +23,7 @@ function Project() {
                 {project.scope && <li>Scope: {project.scope}</li>}
                 {project.funder && <li>Funder: {project.funder}</li>}
               </ul>
-            </div>
+            </a>
           ))}
         </div>
       </div>

@@ -1,6 +1,8 @@
 @import '../../scss/main.scss';
 
-.project {
+@import '../../scss/main.scss';
+
+.publication {
   @include page-style;
 
   &__container {
@@ -12,8 +14,7 @@
       color: white;
       line-height: 150%;
 
-      & > a {
-        display: block;
+      & > div {
         padding: 3.3rem;
         background: $color-blue;
         border-radius: 1rem;
@@ -35,7 +36,7 @@
 }
 
 @media (max-width: 768px) {
-  .project {
+  .publication {
     &__container {
       .content {
         font-size: 1.8rem;
@@ -45,12 +46,12 @@
 }
 
 @media (max-width: 500px) {
-  .project {
+  .publication {
     &__container {
       .content {
         font-size: 1.7rem;
 
-        & > a {
+        & > div {
           &:not(:last-child) {
             margin-bottom: 3rem;
           }

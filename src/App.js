@@ -10,6 +10,7 @@ import Home from './pages/home/Home';
 import MemberCurrent from './pages/memberCurrent/MemberCurrent';
 import MemberAlumni from './pages/memberAlumni/MemberAlumni';
 import Project from './pages/project/Project';
+import Publication from './pages/publication/Publication';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +34,9 @@ function App() {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/member-current" element={<MemberCurrent></MemberCurrent>}></Route>
         <Route path="/member-alumni" element={<MemberAlumni></MemberAlumni>}></Route>
+        <Route path="/accomplishment-publication" element={<Publication></Publication>}></Route>
         <Route path="/accomplishment-project" element={<Project></Project>}></Route>
+        <Route path="/contact-us" element={<></>}></Route>
         <Route path="/*" element={<Navigate replace to="/"></Navigate>}></Route>
       </Routes>
       <Footer></Footer>
