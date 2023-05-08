@@ -80,9 +80,7 @@ function Slider(props) {
               <img className="card__img" src={data.img_file_path} alt=""></img>
               <div className="card__content">
                 <div className="card__content--header">
-                  <p className="category">
-                    {data.category_name} {data.id}
-                  </p>
+                  <p className="category">{data.category_name}</p>
                   <div className="view-count">
                     <img src={blackEye} alt=""></img>
                     <p>{data.view_count}</p>

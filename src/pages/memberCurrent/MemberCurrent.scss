@@ -100,6 +100,16 @@
 
 @media (max-width: 500px) {
   .member-current {
+    &__title {
+      &.sub {
+        margin-bottom: 2.5rem;
+      }
+
+      &.long {
+        margin-bottom: 2rem;
+      }
+    }
+
     &__member-container {
       .content {
         font-size: 1.7rem;
@@ -116,6 +126,13 @@
 
           a {
             white-space: nowrap;
+          }
+        }
+
+        & > div,
+        ol {
+          &:not(:last-child) {
+            margin-bottom: 7rem;
           }
         }
       }

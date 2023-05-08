@@ -56,7 +56,7 @@ function MemberCurrent() {
           ))}
         </div>
       </div>
-      <img className="member-current__title" src={drmisVisitingMember} alt=""></img>
+      <img className="member-current__title sub" src={drmisVisitingMember} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
           <ol>
@@ -84,7 +84,7 @@ function MemberCurrent() {
           </ol>
         </div>
       </div>
-      <img className="member-current__title" src={drmisGraduateStudent} alt=""></img>
+      <img className="member-current__title sub" src={drmisGraduateStudent} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
           <img src={memberGraduateStudent} alt="" className="full-width"></img>
@@ -113,7 +113,7 @@ function MemberCurrent() {
           </ol>
         </div>
       </div>
-      <img className="member-current__title" src={drmisUndergraduateStudent} alt=""></img>
+      <img className="member-current__title long" src={drmisUndergraduateStudent} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
           <img src={memberUndergraduateStudent} alt="" className="full-width"></img>

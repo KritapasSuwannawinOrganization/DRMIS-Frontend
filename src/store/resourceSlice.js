@@ -1,6 +1,73 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const researchPublicationAndProjectArrTest = [
+const projectArrTest = [
+  // - id serial primary_key
+  // - category_name text
+  // - img_file_path text
+  // - view_count integer
+  // - title text
+  // - author_img_file_path text
+  // - author_name text
+  // - link text
+  // - collaboration text
+  // - scope text
+  // - funder text
+  // - start_date date
+  // - end_date date
+  // - showing_title text
+  {
+    id: 1,
+    category_name: 'Area-BCM',
+    img_file_path: '',
+    view_count: 100,
+    title:
+      'Simulation Development of the Affected Industrial Supply Chain from the COVID-19 Applying the Area-Business Continuity Management (Area-BCM) Concept',
+    author_img_file_path: '',
+    author_name: 'Michele Morrone',
+    link: 'https://google.com',
+    collaboration: '',
+    scope: '',
+    funder: 'Thailand Science Research and Innovation Fund, Chulalongkorn University',
+    start_date: 'October 2021',
+    end_date: 'September 2022',
+    showing_title: 'Fundamental Fund (FF) (CU_FRB65_dis(22)_147_21_13)',
+  },
+  {
+    id: 2,
+    category_name: 'Area-BCM',
+    img_file_path: '',
+    view_count: 100,
+    title: 'Sustainable Healthcare System through Business Continuity Management',
+    author_img_file_path: '',
+    author_name: 'Michele Morrone',
+    link: 'https://google.com',
+    collaboration: 'Chulalongkorn University and Jomo Kenyatta University Agriculture and Technology',
+    scope: '',
+    funder: 'JICA Project for AUN/SEED-Net',
+    start_date: 'May 2021',
+    end_date: 'February 2022',
+    showing_title: 'Collaborative Research with External Partners (CRX) (CU CRX 2102)',
+  },
+  {
+    id: 3,
+    category_name: 'Area-BCM',
+    img_file_path: '',
+    view_count: 100,
+    title: 'COVID-19 Data Analysis Using Mobile Services Data and Satellite Geospatial Data Towards Sustainable Tourism Business',
+    author_img_file_path: '',
+    author_name: 'Michele Morrone',
+    link: 'https://google.com',
+    collaboration: 'Chulalongkorn University and Keio University',
+    scope:
+      'COVID-19 situation in the area of Asia continent especially Thailand and Japan by applying the uses of Social media and Geospatial Data',
+    funder: 'JICA Project for AUN/SEED-Net',
+    start_date: 'October 2020',
+    end_date: 'December 2021',
+    showing_title: 'Special Program for Research against COVID-19 Project (CU SPRAC 2001 and CU SPRAC 2101)',
+  },
+];
+
+const researchPublicationArrTest = [
   // - id serial primary_key
   // - category_name text
   // - img_file_path text
@@ -648,10 +715,10 @@ const resourceSlice = createSlice({
   initialState: { researchPublicationArr: [], projectArr: [], allMemberArr: [], memberPublicationArr: [] },
   reducers: {
     setResearchPublicationArr(state, action) {
-      state.researchPublicationArr = action.payload || researchPublicationAndProjectArrTest;
+      state.researchPublicationArr = action.payload || researchPublicationArrTest;
     },
     setProjectArr(state, action) {
-      state.projectArr = action.payload || researchPublicationAndProjectArrTest;
+      state.projectArr = action.payload || projectArrTest;
     },
     setAllMember(state, action) {
       state.allMemberArr = action.payload || allMemberArrTest;
