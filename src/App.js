@@ -38,9 +38,9 @@ function App() {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/member-current" element={<MemberCurrent></MemberCurrent>}></Route>
         <Route path="/member-alumni" element={<MemberAlumni></MemberAlumni>}></Route>
-        <Route path="/accomplishment-publication" element={<Publication></Publication>}></Route>
-        <Route path="/accomplishment-activity" element={<Activity></Activity>}></Route>
-        <Route path="/accomplishment-project" element={<Project></Project>}></Route>
+        <Route path="/publication" element={<Publication></Publication>}></Route>
+        <Route path="/activity" element={<Activity></Activity>}></Route>
+        <Route path="/project" element={<Project></Project>}></Route>
         <Route path="/recruitment" element={<Recruitment></Recruitment>}></Route>
         <Route path="/contact-us" element={<></>}></Route>
         <Route path="/*" element={<Navigate replace to="/"></Navigate>}></Route>

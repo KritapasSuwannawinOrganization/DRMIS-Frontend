@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import './MemberAlumni.scss';
@@ -22,15 +23,15 @@ function MemberAlumni() {
     const filteredAlumniArr = allAlumniArr.filter((alumni) => alumni.year === year && alumni.type === type);
 
     if (filteredAlumniArr.length === 0) {
-      return <></>;
+      return <React.Fragment key={i}></React.Fragment>;
     }
 
     return (
-      <div>
+      <div key={i}>
         <p>{type}'s Alumni</p>
         <ol>
-          {filteredAlumniArr.map((alumni, i) => (
-            <li>{alumni.name}</li>
+          {filteredAlumniArr.map((alumni, j) => (
+            <li key={j}>{alumni.name}</li>
           ))}
         </ol>
       </div>

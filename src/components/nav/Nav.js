@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import './Nav.scss';
 
@@ -9,16 +9,19 @@ import yellowUser from '../../icons/yellow-user.svg';
 import blueLogo from '../../icons/blue-logo.png';
 import blueSearch from '../../icons/blue-search.svg';
 import whiteSearch from '../../icons/white-search.svg';
+import redSearch from '../../icons/red-search.svg';
 
 function Nav(props) {
   const { noBackground } = props;
 
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const [memberIsActive, setMemberIsActive] = useState(false);
   const [accomplishmentIsActive, setAccomplishmentIsActive] = useState(false);
   const [searchIsActive, setSearchIsActive] = useState(false);
   const [menuIsActive, setMenuIsActive] = useState(false);
+  const [searchIsInvalid, setSearchIsInvalid] = useState(false);
 
   useEffect(() => {
     setMemberIsActive(false);
@@ -49,8 +52,50 @@ function Nav(props) {
 
   function searchSubmitHandler(e) {
     e.preventDefault();
-    console.log(e.target[0].value);
+    setSearchIsInvalid(false);
+
+    const search = e.target[0].value.toLowerCase();
     e.target[0].value = '';
+
+    const keywordMapArr = [
+      { '/': ['home', 'main'] },
+      { '/member-current': ['current', 'member', 'professor'] },
+      { '/member-current#visiting-member': ['visit'] },
+      { '/member-current#undergraduate-student': ['undergraduate', 'bachelor'] },
+      { '/member-current#graduate-student': ['graduate', 'master', 'doctor', 'student'] },
+      { '/member-alumni': ['alumni'] },
+      { '/publication': ['research', 'publication', 'paper', 'publish'] },
+      { '/activity': ['activity'] },
+      { '/project': ['project'] },
+      { '/recruitment': ['recruit', 'job', 'career'] },
+      { '/contact-us': ['contact'] },
+    ];
+
+    let found = false;
+
+    keywordMapArr.forEach((keywordMap) => {
+      const path = Object.keys(keywordMap)[0];
+      const keywordArr = Object.values(keywordMap)[0];
+
+      if (found) {
+        return;
+      }
+
+      keywordArr.forEach((keyword) => {
+        if (found) {
+          return;
+        }
+
+        if (search.includes(keyword)) {
+          found = true;
+          navigate(path);
+        }
+      });
+    });
+
+    if (!found) {
+      setSearchIsInvalid(true);
+    }
   }
 
   function menuClickHandler() {
@@ -97,9 +142,9 @@ function Nav(props) {
               <button onClick={navClickHandler.bind('accomplishment')}>Accomplishments</button>
               {accomplishmentIsActive && (
                 <div className="link-container">
-                  <Link to="/accomplishment-publication">Publications</Link>
-                  <Link to="/accomplishment-activity">Activities</Link>
-                  <Link to="/accomplishment-project">Projects</Link>
+                  <Link to="/publication">Publications</Link>
+                  <Link to="/activity">Activities</Link>
+                  <Link to="/project">Projects</Link>
                 </div>
               )}
             </div>
@@ -118,9 +163,13 @@ function Nav(props) {
             {searchIsActive && (
               <form className="input-container" onSubmit={searchSubmitHandler}>
                 <div className="input">
-                  <input placeholder="Search"></input>
+                  <input
+                    placeholder="Search"
+                    className={searchIsInvalid ? 'invalid' : ''}
+                    onChange={() => setSearchIsInvalid(false)}
+                  ></input>
                   <button type="submit">
-                    <img src={whiteSearch} alt=""></img>
+                    <img src={searchIsInvalid ? redSearch : whiteSearch} alt=""></img>
                   </button>
                 </div>
               </form>
@@ -134,9 +183,9 @@ function Nav(props) {
               <div className="nav-menu__link-container">
                 <Link to="/member-current">Current Member</Link>
                 <Link to="/member-alumni">Alumni</Link>
-                <Link to="/accomplishment-publication">Publications</Link>
-                <Link to="/accomplishment-activity">Activities</Link>
-                <Link to="/accomplishment-project">Projects</Link>
+                <Link to="/publication">Publications</Link>
+                <Link to="/activity">Activities</Link>
+                <Link to="/project">Projects</Link>
                 <Link to="/recruitment">Recruitment</Link>
                 <Link to="/contact-us">Contact Us</Link>
               </div>

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import './MemberCurrent.scss';
 
@@ -12,6 +13,8 @@ import memberGraduateStudent from '../../images/member-graduate-students.png';
 import memberUndergraduateStudent from '../../images/member-undergraduate-students.png';
 
 function MemberCurrent() {
+  let location = useLocation();
+
   const allMemberArr = useSelector((store) => store.resource.allMemberArr);
   const memberPublicationArr = useSelector((store) => store.resource.memberPublicationArr);
 
@@ -19,6 +22,12 @@ function MemberCurrent() {
   const visitingMemberArr = allMemberArr.filter((member) => member.status === 'current' && member.type === 'visiting member');
   const graduateStudentArr = allMemberArr.filter((member) => member.status === 'current' && member.type === 'graduate student');
   const undergraduateStudentArr = allMemberArr.filter((member) => member.status === 'current' && member.type === 'undergraduate student');
+
+  useEffect(() => {
+    setTimeout(() => {
+      document.getElementById(location.hash.slice(1)).scrollIntoView();
+    }, 0);
+  }, [location.hash]);
 
   return (
     <div className="member-current">
@@ -56,7 +65,7 @@ function MemberCurrent() {
           ))}
         </div>
       </div>
-      <img className="member-current__title sub" src={drmisVisitingMember} alt=""></img>
+      <img className="member-current__title sub" id="visiting-member" src={drmisVisitingMember} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
           <ol>
@@ -84,7 +93,7 @@ function MemberCurrent() {
           </ol>
         </div>
       </div>
-      <img className="member-current__title sub" src={drmisGraduateStudent} alt=""></img>
+      <img className="member-current__title sub" id="graduate-student" src={drmisGraduateStudent} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
           <img src={memberGraduateStudent} alt="" className="full-width"></img>
@@ -113,7 +122,7 @@ function MemberCurrent() {
           </ol>
         </div>
       </div>
-      <img className="member-current__title long" src={drmisUndergraduateStudent} alt=""></img>
+      <img className="member-current__title long" id="undergraduate-student" src={drmisUndergraduateStudent} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
           <img src={memberUndergraduateStudent} alt="" className="full-width"></img>

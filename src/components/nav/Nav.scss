@@ -138,6 +138,12 @@
               &::placeholder {
                 color: white;
               }
+
+              &.invalid {
+                &::placeholder {
+                  color: rgb(255, 175, 175);
+                }
+              }
             }
 
             button {

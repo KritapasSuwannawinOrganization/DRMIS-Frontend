@@ -15,8 +15,6 @@ function Publication() {
   });
   yearArr.sort().reverse();
 
-  console.log(yearArr);
-
   return (
     <div className="publication">
       <img className="publication__title" src={drmisPublication} alt=""></img>
