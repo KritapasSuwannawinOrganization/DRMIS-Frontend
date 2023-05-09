@@ -9,8 +9,19 @@ import yellowPhone from '../../icons/yellow-phone.svg';
 
 function emailSubmitHandler(e) {
   e.preventDefault();
-  console.log(e.target[0].value);
+
+  const email = e.target[0].value;
   e.target[0].value = '';
+
+  if (!email.includes('@') || email.length < 5) {
+    return;
+  }
+
+  fetch(`${process.env.REACT_APP_BACKEND_URL}/api/utils/email`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  }).catch((err) => console.log(err.message));
 }
 
 function Footer() {

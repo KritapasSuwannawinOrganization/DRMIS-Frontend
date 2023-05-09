@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { userActions } from '../../store/userSlice';
 
 import './Nav.scss';
 
@@ -11,11 +16,28 @@ import blueSearch from '../../icons/blue-search.svg';
 import whiteSearch from '../../icons/white-search.svg';
 import redSearch from '../../icons/red-search.svg';
 
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_apiKey,
+  authDomain: process.env.REACT_APP_FIREBASE_authDomain,
+  projectId: process.env.REACT_APP_FIREBASE_projectId,
+  storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
+  appId: process.env.REACT_APP_FIREBASE_appId,
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
 function Nav(props) {
   const { noBackground } = props;
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const adminIsLoggedIn = useSelector((store) => store.user.adminIsLoggedIn);
 
   const [memberIsActive, setMemberIsActive] = useState(false);
   const [accomplishmentIsActive, setAccomplishmentIsActive] = useState(false);
@@ -29,6 +51,16 @@ function Nav(props) {
     setSearchIsActive(false);
     setMenuIsActive(false);
   }, [pathname]);
+
+  /* eslint-disable */
+  useEffect(() => {
+    if (adminIsLoggedIn) {
+      // navigate('/admin')
+    } else {
+      navigate('/');
+    }
+  }, [adminIsLoggedIn]);
+  /* eslint-enable */
 
   function navClickHandler() {
     this !== 'member' && setMemberIsActive(false);
@@ -102,6 +134,21 @@ function Nav(props) {
     setMenuIsActive((prev) => !prev);
   }
 
+  function loginLogoutHandler() {
+    if (adminIsLoggedIn) {
+      dispatch(userActions.logoutUser());
+      return;
+    }
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        dispatch(userActions.loginUser({ email: result.user.email }));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
   return (
     <div className="nav">
       <div className="nav__upper">
@@ -117,9 +164,9 @@ function Nav(props) {
               <p>Working : Monday - Friday, 9:00am - 4:00pm</p>
             </div>
           </div>
-          <div className="login">
+          <div className="login" onClick={loginLogoutHandler}>
             <img src={yellowUser} alt=""></img>
-            <Link>Login</Link>
+            <p>{adminIsLoggedIn ? 'Logout' : 'Login'}</p>
           </div>
         </div>
       </div>
