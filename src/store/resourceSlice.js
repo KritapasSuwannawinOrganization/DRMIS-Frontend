@@ -179,7 +179,7 @@ const allMemberArrTest = [
   // - img_file_path text
   // - name text
   // - education_arr text[]
-  // - publication_id_arr integer[]
+  // - profile_link_id_arr integer[]
   // - year integer
   {
     id: 1,
@@ -193,7 +193,7 @@ const allMemberArrTest = [
       'M.Eng. (Industrial Engineering and Management), Tokyo Institute of Technology, Japan',
       'B.Sc. (First Class Honours) (Information Technology), Sirindhorn International Institute of Technology, Thammasat University, Thailand',
     ],
-    publication_id_arr: [1, 2, 3, 4, 5],
+    profile_link_id_arr: [1, 2, 3, 4, 5],
   },
   {
     id: 2,
@@ -208,7 +208,7 @@ const allMemberArrTest = [
       'MBA (Interbusiness Management & Finance), Thammasat University, Thailand',
       'B.Eng. (Irrigation), Kasetsart Univesity, Thailand',
     ],
-    publication_id_arr: [6, 7, 8, 9, 10],
+    profile_link_id_arr: [6, 7, 8, 9, 10],
   },
   {
     id: 3,
@@ -221,7 +221,7 @@ const allMemberArrTest = [
       'M.Eng. (Administration Engineering), Keio University, Japan',
       'B.Eng. (Industrial Engineering), Chulalongkorn University, Thailand',
     ],
-    publication_id_arr: [11],
+    profile_link_id_arr: [11],
   },
   {
     id: 4,
@@ -235,7 +235,7 @@ const allMemberArrTest = [
       'M.S. (Structural Engineering), University of California, Berkeley, USA',
       'B.Eng. (Civil Engineering), Chulalongkorn University, Thailand',
     ],
-    publication_id_arr: [12, 13, 14],
+    profile_link_id_arr: [12, 13, 14],
   },
   {
     id: 5,
@@ -250,7 +250,7 @@ const allMemberArrTest = [
       "B.Mgmt. (Industrial Engineering), Xi'an Jiaotong, University, China",
       "B.Eng. (Computer Science and Technology), Xi'an Jiaotong University, China",
     ],
-    publication_id_arr: [15, 16, 17, 18, 19],
+    profile_link_id_arr: [15, 16, 17, 18, 19],
   },
   {
     id: 6,
@@ -258,7 +258,7 @@ const allMemberArrTest = [
     type: 'visiting member',
     name: 'Professor Watanabe Kenji, Ph.D.',
     education_arr: ['Nagoya Institute of Technology, Japan'],
-    publication_id_arr: [20, 21],
+    profile_link_id_arr: [20, 21],
   },
   {
     id: 7,
@@ -267,7 +267,7 @@ const allMemberArrTest = [
     img_file_path: '',
     name: 'Associate Professor Kodaka Akira, Ph.D.',
     education_arr: ['Keio University, Japan'],
-    publication_id_arr: [22, 23, 24],
+    profile_link_id_arr: [22, 23, 24],
   },
   {
     id: 8,
@@ -275,7 +275,7 @@ const allMemberArrTest = [
     type: 'visiting member',
     name: 'Ampan Laosunthara',
     education_arr: ['Tokyo Institute of Technology, Japan'],
-    publication_id_arr: [25, 26, 27],
+    profile_link_id_arr: [25, 26, 27],
   },
   {
     id: 9,
@@ -283,9 +283,9 @@ const allMemberArrTest = [
     type: 'visiting member',
     name: 'Kodchakorn Krutphong',
     education_arr: ['Mahidol University Kanchanaburi Campus, Thailand'],
-    publication_id_arr: [28, 29],
+    profile_link_id_arr: [28, 29],
   },
-  { id: 10, status: 'current', type: 'graduate student', name: 'Mr. Alfan Kurnia Yudha', rank: 'Ph.D. student', publication_id_arr: [30] },
+  { id: 10, status: 'current', type: 'graduate student', name: 'Mr. Alfan Kurnia Yudha', rank: 'Ph.D. student', profile_link_id_arr: [30] },
   { id: 11, status: 'current', type: 'graduate student', name: 'Mr. Wanit Treeranurat', rank: 'Ph.D. student' },
   {
     id: 12,
@@ -293,7 +293,7 @@ const allMemberArrTest = [
     type: 'graduate student',
     name: 'Mr. Kumpol Saengtabtim',
     rank: 'Ph.D. student',
-    publication_id_arr: [31, 32, 33, 34],
+    profile_link_id_arr: [31, 32, 33, 34],
   },
   { id: 13, status: 'current', type: 'graduate student', name: 'Ms. Piyaporn Sochoeiya', rank: "Master's student" },
   { id: 14, status: 'current', type: 'graduate student', name: 'Ms. Penpitcha Arayachookiat', rank: "Master's student" },
@@ -383,44 +383,44 @@ const allMemberArrTest = [
   { id: 98, status: 'alumni', type: 'bachelor', name: 'Mr. Satid Tachatanitanont', year: 2019 },
 ];
 
-const memberPublicationArrTest = [
+const memberProfileLinkArrTest = [
   //    - id serial primary_key
   //    - title text
   //    - link text
-  { id: 1, title: 'ACM', link: 'https://google.com' },
-  { id: 2, title: 'Google Scholar', link: 'https://google.com' },
-  { id: 3, title: 'IEEE', link: 'https://google.com' },
-  { id: 4, title: 'ORCID', link: 'https://google.com' },
-  { id: 5, title: 'Scopus', link: 'https://google.com' },
-  { id: 6, title: 'ACM', link: 'https://google.com' },
-  { id: 7, title: 'Google Scholar', link: 'https://google.com' },
-  { id: 8, title: 'IEEE', link: 'https://google.com' },
-  { id: 9, title: 'ORCID', link: 'https://google.com' },
-  { id: 10, title: 'Scopus', link: 'https://google.com' },
-  { id: 11, title: 'ACM', link: 'https://google.com' },
-  { id: 12, title: 'Google Scholar', link: 'https://google.com' },
-  { id: 13, title: 'IEEE', link: 'https://google.com' },
-  { id: 14, title: 'ORCID', link: 'https://google.com' },
-  { id: 15, title: 'Scopus', link: 'https://google.com' },
-  { id: 16, title: 'ACM', link: 'https://google.com' },
-  { id: 17, title: 'Google Scholar', link: 'https://google.com' },
-  { id: 18, title: 'IEEE', link: 'https://google.com' },
-  { id: 19, title: 'ORCID', link: 'https://google.com' },
-  { id: 20, title: 'Scopus', link: 'https://google.com' },
-  { id: 21, title: 'Google Scholar', link: 'https://google.com' },
-  { id: 22, title: 'IEEE', link: 'https://google.com' },
-  { id: 23, title: 'ORCID', link: 'https://google.com' },
-  { id: 24, title: 'Scopus', link: 'https://google.com' },
-  { id: 25, title: 'ACM', link: 'https://google.com' },
-  { id: 26, title: 'Google Scholar', link: 'https://google.com' },
-  { id: 27, title: 'IEEE', link: 'https://google.com' },
-  { id: 28, title: 'ORCID', link: 'https://google.com' },
-  { id: 29, title: 'Scopus', link: 'https://google.com' },
-  { id: 30, title: 'ACM', link: 'https://google.com' },
-  { id: 31, title: 'Google Scholar', link: 'https://google.com' },
-  { id: 32, title: 'IEEE', link: 'https://google.com' },
-  { id: 33, title: 'ORCID', link: 'https://google.com' },
-  { id: 34, title: 'Scopus', link: 'https://google.com' },
+  { id: 1, title: 'ACM', link: 'https://dl.acm.org/profile/99659597258' },
+  { id: 2, title: 'Google Scholar', link: 'https://scholar.google.com/citations?user=W_CbEh8AAAAJ' },
+  { id: 3, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37087098418' },
+  { id: 4, title: 'ORCID', link: 'https://orcid.org/0000-0001-5181-2584' },
+  { id: 5, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=57964954000' },
+  { id: 6, title: 'ACM', link: 'https://dl.acm.org/profile/99659276773' },
+  { id: 7, title: 'Google Scholar', link: 'https://scholar.google.com/citations?user=WJY-21EAAAAJ' },
+  { id: 8, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37086082476' },
+  { id: 9, title: 'ORCID', link: 'https://orcid.org/0000-0003-1963-927X' },
+  { id: 10, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=55207301200' },
+  { id: 11, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37086400297' },
+  { id: 12, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37088571456' },
+  { id: 13, title: 'ORCID', link: 'https://orcid.org/0000-0002-5413-7454' },
+  { id: 14, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=7801358941' },
+  { id: 15, title: 'ACM', link: 'https://dl.acm.org/profile/99659607705' },
+  { id: 16, title: 'Google Scholar', link: 'https://scholar.google.co.jp/citations?user=JPKLv18AAAAJ' },
+  { id: 17, title: 'IEEEr', link: 'https://ieeexplore.ieee.org/author/37087094961' },
+  { id: 18, title: 'ORCID', link: 'https://orcid.org/0000-0002-4835-1016' },
+  { id: 19, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=57204003984' },
+  { id: 20, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37088569826' },
+  { id: 21, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=55704900500' },
+  { id: 22, title: 'ACM', link: 'https://dl.acm.org/profile/99659603458' },
+  { id: 23, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37086524828' },
+  { id: 24, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=6507277945' },
+  { id: 25, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37085518018' },
+  { id: 26, title: 'ORCID', link: 'https://orcid.org/0000-0003-0786-9270' },
+  { id: 27, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=57192700626' },
+  { id: 28, title: 'ORCID', link: 'https://orcid.org/0000-0001-9619-2163' },
+  { id: 29, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=57288405600' },
+  { id: 30, title: 'ORCID', link: 'https://orcid.org/0000-0002-1764-9493' },
+  { id: 31, title: 'Google Scholar', link: 'https://scholar.google.com/citations?user=vTtEYCkAAAAJ' },
+  { id: 32, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37088759306' },
+  { id: 33, title: 'ORCID', link: 'https://orcid.org/0000-0002-9890-6390' },
+  { id: 34, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=57217047083' },
 ];
 
 const recruitmentArrTest = [
@@ -516,7 +516,7 @@ const resourceSlice = createSlice({
     researchPublicationArr: [],
     projectArr: [],
     allMemberArr: [],
-    memberPublicationArr: [],
+    memberProfileLinkArr: [],
     recruitmentArr: [],
     activityArr: [],
     homeImageArr: [],
@@ -532,8 +532,8 @@ const resourceSlice = createSlice({
     setAllMember(state, action) {
       state.allMemberArr = action.payload || allMemberArrTest;
     },
-    setMemberPublicationArr(state, action) {
-      state.memberPublicationArr = action.payload || memberPublicationArrTest;
+    setMemberProfileLinkArr(state, action) {
+      state.memberProfileLinkArr = action.payload || memberProfileLinkArrTest;
     },
     setRecruitmentArr(state, action) {
       state.recruitmentArr = action.payload || recruitmentArrTest;

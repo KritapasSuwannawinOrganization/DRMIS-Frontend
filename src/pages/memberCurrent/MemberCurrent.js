@@ -15,7 +15,7 @@ function MemberCurrent() {
   let location = useLocation();
 
   const allMemberArr = useSelector((store) => store.resource.allMemberArr);
-  const memberPublicationArr = useSelector((store) => store.resource.memberPublicationArr);
+  const memberProfileLinkArr = useSelector((store) => store.resource.memberProfileLinkArr);
   const studentImageArr = useSelector((store) => store.resource.studentImageArr);
 
   const memberArr = allMemberArr.filter((member) => member.status === 'current' && member.type === 'member');
@@ -50,11 +50,11 @@ function MemberCurrent() {
                     <li key={i}>{edu}</li>
                   ))}
                 </ul>
-                {member.publication_id_arr.length > 0 && (
+                {member.profile_link_id_arr.length > 0 && (
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
-                    {member.publication_id_arr.map((id) => {
-                      const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
+                    {member.profile_link_id_arr.map((id) => {
+                      const memberPublication = memberProfileLinkArr.find((memberPublication) => memberPublication.id === id);
                       return (
                         <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
                           {memberPublication.title}
@@ -78,11 +78,11 @@ function MemberCurrent() {
                   {member.name}
                   {member.education_arr ? ` (${member.education_arr[0]})` : ''}
                 </p>
-                {member.publication_id_arr.length > 0 && (
+                {member.profile_link_id_arr.length > 0 && (
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
-                    {member.publication_id_arr.map((id) => {
-                      const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
+                    {member.profile_link_id_arr.map((id) => {
+                      const memberPublication = memberProfileLinkArr.find((memberPublication) => memberPublication.id === id);
                       return (
                         <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
                           {memberPublication.title}
@@ -107,11 +107,11 @@ function MemberCurrent() {
                   {member.name}
                   {member.rank ? ` (${member.rank})` : ''}
                 </p>
-                {member.publication_id_arr && member.publication_id_arr.length > 0 && (
+                {member.profile_link_id_arr && member.profile_link_id_arr.length > 0 && (
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
-                    {member.publication_id_arr.map((id) => {
-                      const memberPublication = memberPublicationArr.find((memberPublication) => memberPublication.id === id);
+                    {member.profile_link_id_arr.map((id) => {
+                      const memberPublication = memberProfileLinkArr.find((memberPublication) => memberPublication.id === id);
                       return (
                         <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
                           {memberPublication.title}

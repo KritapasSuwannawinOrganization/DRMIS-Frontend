@@ -126,7 +126,7 @@
                 height: 2.8rem;
                 background: white;
                 top: 0;
-                right: -0.1rem;
+                right: 0;
                 clip-path: polygon(100% 0, 50% 50%, 100% 100%);
               }
             }
@@ -264,9 +264,11 @@
 
         .card {
           &__content {
+            padding: 1.5rem;
+
             &--header {
               .category {
-                max-width: 20rem;
+                max-width: 15rem;
               }
 
               .view-count {

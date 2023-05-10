@@ -35,7 +35,7 @@
           position: relative;
 
           input {
-            padding: 1.85rem 6rem 1.85rem 2rem;
+            padding: 0 6rem 0 2rem;
             color: black;
             border-radius: 0.2rem;
             border: none;
@@ -98,9 +98,6 @@
               width: 2.5rem;
               height: 2.5rem;
               border-radius: 50%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
               padding: 0.5rem;
               background-color: #ffc550;
             }
@@ -205,9 +202,38 @@
   .footer {
     &__content {
       .upper {
+        .right {
+          &__row {
+            &.link {
+              p {
+                max-width: 90%;
+              }
+            }
+
+            img {
+              &.bg-yellow {
+                padding: 0.7rem;
+              }
+            }
+          }
+        }
+
         .left {
           form {
-            width: 70%;
+            width: 60%;
+
+            input {
+              padding: 0 4.5rem 0 2rem;
+              height: 4.5rem;
+            }
+
+            button {
+              img {
+                padding: 1.5rem 1.8rem;
+                width: 4.5rem;
+                height: 4.5rem;
+              }
+            }
           }
         }
       }

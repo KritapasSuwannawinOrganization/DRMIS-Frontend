@@ -22,7 +22,7 @@ function App() {
     dispatch(resourceActions.setResearchPublicationArr());
     dispatch(resourceActions.setProjectArr());
     dispatch(resourceActions.setAllMember());
-    dispatch(resourceActions.setMemberPublicationArr());
+    dispatch(resourceActions.setMemberProfileLinkArr());
     dispatch(resourceActions.setRecruitmentArr());
     dispatch(resourceActions.setActivityArr());
     dispatch(resourceActions.setHomeImageArr());
