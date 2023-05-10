@@ -30,9 +30,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-function Nav(props) {
-  const { noBackground } = props;
-
+function Nav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -56,8 +54,6 @@ function Nav(props) {
   useEffect(() => {
     if (adminIsLoggedIn) {
       // navigate('/admin')
-    } else {
-      navigate('/');
     }
   }, [adminIsLoggedIn]);
   /* eslint-enable */
@@ -137,6 +133,7 @@ function Nav(props) {
   function loginLogoutHandler() {
     if (adminIsLoggedIn) {
       dispatch(userActions.logoutUser());
+      navigate('/');
       return;
     }
 
@@ -170,7 +167,7 @@ function Nav(props) {
           </div>
         </div>
       </div>
-      <div className={`nav__lower ${noBackground ? 'no-bg' : ''}`}>
+      <div className="nav__lower">
         <div className="content">
           <Link className="logo" to="/">
             <img src={blueLogo} alt=""></img>

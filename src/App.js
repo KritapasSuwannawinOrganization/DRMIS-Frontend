@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { resourceActions } from './store/resourceSlice';
 
@@ -16,9 +16,39 @@ import Recruitment from './pages/recruitment/Recruitment';
 
 function App() {
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
 
   useEffect(() => {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`)
+      .then((res) => res.json())
+      .then((result) => {
+        const { status, data, message } = result;
+
+        if (status !== 'success') {
+          throw new Error(message);
+        }
+
+        const {
+          researchPublicationArr,
+          projectArr,
+          allMemberArr,
+          memberProfileLinkArr,
+          recruitmentArr,
+          activityArr,
+          homeImageArr,
+          studentImageArr,
+        } = data;
+
+        dispatch(resourceActions.setResearchPublicationArr(researchPublicationArr));
+        dispatch(resourceActions.setProjectArr(projectArr));
+        dispatch(resourceActions.setAllMember(allMemberArr));
+        dispatch(resourceActions.setMemberProfileLinkArr(memberProfileLinkArr));
+        dispatch(resourceActions.setRecruitmentArr(recruitmentArr));
+        dispatch(resourceActions.setActivityArr(activityArr));
+        dispatch(resourceActions.setHomeImageArr(homeImageArr));
+        dispatch(resourceActions.setStudentImageArr(studentImageArr));
+      })
+      .catch((err) => console.log(err.message));
+
     dispatch(resourceActions.setResearchPublicationArr());
     dispatch(resourceActions.setProjectArr());
     dispatch(resourceActions.setAllMember());
@@ -29,13 +59,9 @@ function App() {
     dispatch(resourceActions.setStudentImageArr());
   }, [dispatch]);
 
-  function navNoBackground() {
-    return ['/member-current'].includes(pathname);
-  }
-
   return (
     <>
-      <Nav noBackground={navNoBackground()}></Nav>
+      <Nav></Nav>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/member-current" element={<MemberCurrent></MemberCurrent>}></Route>

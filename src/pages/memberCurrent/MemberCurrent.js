@@ -32,6 +32,15 @@ function MemberCurrent() {
     }
   }, [location.hash]);
 
+  function imgURLFromId(id) {
+    if (studentImageArr.length > 0) {
+      const filePath = studentImageArr.find((obj) => obj.id === id).file_path;
+      return filePath ? pathToUrl(filePath) : '';
+    }
+
+    return '';
+  }
+
   return (
     <div className="member-current">
       <img className="member-current__title" src={drmisMember} alt=""></img>
@@ -99,7 +108,7 @@ function MemberCurrent() {
       <img className="member-current__title sub" id="graduate-student" src={drmisGraduateStudent} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
-          <img src={pathToUrl(studentImageArr.find((obj) => obj.id === 1).file_path)} alt="" className="full-width"></img>
+          <img src={imgURLFromId(1)} alt="" className="full-width"></img>
           <ol>
             {graduateStudentArr.map((member, i) => (
               <li key={member.id}>
@@ -128,7 +137,7 @@ function MemberCurrent() {
       <img className="member-current__title long" id="undergraduate-student" src={drmisUndergraduateStudent} alt=""></img>
       <div className="member-current__member-container">
         <div className="content">
-          <img src={pathToUrl(studentImageArr.find((obj) => obj.id === 2).file_path)} alt="" className="full-width"></img>
+          <img src={imgURLFromId(2)} alt="" className="full-width"></img>
           <div>
             {undergraduateStudentArr.map((member, i) => (
               <div key={member.id}>

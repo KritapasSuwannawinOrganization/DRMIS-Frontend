@@ -264,7 +264,6 @@ const allMemberArrTest = [
     id: 7,
     status: 'current',
     type: 'visiting member',
-    img_file_path: '',
     name: 'Associate Professor Kodaka Akira, Ph.D.',
     education_arr: ['Keio University, Japan'],
     profile_link_id_arr: [22, 23, 24],
