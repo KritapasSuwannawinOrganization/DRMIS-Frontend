@@ -2,7 +2,7 @@ import './Footer.scss';
 
 import blueFacebook from '../../icons/blue-facebook.svg';
 import blueMouseUp from '../../icons/blue-mouse-up.svg';
-import whiteLinkedIn from '../../icons/white-linkedin.svg';
+// import whiteLinkedIn from '../../icons/white-linkedin.svg';
 import yellowAddress from '../../icons/yellow-address.svg';
 import yellowLocationBase from '../../icons/yellow-location-base.svg';
 import yellowPhone from '../../icons/yellow-phone.svg';
@@ -41,19 +41,19 @@ function Footer() {
           </div>
           <div className="right">
             <p className="title">Information</p>
-            <div>
+            <div className="right__row">
               <img src={yellowPhone} alt=""></img>
               <p>
                 <span>Tel:</span> (+66) 256 689 985
               </p>
             </div>
-            <div>
+            <div className="right__row">
               <img src={yellowLocationBase} alt=""></img>
               <p>
                 <span>Location:</span> Room 511, 5F, Engineering Building 4, Faculty of Engineering, Chulalongkorn University
               </p>
             </div>
-            <div>
+            <div className="right__row">
               <img src={yellowAddress} alt=""></img>
               <p>
                 <span>Postal Address:</span> Assoc. Prof. Natt Leelawat, D.Eng., Disaster and Risk Management Information Systems
@@ -61,19 +61,25 @@ function Footer() {
                 Wangmai, Pathumwan, Bangkok 10330, Thailand
               </p>
             </div>
-            <div>
-              <a className="yellow" href="https://google.com" target="_blank" rel="noreferrer">
+            <a href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer" className="right__row link">
+              <img src={blueFacebook} alt="" className="bg-yellow"></img>
+              <p>
+                <span>Facebook:</span> Disaster and Risk Management Information Systems, Chulalongkorn University
+              </p>
+            </a>
+            {/* <div className="right__row">
+              <a className="yellow" href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer">
                 <img src={blueFacebook} alt=""></img>
               </a>
               <a className="blue" href="https://google.com" target="_blank" rel="noreferrer">
                 <img src={whiteLinkedIn} alt=""></img>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="lower">
           <p>Copyright &copy; 2023 DRMIS, Chulalongkorn University. All rights reserved.</p>
-          <div className="link-container">
+          {/* <div className="link-container">
             <a href="https://google.com" target="_blank" rel="noreferrer">
               Support
             </a>
@@ -83,7 +89,7 @@ function Footer() {
             <a href="https://google.com" target="_blank" rel="noreferrer">
               Policy
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

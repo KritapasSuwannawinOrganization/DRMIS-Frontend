@@ -25,6 +25,8 @@ function App() {
     dispatch(resourceActions.setMemberPublicationArr());
     dispatch(resourceActions.setRecruitmentArr());
     dispatch(resourceActions.setActivityArr());
+    dispatch(resourceActions.setHomeImageArr());
+    dispatch(resourceActions.setStudentImageArr());
   }, [dispatch]);
 
   function navNoBackground() {

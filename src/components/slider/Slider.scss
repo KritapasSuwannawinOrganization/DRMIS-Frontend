@@ -20,8 +20,13 @@
     font-size: 1.6rem;
     font-weight: 700;
     display: flex;
+    flex-wrap: wrap;
     width: max-content;
     margin: 0 auto 6.3rem;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    row-gap: 1rem;
 
     &.dark-bg {
       color: white;
@@ -100,14 +105,30 @@
             margin-bottom: 2rem;
 
             .category {
-              padding: 0.6rem 1.5rem;
-              background: url('../../icons/purple-ribbon.svg');
-              background-repeat: no-repeat;
-              background-position: center right;
+              padding: 0.6rem 2.5rem 0.6rem 1.5rem;
+              // background: url('../../icons/purple-ribbon.svg');
+              // background-repeat: no-repeat;
+              // background-position: center right;
+              background: rgba($color: #5b63fe, $alpha: 0.2);
               font-size: 1.4rem;
               font-weight: 500;
               color: #5b63fe;
-              width: 13rem;
+              max-width: 28.6rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              position: relative;
+
+              &::after {
+                content: '';
+                position: absolute;
+                width: 2.8rem;
+                height: 2.8rem;
+                background: white;
+                top: 0;
+                right: -0.1rem;
+                clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+              }
             }
 
             .view-count {
@@ -244,6 +265,10 @@
         .card {
           &__content {
             &--header {
+              .category {
+                max-width: 20rem;
+              }
+
               .view-count {
                 display: none;
               }

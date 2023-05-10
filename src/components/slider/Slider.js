@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 
+import pathToUrl from '../../utils/pathToUrl';
+
 import './Slider.scss';
 
 import yellowArrowRight from '../../icons/yellow-arrow-right.svg';
 import blueArrowRight from '../../icons/blue-arrow-right.svg';
-import blackEye from '../../icons/black-eye.svg';
+// import blackEye from '../../icons/black-eye.svg';
+
+import homeSliderCard from '../../images/home-slider-card.png';
 
 function Slider(props) {
   const { title, dataArr, type } = props;
@@ -17,7 +21,7 @@ function Slider(props) {
   const [startingIndex, setStartingIndex] = useState(0);
 
   useEffect(() => {
-    setCategoryArr(Array.from(new Set(dataArr.map((data) => data.category_name))));
+    setCategoryArr(Array.from(new Set(dataArr.map((data) => data.category_name))).filter((cat) => cat !== ''));
   }, [dataArr]);
 
   useEffect(() => {
@@ -76,21 +80,23 @@ function Slider(props) {
         )}
         <div className="card-container">
           {showingDataArr.map((data) => (
-            <a key={data.id} href={data.link} target="_blank" rel="noreferrer" className="card">
-              <img className="card__img" src={data.img_file_path} alt=""></img>
+            <a key={data.id} href={data.link || null} target="_blank" rel="noreferrer" className="card">
+              <img className="card__img" src={data.img_file_path ? pathToUrl(data.img_file_path) : homeSliderCard} alt=""></img>
               <div className="card__content">
-                <div className="card__content--header">
-                  <p className="category">{data.category_name}</p>
-                  <div className="view-count">
+                {data.category_name && (
+                  <div className="card__content--header">
+                    <p className="category">{data.category_name}</p>
+                    {/* <div className="view-count">
                     <img src={blackEye} alt=""></img>
                     <p>{data.view_count}</p>
+                  </div> */}
                   </div>
-                </div>
+                )}
                 <p className="card__content--title">{data.title}</p>
-                <div className="card__content--footer">
+                {/* <div className="card__content--footer">
                   <img src={data.author_img_file_path} alt=""></img>
                   <p>{data.author_name}</p>
-                </div>
+                </div> */}
               </div>
             </a>
           ))}

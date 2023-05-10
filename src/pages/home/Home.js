@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
 
+import pathToUrl from '../../utils/pathToUrl';
+
 import Slider from '../../components/slider/Slider';
 import './Home.scss';
 
@@ -17,8 +19,35 @@ import homePartner1 from '../../icons/home-partner-1.svg';
 import homePartner2 from '../../icons/home-partner-2.svg';
 
 function Home() {
+  const homeImageArr = useSelector((store) => store.resource.homeImageArr);
   const researchPublicationArr = useSelector((store) => store.resource.researchPublicationArr);
   const projectArr = useSelector((store) => store.resource.projectArr);
+
+  function imgURLFromId(id) {
+    function defaultImg() {
+      switch (id) {
+        case 1:
+          return homeAboutUs1;
+        case 2:
+          return homeAboutUs2;
+        case 3:
+          return homeAboutUs3;
+        case 4:
+          return homeGoalObj1;
+        case 5:
+          return homeGoalObj2;
+        default:
+          return '';
+      }
+    }
+
+    if (homeImageArr.length > 0) {
+      const filePath = homeImageArr.find((obj) => obj.id === id).file_path;
+      return filePath ? pathToUrl(filePath) : defaultImg();
+    }
+
+    return '';
+  }
 
   return (
     <div className="home">
@@ -45,9 +74,9 @@ function Home() {
         <div className="content">
           <div className="upper">
             <div className="img-container">
-              <img src={homeAboutUs1} alt=""></img>
-              <img src={homeAboutUs2} alt=""></img>
-              <img src={homeAboutUs3} alt=""></img>
+              <img src={imgURLFromId(1)} alt=""></img>
+              <img src={imgURLFromId(2)} alt=""></img>
+              <img src={imgURLFromId(3)} alt=""></img>
             </div>
             <div className="right">
               <p className="title">About Us</p>
@@ -63,8 +92,8 @@ function Home() {
           </div>
           <div className="lower">
             <div className="img-container">
-              <img src={homeGoalObj1} alt=""></img>
-              <img src={homeGoalObj2} alt=""></img>
+              <img src={imgURLFromId(4)} alt=""></img>
+              <img src={imgURLFromId(5)} alt=""></img>
             </div>
             <div className="right">
               <p className="title">Goals and objectives</p>
