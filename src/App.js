@@ -13,6 +13,7 @@ import Project from './pages/project/Project';
 import Publication from './pages/publication/Publication';
 import Activity from './pages/activity/Activity';
 import Recruitment from './pages/recruitment/Recruitment';
+import ContactUs from './pages/contactUs/ContactUs';
 
 function App() {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ function App() {
         <Route path="/activity" element={<Activity></Activity>}></Route>
         <Route path="/project" element={<Project></Project>}></Route>
         <Route path="/recruitment" element={<Recruitment></Recruitment>}></Route>
-        <Route path="/contact-us" element={<></>}></Route>
+        <Route path="/contact-us" element={<ContactUs></ContactUs>}></Route>
         <Route path="/*" element={<Navigate replace to="/"></Navigate>}></Route>
       </Routes>
       <Footer></Footer>
