@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import './Footer.scss';
 
 import blueFacebook from '../../icons/blue-facebook.svg';
@@ -7,24 +9,30 @@ import yellowAddress from '../../icons/yellow-address.svg';
 import yellowLocationBase from '../../icons/yellow-location-base.svg';
 import yellowPhone from '../../icons/yellow-phone.svg';
 
-function emailSubmitHandler(e) {
-  e.preventDefault();
+function Footer() {
+  const { pathname } = useLocation();
 
-  const email = e.target[0].value;
-  e.target[0].value = '';
+  function emailSubmitHandler(e) {
+    e.preventDefault();
 
-  if (!email.includes('@') || email.length < 5) {
-    return;
+    const email = e.target[0].value;
+    e.target[0].value = '';
+
+    if (!email.includes('@') || email.length < 5) {
+      return;
+    }
+
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/utils/email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    }).catch((err) => console.log(err.message));
   }
 
-  fetch(`${process.env.REACT_APP_BACKEND_URL}/api/utils/email`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email }),
-  }).catch((err) => console.log(err.message));
-}
+  if (pathname.startsWith('/admin')) {
+    return <></>;
+  }
 
-function Footer() {
   return (
     <div className="footer">
       <div className="footer__content">

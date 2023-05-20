@@ -1,0 +1,16 @@
+@import '../../../scss/main.scss';
+
+.admin-login {
+  @include admin-page-style;
+
+  button {
+    background: #081f51;
+    border-radius: 1rem;
+    color: white;
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    margin: 0 auto;
+    display: block;
+    font-weight: 500;
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import { resourceActions } from './store/resourceSlice';
 
@@ -15,8 +15,15 @@ import Activity from './pages/activity/Activity';
 import Recruitment from './pages/recruitment/Recruitment';
 import ContactUs from './pages/contactUs/ContactUs';
 
+import AdminLogin from './pages/admin/login/AdminLogin';
+import AdminHome from './pages/admin/home/AdminHome';
+
 function App() {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const adminIsLoggedIn = useSelector((store) => store.user.adminIsLoggedIn);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`)
@@ -60,6 +67,14 @@ function App() {
     dispatch(resourceActions.setStudentImageArr());
   }, [dispatch]);
 
+  /* eslint-disable */
+  useEffect(() => {
+    if (pathname.startsWith('/admin') && !adminIsLoggedIn) {
+      navigate('/admin/login');
+    }
+  }, [pathname, adminIsLoggedIn]);
+  /* eslint-enable */
+
   return (
     <>
       <Nav></Nav>
@@ -72,6 +87,8 @@ function App() {
         <Route path="/project" element={<Project></Project>}></Route>
         <Route path="/recruitment" element={<Recruitment></Recruitment>}></Route>
         <Route path="/contact-us" element={<ContactUs></ContactUs>}></Route>
+        <Route path="/admin/login" element={<AdminLogin></AdminLogin>}></Route>
+        <Route path="/admin/home" element={<AdminHome></AdminHome>}></Route>
         <Route path="/*" element={<Navigate replace to="/"></Navigate>}></Route>
       </Routes>
       <Footer></Footer>

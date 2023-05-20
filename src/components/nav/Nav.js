@@ -1,41 +1,41 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { useDispatch, useSelector } from 'react-redux';
+// import { initializeApp } from 'firebase/app';
+// import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+// import { useDispatch, useSelector } from 'react-redux';
 
-import { userActions } from '../../store/userSlice';
+// import { userActions } from '../../store/userSlice';
 
 import './Nav.scss';
 
 import yellowLocation from '../../icons/yellow-location.svg';
 import yellowClock from '../../icons/yellow-clock.svg';
-import yellowUser from '../../icons/yellow-user.svg';
+// import yellowUser from '../../icons/yellow-user.svg';
 import blueLogo from '../../icons/blue-logo.png';
 import blueSearch from '../../icons/blue-search.svg';
 import whiteSearch from '../../icons/white-search.svg';
 import redSearch from '../../icons/red-search.svg';
 
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_apiKey,
-  authDomain: process.env.REACT_APP_FIREBASE_authDomain,
-  projectId: process.env.REACT_APP_FIREBASE_projectId,
-  storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
-  appId: process.env.REACT_APP_FIREBASE_appId,
-};
+// const firebaseConfig = {
+//   apiKey: process.env.REACT_APP_FIREBASE_apiKey,
+//   authDomain: process.env.REACT_APP_FIREBASE_authDomain,
+//   projectId: process.env.REACT_APP_FIREBASE_projectId,
+//   storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
+//   messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
+//   appId: process.env.REACT_APP_FIREBASE_appId,
+// };
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+// const auth = getAuth(app);
+// const provider = new GoogleAuthProvider();
 
 function Nav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const adminIsLoggedIn = useSelector((store) => store.user.adminIsLoggedIn);
+  // const adminIsLoggedIn = useSelector((store) => store.user.adminIsLoggedIn);
 
   const [memberIsActive, setMemberIsActive] = useState(false);
   const [accomplishmentIsActive, setAccomplishmentIsActive] = useState(false);
@@ -51,11 +51,11 @@ function Nav() {
   }, [pathname]);
 
   /* eslint-disable */
-  useEffect(() => {
-    if (adminIsLoggedIn) {
-      // navigate('/admin')
-    }
-  }, [adminIsLoggedIn]);
+  // useEffect(() => {
+  //   if (adminIsLoggedIn) {
+  //     // navigate('/admin/home')
+  //   }
+  // }, [adminIsLoggedIn]);
   /* eslint-enable */
 
   function navClickHandler() {
@@ -130,27 +130,27 @@ function Nav() {
     setMenuIsActive((prev) => !prev);
   }
 
-  function loginLogoutHandler() {
-    if (adminIsLoggedIn) {
-      dispatch(userActions.logoutUser());
-      navigate('/');
-      return;
-    }
+  // function loginLogoutHandler() {
+  //   if (adminIsLoggedIn) {
+  //     dispatch(userActions.logoutUser());
+  //     navigate('/');
+  //     return;
+  //   }
 
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        dispatch(userActions.loginUser({ email: result.user.email }));
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       dispatch(userActions.loginUser({ email: result.user.email }));
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // }
 
   return (
     <div className="nav">
       <div className="nav__upper">
         <div className="content">
-          <div className="blank"></div>
+          {/* <div className="blank"></div> */}
           <div className="addr-working-container">
             <div className="addr">
               <img src={yellowLocation} alt=""></img>
@@ -161,10 +161,10 @@ function Nav() {
               <p>Working : Monday - Friday, 9:00am - 4:00pm</p>
             </div>
           </div>
-          <div className="login" onClick={loginLogoutHandler}>
+          {/* <div className="login" onClick={loginLogoutHandler}>
             <img src={yellowUser} alt=""></img>
             <p>{adminIsLoggedIn ? 'Logout' : 'Login'}</p>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="nav__lower">
@@ -172,34 +172,38 @@ function Nav() {
           <Link className="logo" to="/">
             <img src={blueLogo} alt=""></img>
           </Link>
-          <div className="btn-container">
-            <div>
-              <button onClick={navClickHandler.bind('member')}>Members</button>
-              {memberIsActive && (
-                <div className="link-container">
-                  <Link to="/member-current">Current</Link>
-                  <Link to="/member-alumni">Alumni</Link>
-                </div>
-              )}
+          {pathname.startsWith('/admin') ? (
+            <p>Admin Site</p>
+          ) : (
+            <div className="btn-container">
+              <div>
+                <button onClick={navClickHandler.bind('member')}>Members</button>
+                {memberIsActive && (
+                  <div className="link-container">
+                    <Link to="/member-current">Current</Link>
+                    <Link to="/member-alumni">Alumni</Link>
+                  </div>
+                )}
+              </div>
+              <div>
+                <button onClick={navClickHandler.bind('accomplishment')}>Accomplishments</button>
+                {accomplishmentIsActive && (
+                  <div className="link-container">
+                    <Link to="/publication">Publications</Link>
+                    <Link to="/activity">Activities</Link>
+                    <Link to="/project">Projects</Link>
+                  </div>
+                )}
+              </div>
+              <div>
+                <Link to="/recruitment">Recruitment</Link>
+              </div>
+              <div>
+                <Link to="/contact-us">Contact Us</Link>
+              </div>
             </div>
-            <div>
-              <button onClick={navClickHandler.bind('accomplishment')}>Accomplishments</button>
-              {accomplishmentIsActive && (
-                <div className="link-container">
-                  <Link to="/publication">Publications</Link>
-                  <Link to="/activity">Activities</Link>
-                  <Link to="/project">Projects</Link>
-                </div>
-              )}
-            </div>
-            <div>
-              <Link to="/recruitment">Recruitment</Link>
-            </div>
-            <div>
-              <Link to="/contact-us">Contact Us</Link>
-            </div>
-          </div>
-          <div className="search-container">
+          )}
+          <div className={`search-container ${pathname.startsWith('/admin') ? 'hidden' : ''}`}>
             <button onClick={navClickHandler.bind('search')}>
               <img src={blueSearch} alt=""></img>
               <p>Search</p>
