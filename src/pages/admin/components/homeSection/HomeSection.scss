@@ -1,0 +1,5 @@
+@import '../../../../scss/main.scss';
+
+.home-section {
+  @include admin-section-style;
+}

@@ -16,7 +16,7 @@ import Recruitment from './pages/recruitment/Recruitment';
 import ContactUs from './pages/contactUs/ContactUs';
 
 import AdminLogin from './pages/admin/login/AdminLogin';
-import AdminHome from './pages/admin/home/AdminHome';
+import AdminMain from './pages/admin/main/AdminMain';
 
 function App() {
   const { pathname } = useLocation();
@@ -88,7 +88,7 @@ function App() {
         <Route path="/recruitment" element={<Recruitment></Recruitment>}></Route>
         <Route path="/contact-us" element={<ContactUs></ContactUs>}></Route>
         <Route path="/admin/login" element={<AdminLogin></AdminLogin>}></Route>
-        <Route path="/admin/home" element={<AdminHome></AdminHome>}></Route>
+        <Route path="/admin/main/*" element={<AdminMain></AdminMain>}></Route>
         <Route path="/*" element={<Navigate replace to="/"></Navigate>}></Route>
       </Routes>
       <Footer></Footer>

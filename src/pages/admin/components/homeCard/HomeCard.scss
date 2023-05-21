@@ -1,0 +1,48 @@
+@import '../../../../scss/main.scss';
+
+.home-card {
+  @include admin-card-style;
+
+  &__img-container {
+    width: 42rem;
+
+    .home-img-1 {
+      aspect-ratio: 320/370;
+      object-fit: cover;
+      width: 32rem;
+    }
+
+    .home-img-2 {
+      aspect-ratio: 420/250;
+      object-fit: cover;
+      width: 42rem;
+    }
+
+    .home-img-3 {
+      aspect-ratio: 227/227;
+      object-fit: cover;
+      width: 22.7rem;
+    }
+
+    .home-img-4 {
+      aspect-ratio: 320/370;
+      object-fit: cover;
+      width: 32rem;
+    }
+
+    .home-img-5 {
+      aspect-ratio: 227/227;
+      object-fit: cover;
+      width: 22.7rem;
+    }
+  }
+
+  input {
+    font-size: 1.6rem;
+    height: fit-content;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

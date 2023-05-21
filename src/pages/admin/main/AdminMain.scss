@@ -1,0 +1,11 @@
+@import '../../../scss/main.scss';
+
+.admin-main {
+  @include admin-page-style;
+
+  select {
+    margin: 0 auto;
+    display: block;
+    font-size: 1.6rem;
+  }
+}

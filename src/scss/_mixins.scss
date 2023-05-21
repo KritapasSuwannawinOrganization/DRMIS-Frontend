@@ -44,10 +44,54 @@
 
 @mixin admin-page-style {
   &__title {
-    margin: 5.5rem 0 6rem;
+    margin: 5.5rem 0 2rem;
     text-align: center;
     font-weight: 600;
     font-size: 2.4rem;
+    color: $color-blue;
+  }
+}
+
+@mixin admin-section-style {
+  @include container-style(130rem, 0);
+  margin: 6rem 0;
+
+  &__title {
+    font-weight: 600;
+    font-size: 2rem;
+    color: $color-blue;
+    margin-bottom: 2.5rem;
+  }
+
+  &__confirm-btn {
+    background: $color-red;
+    border-radius: 0.8rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: white;
+    padding: 1rem 3.8rem;
+
+    &:disabled {
+      background: $color-gray;
+
+      &:hover {
+        cursor: wait;
+      }
+    }
+  }
+}
+
+@mixin admin-card-style {
+  border: 0.2rem solid rgba($color-blue, $alpha: 0.7);
+  border-radius: 0.8rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+
+  &__title {
+    font-weight: 600;
+    font-size: 2rem;
     color: $color-blue;
   }
 }
