@@ -550,9 +550,9 @@ const resourceSlice = createSlice({
 
       const allMemberArr = JSON.parse(JSON.stringify(state.allMemberArr));
 
-      const newMemberkId = allMemberArr[allMemberArr.length - 1].id + 1;
+      const newMemberId = allMemberArr[allMemberArr.length - 1].id + 1;
       allMemberArr.push({
-        id: newMemberkId,
+        id: newMemberId,
         status,
         type,
         img_file_path: '',
@@ -613,6 +613,32 @@ const resourceSlice = createSlice({
 
       state.memberProfileLinkArr = memberProfileLinkArr;
       state.allMemberArr = allMemberArr;
+    },
+    addResearchPublication(state, action) {
+      const researchPublicationArr = JSON.parse(JSON.stringify(state.researchPublicationArr));
+
+      const newPublicaitonId = researchPublicationArr[researchPublicationArr.length - 1].id + 1;
+      researchPublicationArr.push({
+        id: newPublicaitonId,
+        category_name: '',
+        img_file_path: '',
+        title: '',
+        link: '',
+        full_name: '',
+        isNew: true,
+      });
+
+      state.researchPublicationArr = researchPublicationArr;
+    },
+    deleteResearchPublication(state, action) {
+      const { id } = action.payload;
+
+      const researchPublicationArr = JSON.parse(JSON.stringify(state.researchPublicationArr));
+
+      const targetMember = researchPublicationArr.find((publication) => publication.id === id);
+      targetMember.isDeleted = true;
+
+      state.researchPublicationArr = researchPublicationArr;
     },
   },
 });

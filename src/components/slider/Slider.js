@@ -8,8 +8,6 @@ import yellowArrowRight from '../../icons/yellow-arrow-right.svg';
 import blueArrowRight from '../../icons/blue-arrow-right.svg';
 // import blackEye from '../../icons/black-eye.svg';
 
-import homeSliderCard from '../../images/home-slider-card.png';
-
 function Slider(props) {
   const { title, dataArr, type } = props;
 
@@ -81,7 +79,7 @@ function Slider(props) {
         <div className="card-container">
           {showingDataArr.map((data) => (
             <a key={data.id} href={data.link || null} target="_blank" rel="noreferrer" className="card">
-              <img className="card__img" src={data.img_file_path ? pathToUrl(data.img_file_path) : homeSliderCard} alt=""></img>
+              <img className="card__img" src={data.img_file_path ? pathToUrl(data.img_file_path) : ''} alt=""></img>
               <div className="card__content">
                 {data.category_name && (
                   <div className="card__content--header">
@@ -104,9 +102,7 @@ function Slider(props) {
         {hasMore && (
           <button
             onClick={nextClickHandler}
-            className={`${
-              showingDataArr[showingDataArr.length - 1].id === categorizedDataArr[categorizedDataArr.length - 1].id ? 'hide' : ''
-            }`}
+            className={`${showingDataArr[showingDataArr.length - 1].id === categorizedDataArr[categorizedDataArr.length - 1].id ? 'hide' : ''}`}
           >
             <img src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight} alt=""></img>
           </button>
@@ -118,9 +114,7 @@ function Slider(props) {
             </button>
             <button
               onClick={nextClickHandler}
-              className={`${
-                showingDataArr[showingDataArr.length - 1].id === categorizedDataArr[categorizedDataArr.length - 1].id ? 'hide' : ''
-              }`}
+              className={`${showingDataArr[showingDataArr.length - 1].id === categorizedDataArr[categorizedDataArr.length - 1].id ? 'hide' : ''}`}
             >
               <img src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight} alt=""></img>
             </button>

@@ -22,7 +22,6 @@ function MemberCurrentSection(props) {
   function confirmHandler(e) {
     e.preventDefault();
     const inputArr = Array.from(e.target).filter((element) => element.tagName === 'INPUT');
-    console.log(inputArr);
 
     if (isLoading) {
       return;
@@ -85,15 +84,24 @@ function MemberCurrentSection(props) {
       deleteMemberIdArr.forEach((id) => {
         const targetMember = allMemberArr.find((member) => member.id === id);
 
-        firstPromiseArr.push(
-          new Promise((resolve, reject) => {
-            deleteObject(ref(storage, `member/${targetMember.img_file_path.split('/')[1]}`))
-              .then(() => {
-                resolve();
-              })
-              .catch((err) => reject(err));
-          })
-        );
+        let previousFileName;
+        try {
+          previousFileName = targetMember.img_file_path.split('/')[1];
+        } catch (err) {
+          previousFileName = undefined;
+        }
+
+        if (previousFileName) {
+          firstPromiseArr.push(
+            new Promise((resolve, reject) => {
+              deleteObject(ref(storage, `member/${previousFileName}`))
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => reject(err));
+            })
+          );
+        }
 
         firstPromiseArr.push(
           new Promise((resolve, reject) => {
@@ -324,7 +332,13 @@ function MemberCurrentSection(props) {
 
       if (file) {
         const fileName = `${Date.now()}_${file.name}`;
-        const previousFileName = studentImage.file_path.split('/')[1];
+
+        let previousFileName;
+        try {
+          previousFileName = studentImage.file_path.split('/')[1];
+        } catch (err) {
+          previousFileName = undefined;
+        }
 
         // Upload new image
         promiseArr.push(
@@ -338,15 +352,17 @@ function MemberCurrentSection(props) {
         );
 
         // Remove old image
-        promiseArr.push(
-          new Promise((resolve, reject) => {
-            deleteObject(ref(storage, `student-image/${previousFileName}`))
-              .then(() => {
-                resolve();
-              })
-              .catch((err) => reject(err));
-          })
-        );
+        if (previousFileName) {
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              deleteObject(ref(storage, `student-image/${previousFileName}`))
+                .then(() => {
+                  resolve();
+                })
+                .catch((err) => reject(err));
+            })
+          );
+        }
 
         // Update file_path
         promiseArr.push(
@@ -387,7 +403,13 @@ function MemberCurrentSection(props) {
 
           if (file) {
             const fileName = `${Date.now()}_${file.name}`;
-            const previousFileName = memberArr.find((member) => member.id === Number(id)).img_file_path.split('/')[1];
+
+            let previousFileName;
+            try {
+              previousFileName = memberArr.find((member) => member.id === Number(id)).img_file_path.split('/')[1];
+            } catch (err) {
+              previousFileName = undefined;
+            }
 
             // Upload new image
             promiseArr.push(

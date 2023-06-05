@@ -28,7 +28,7 @@ function Publication() {
                   .filter((publication) => publication.year === year)
                   .map((publication, i) => (
                     <li key={i}>
-                      <a href={publication.link} target="_blank" rel="noreferrer">
+                      <a href={publication.link || null} target="_blank" rel="noreferrer">
                         {publication.full_name}
                       </a>
                     </li>

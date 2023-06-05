@@ -5,12 +5,6 @@ import pathToUrl from '../../utils/pathToUrl';
 import Slider from '../../components/slider/Slider';
 import './Home.scss';
 
-import homeAboutUs1 from '../../images/home-about-us-1.png';
-import homeAboutUs2 from '../../images/home-about-us-2.png';
-import homeAboutUs3 from '../../images/home-about-us-3.png';
-import homeGoalObj1 from '../../images/home-goal-obj-1.png';
-import homeGoalObj2 from '../../images/home-goal-obj-2.png';
-
 import homeInfo1 from '../../icons/home-info-1.svg';
 import homeInfo2 from '../../icons/home-info-2.svg';
 import homeInfo3 from '../../icons/home-info-3.svg';
@@ -24,26 +18,9 @@ function Home() {
   const projectArr = useSelector((store) => store.resource.projectArr);
 
   function imgURLFromId(id) {
-    function defaultImg() {
-      switch (id) {
-        case 1:
-          return homeAboutUs1;
-        case 2:
-          return homeAboutUs2;
-        case 3:
-          return homeAboutUs3;
-        case 4:
-          return homeGoalObj1;
-        case 5:
-          return homeGoalObj2;
-        default:
-          return '';
-      }
-    }
-
     if (homeImageArr.length > 0) {
       const filePath = homeImageArr.find((obj) => obj.id === id).file_path;
-      return filePath ? pathToUrl(filePath) : defaultImg();
+      return pathToUrl(filePath);
     }
 
     return '';
@@ -81,12 +58,11 @@ function Home() {
             <div className="right">
               <p className="title">About Us</p>
               <p>
-                <span>DRMIS</span> is a research unit at Chulalongkorn University. DRMIS laboratory has been established as the research
-                group since 2018 by Asst. Prof. Natt Leelawat, D.Eng., and his kind colleagues from the Department of Industrial
-                Engineering, Department of Water Resources Engineering, Department of Civil Engineering, and the International School of
-                Engineering, Chulalongkorn University. DRMIS has been upgraded to a research unit since 2021. Currently, we are doing
-                research on disaster management, management information systems, business continuity management, and data analysis related
-                to disasters.
+                <span>DRMIS</span> is a research unit at Chulalongkorn University. DRMIS laboratory has been established as the research group since
+                2018 by Asst. Prof. Natt Leelawat, D.Eng., and his kind colleagues from the Department of Industrial Engineering, Department of Water
+                Resources Engineering, Department of Civil Engineering, and the International School of Engineering, Chulalongkorn University. DRMIS
+                has been upgraded to a research unit since 2021. Currently, we are doing research on disaster management, management information
+                systems, business continuity management, and data analysis related to disasters.
               </p>
             </div>
           </div>

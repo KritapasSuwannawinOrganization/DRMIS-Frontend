@@ -13,7 +13,7 @@ function Project() {
       <div className="project__container">
         <div className="content">
           {projectArr.map((project) => (
-            <a key={project.id} href={project.link} target="_blank" rel="noreferrer">
+            <a key={project.id} href={project.link || null} target="_blank" rel="noreferrer">
               <p>
                 {project.start_date} - {project.end_date}: {project.description}
               </p>

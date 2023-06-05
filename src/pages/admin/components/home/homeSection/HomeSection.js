@@ -33,7 +33,13 @@ function HomeSection(props) {
 
         if (file) {
           const fileName = `${Date.now()}_${file.name}`;
-          const previousFileName = imageArr.find((image) => image.id === Number(id)).file_path.split('/')[1];
+
+          let previousFileName;
+          try {
+            previousFileName = imageArr.find((image) => image.id === Number(id)).file_path.split('/')[1];
+          } catch (err) {
+            previousFileName = undefined;
+          }
 
           // Upload new image
           promiseArr.push(
@@ -47,15 +53,17 @@ function HomeSection(props) {
           );
 
           // Remove old image
-          promiseArr.push(
-            new Promise((resolve, reject) => {
-              deleteObject(ref(storage, `home/${previousFileName}`))
-                .then(() => {
-                  resolve();
-                })
-                .catch((err) => reject(err));
-            })
-          );
+          if (previousFileName) {
+            promiseArr.push(
+              new Promise((resolve, reject) => {
+                deleteObject(ref(storage, `home/${previousFileName}`))
+                  .then(() => {
+                    resolve();
+                  })
+                  .catch((err) => reject(err));
+              })
+            );
+          }
 
           // Update filePath
           promiseArr.push(
