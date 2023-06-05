@@ -19,6 +19,16 @@
     align-items: center;
   }
 
+  &.student-img {
+    img {
+      width: 71%;
+    }
+
+    input {
+      width: 35rem;
+    }
+  }
+
   &__image-container {
     display: flex;
     flex-direction: column;

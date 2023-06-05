@@ -11,6 +11,7 @@ function AdminMemberCurrent() {
 
   const allMemberArr = useSelector((store) => store.resource.allMemberArr);
   const memberProfileLinkArr = useSelector((store) => store.resource.memberProfileLinkArr);
+  const studentImageArr = useSelector((store) => store.resource.studentImageArr);
 
   const [doneInitialize, setDoneInitialize] = useState(false);
 
@@ -51,13 +52,32 @@ function AdminMemberCurrent() {
       })
     );
 
+    promiseArr.push(
+      new Promise((resolve, reject) => {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/student-image`)
+          .then((res) => res.json())
+          .then((result) => {
+            const { status, data, message } = result;
+
+            if (status !== 'success') {
+              throw new Error(message);
+            }
+
+            resolve(data.studentImageArr);
+          })
+          .catch((err) => reject(err.message));
+      })
+    );
+
     Promise.all(promiseArr)
       .then((dataArr) => {
         const allMemberArr = dataArr[0];
         const memberProfileLinkArr = dataArr[1];
+        const studentImageArr = dataArr[2];
 
         dispatch(resourceActions.setAllMember(allMemberArr));
         dispatch(resourceActions.setMemberProfileLinkArr(memberProfileLinkArr));
+        dispatch(resourceActions.setStudentImageArr(studentImageArr));
 
         setDoneInitialize(true);
       })
@@ -90,6 +110,7 @@ function AdminMemberCurrent() {
         memberProfileLinkArr={memberProfileLinkArr}
         status="current"
         type="graduate student"
+        studentImage={studentImageArr[0]}
       ></MemberCurrentSection>
       <MemberCurrentSection
         title="Undergraduate Student"
@@ -97,6 +118,7 @@ function AdminMemberCurrent() {
         memberProfileLinkArr={memberProfileLinkArr}
         status="current"
         type="undergraduate student"
+        studentImage={studentImageArr[1]}
       ></MemberCurrentSection>
     </div>
   );

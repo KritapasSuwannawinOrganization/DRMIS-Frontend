@@ -2,6 +2,8 @@ import { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ref, uploadBytes, deleteObject } from 'firebase/storage';
 
+import pathToUrl from '../../../../utils/pathToUrl';
+
 import { storage } from '../../../../utils/firebase';
 import { resourceActions } from '../../../../store/resourceSlice';
 
@@ -9,7 +11,7 @@ import MemberCurrentCard from '../memberCurrentCard/MemberCurrentCard';
 import './MemberCurrentSection.scss';
 
 function MemberCurrentSection(props) {
-  const { title, allMemberArr, memberProfileLinkArr, status, type } = props;
+  const { title, allMemberArr, memberProfileLinkArr, status, type, studentImage } = props;
 
   const dispatch = useDispatch();
 
@@ -80,6 +82,18 @@ function MemberCurrentSection(props) {
     function deleteMember() {
       const deleteMemberIdArr = memberArr.filter((member) => member.isDeleted && !member.isNew).map((member) => member.id);
       deleteMemberIdArr.forEach((id) => {
+        const targetMember = allMemberArr.find((member) => member.id === id);
+
+        firstPromiseArr.push(
+          new Promise((resolve, reject) => {
+            deleteObject(ref(storage, `member/${targetMember.img_file_path.split('/')[1]}`))
+              .then(() => {
+                resolve();
+              })
+              .catch((err) => reject(err));
+          })
+        );
+
         firstPromiseArr.push(
           new Promise((resolve, reject) => {
             fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
@@ -301,6 +315,55 @@ function MemberCurrentSection(props) {
       });
     }
 
+    function updateStudentImage() {
+      const imageInput = inputArr.find((input) => input.id.includes('student_image'));
+
+      const [tableName, id] = imageInput.id.split('#');
+      const file = imageInput.files[0];
+
+      if (file) {
+        const fileName = `${Date.now()}_${file.name}`;
+        const previousFileName = studentImage.file_path.split('/')[1];
+
+        // Upload new image
+        promiseArr.push(
+          new Promise((resolve, reject) => {
+            uploadBytes(ref(storage, `student-image/${fileName}`), file)
+              .then(() => {
+                resolve();
+              })
+              .catch((err) => reject(err));
+          })
+        );
+
+        // Remove old image
+        promiseArr.push(
+          new Promise((resolve, reject) => {
+            deleteObject(ref(storage, `student-image/${previousFileName}`))
+              .then(() => {
+                resolve();
+              })
+              .catch((err) => reject(err));
+          })
+        );
+
+        // Update file_path
+        promiseArr.push(
+          new Promise((resolve, reject) => {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ tableName, id, data: { filePath: `student-image/${fileName}` } }),
+            })
+              .then(() => resolve())
+              .catch((err) => reject(err));
+          })
+        );
+      }
+    }
+
     switch (type) {
       case 'member':
         // New member
@@ -428,6 +491,8 @@ function MemberCurrentSection(props) {
         updateProfileLinkLink();
 
         deleteEmptyProfileLink();
+
+        updateStudentImage();
         break;
       case 'undergraduate student':
         insertNewMember();
@@ -435,6 +500,8 @@ function MemberCurrentSection(props) {
         deleteMember();
 
         updateMemberName();
+
+        updateStudentImage();
         break;
       default:
         break;
@@ -451,7 +518,7 @@ function MemberCurrentSection(props) {
           Promise.all(promiseArr)
             .catch((err) => console.log(err.message))
             .finally(() => {
-              inputArr.filter((input) => input.id.includes('#img_file_path')).forEach((input) => (input.value = ''));
+              inputArr.filter((input) => input.type === 'file').forEach((input) => (input.value = ''));
 
               const promiseArr = [];
 
@@ -489,13 +556,32 @@ function MemberCurrentSection(props) {
                 })
               );
 
+              promiseArr.push(
+                new Promise((resolve, reject) => {
+                  fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/student-image`)
+                    .then((res) => res.json())
+                    .then((result) => {
+                      const { status, data, message } = result;
+
+                      if (status !== 'success') {
+                        throw new Error(message);
+                      }
+
+                      resolve(data.studentImageArr);
+                    })
+                    .catch((err) => reject(err.message));
+                })
+              );
+
               Promise.all(promiseArr)
                 .then((dataArr) => {
                   const allMemberArr = dataArr[0];
                   const memberProfileLinkArr = dataArr[1];
+                  const studentImageArr = dataArr[2];
 
                   dispatch(resourceActions.setAllMember(allMemberArr));
                   dispatch(resourceActions.setMemberProfileLinkArr(memberProfileLinkArr));
+                  dispatch(resourceActions.setStudentImageArr(studentImageArr));
                 })
                 .catch((err) => console.log(err.message))
                 .finally(() => setIsLoading(false));
@@ -512,6 +598,12 @@ function MemberCurrentSection(props) {
     <form className="member-current-section" onSubmit={confirmHandler}>
       <div className="content">
         <p className="member-current-section__title">{title}</p>
+        {studentImage && (
+          <div className="member-current-card student-img">
+            <img src={pathToUrl(studentImage.file_path)} alt=""></img>
+            <input id={`student_image#${type === 'graduate student' ? 1 : 2}`} type="file" accept="image/*"></input>
+          </div>
+        )}
         {memberArr.map((member, i) => (
           <Fragment key={i}>
             <MemberCurrentCard member={member} memberProfileLinkArr={memberProfileLinkArr}></MemberCurrentCard>
