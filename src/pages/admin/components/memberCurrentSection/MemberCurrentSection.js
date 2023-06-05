@@ -28,88 +28,263 @@ function MemberCurrentSection(props) {
     const firstPromiseArr = [];
     const promiseArr = [];
 
-    switch (type) {
-      case 'member':
-        // New member
-        const nemMemberIdArr = memberArr.filter((member) => member.isNew && !member.isDeleted).map((member) => member.id);
-        nemMemberIdArr.forEach((id) => {
-          firstPromiseArr.push(
+    function insertNewMember() {
+      const nemMemberIdArr = memberArr.filter((member) => member.isNew && !member.isDeleted).map((member) => member.id);
+      nemMemberIdArr.forEach((id) => {
+        firstPromiseArr.push(
+          new Promise((resolve, reject) => {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ tableName: 'member', data: { id, status, type } }),
+            })
+              .then(() => resolve())
+              .catch((err) => reject(err));
+          })
+        );
+      });
+    }
+
+    function insertNewProfileLink() {
+      const newProfileLinkIdArr = [];
+      memberArr
+        .map((member) =>
+          memberProfileLinkArr
+            .filter(
+              (memberProfileLink) =>
+                member.profile_link_id_arr.includes(memberProfileLink.id) && memberProfileLink.isNew && !memberProfileLink.isDeleted
+            )
+            .map((memberProfileLink) => memberProfileLink.id)
+        )
+        .forEach((idArr) => idArr.forEach((id) => newProfileLinkIdArr.push(id)));
+
+      newProfileLinkIdArr.forEach((id) => {
+        firstPromiseArr.push(
+          new Promise((resolve, reject) => {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ tableName: 'member_profile_link', data: { id } }),
+            })
+              .then(() => resolve())
+              .catch((err) => reject(err));
+          })
+        );
+      });
+    }
+
+    function deleteMember() {
+      const deleteMemberIdArr = memberArr.filter((member) => member.isDeleted && !member.isNew).map((member) => member.id);
+      deleteMemberIdArr.forEach((id) => {
+        firstPromiseArr.push(
+          new Promise((resolve, reject) => {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ tableName: 'member', id }),
+            })
+              .then(() => resolve())
+              .catch((err) => reject(err));
+          })
+        );
+      });
+    }
+
+    function deleteProfileLink() {
+      const deleteProfileLinkIdArr = [];
+      memberArr
+        .map((member) =>
+          memberProfileLinkArr
+            .filter(
+              (memberProfileLink) =>
+                member.profile_link_id_arr.includes(memberProfileLink.id) && memberProfileLink.isDeleted && !memberProfileLink.isNew
+            )
+            .map((memberProfileLink) => memberProfileLink.id)
+        )
+        .forEach((idArr) => idArr.forEach((id) => deleteProfileLinkIdArr.push(id)));
+
+      deleteProfileLinkIdArr.forEach((id) => {
+        firstPromiseArr.push(
+          new Promise((resolve, reject) => {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ tableName: 'member_profile_link', id }),
+            })
+              .then(() => resolve())
+              .catch((err) => reject(err));
+          })
+        );
+      });
+    }
+
+    function updateMemberName() {
+      const nameInputArr = inputArr.filter((input) => input.id.includes('#name'));
+      nameInputArr.forEach((nameInput) => {
+        const [tableName, id] = nameInput.id.split('#');
+        const name = nameInput.value.trim();
+
+        promiseArr.push(
+          new Promise((resolve, reject) => {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ tableName, id, data: { name } }),
+            })
+              .then(() => resolve())
+              .catch((err) => reject(err));
+          })
+        );
+      });
+    }
+
+    function updateMemberRank() {
+      const rankInputArr = inputArr.filter((input) => input.id.includes('#rank'));
+      rankInputArr.forEach((rankInput) => {
+        const [tableName, id] = rankInput.id.split('#');
+        const rank = rankInput.value.trim();
+
+        promiseArr.push(
+          new Promise((resolve, reject) => {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ tableName, id, data: { rank } }),
+            })
+              .then(() => resolve())
+              .catch((err) => reject(err));
+          })
+        );
+      });
+    }
+
+    function updateMemberEducationArr() {
+      memberArr
+        .filter((member) => !member.isDeleted)
+        .forEach((member) => {
+          const educationInputArr = inputArr.filter((input) => input.id.includes(`#${member.id}#education_arr`));
+          const educationArr = educationInputArr.map((educationInput) => educationInput.value.trim()).filter((education) => education);
+
+          promiseArr.push(
             new Promise((resolve, reject) => {
               fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ tableName: 'member', data: { id, status, type } }),
+                body: JSON.stringify({
+                  tableName: 'member',
+                  id: member.id,
+                  data: { educationArr },
+                }),
               })
                 .then(() => resolve())
                 .catch((err) => reject(err));
             })
           );
         });
+    }
 
-        // New profile link
-        const newProfileLinkIdArr = [];
-        memberArr
-          .map((member) =>
-            memberProfileLinkArr
-              .filter(
-                (memberProfileLink) =>
-                  member.profile_link_id_arr.includes(memberProfileLink.id) && memberProfileLink.isNew && !memberProfileLink.isDeleted
-              )
-              .map((memberProfileLink) => memberProfileLink.id)
-          )
-          .forEach((idArr) => idArr.forEach((id) => newProfileLinkIdArr.push(id)));
+    function updateMemberProfileLinkIdArr() {
+      memberArr
+        .filter((member) => !member.isDeleted)
+        .forEach((member) => {
+          const profileLinkIdArr = inputArr
+            .filter(
+              (input, i) =>
+                input.id.includes(`#${member.id}#profile_link_id_arr`) &&
+                input.id.endsWith('title') &&
+                input.value.trim() &&
+                inputArr[i + 1].value.trim()
+            )
+            .map((input) => input.id.split('#')[3]);
 
-        newProfileLinkIdArr.forEach((id) => {
-          firstPromiseArr.push(
+          promiseArr.push(
             new Promise((resolve, reject) => {
               fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ tableName: 'member_profile_link', data: { id } }),
+                body: JSON.stringify({
+                  tableName: 'member',
+                  id: member.id,
+                  data: { profileLinkIdArr },
+                }),
               })
                 .then(() => resolve())
                 .catch((err) => reject(err));
             })
           );
         });
+    }
 
-        // Deleted member
-        const deleteMemberIdArr = memberArr.filter((member) => member.isDeleted && !member.isNew).map((member) => member.id);
-        deleteMemberIdArr.forEach((id) => {
-          firstPromiseArr.push(
+    function updateProfileLinkTitle() {
+      const profileLinkTitleInputArr = inputArr.filter((input) => input.id.includes('#profile_link_id_arr') && input.id.endsWith('title'));
+      profileLinkTitleInputArr.forEach((profileLinkTitleInput) => {
+        const id = profileLinkTitleInput.id.split('#')[3];
+        const title = profileLinkTitleInput.value.trim();
+
+        if (title) {
+          promiseArr.push(
             new Promise((resolve, reject) => {
               fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                method: 'DELETE',
+                method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ tableName: 'member', id }),
+                body: JSON.stringify({ tableName: 'member_profile_link', id, data: { title } }),
               })
                 .then(() => resolve())
                 .catch((err) => reject(err));
             })
           );
-        });
+        }
+      });
+    }
 
-        // Deleted profile link
-        const deleteProfileLinkIdArr = [];
-        memberArr
-          .map((member) =>
-            memberProfileLinkArr
-              .filter(
-                (memberProfileLink) =>
-                  member.profile_link_id_arr.includes(memberProfileLink.id) && memberProfileLink.isDeleted && !memberProfileLink.isNew
-              )
-              .map((memberProfileLink) => memberProfileLink.id)
-          )
-          .forEach((idArr) => idArr.forEach((id) => deleteProfileLinkIdArr.push(id)));
+    function updateProfileLinkLink() {
+      const profileLinkLinkInputArr = inputArr.filter((input) => input.id.includes('#profile_link_id_arr') && input.id.endsWith('link'));
+      profileLinkLinkInputArr.forEach((profileLinkLinkInput) => {
+        const id = profileLinkLinkInput.id.split('#')[3];
+        const link = profileLinkLinkInput.value.trim();
 
-        deleteProfileLinkIdArr.forEach((id) => {
-          firstPromiseArr.push(
+        if (link) {
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName: 'member_profile_link', id, data: { link } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        }
+      });
+    }
+
+    function deleteEmptyProfileLink() {
+      inputArr.forEach((input, i) => {
+        if (input.id.includes('#title') && (!input.value.trim() || !inputArr[i + 1].value.trim())) {
+          const id = input.id.split('#')[3];
+
+          promiseArr.push(
             new Promise((resolve, reject) => {
               fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
                 method: 'DELETE',
@@ -122,7 +297,23 @@ function MemberCurrentSection(props) {
                 .catch((err) => reject(err));
             })
           );
-        });
+        }
+      });
+    }
+
+    switch (type) {
+      case 'member':
+        // New member
+        insertNewMember();
+
+        // New profile link
+        insertNewProfileLink();
+
+        // Deleted member
+        deleteMember();
+
+        // Deleted profile link
+        deleteProfileLink();
 
         // Update member - Image
         const imageInputArr = inputArr.filter((input) => input.id.includes('#img_file_path'));
@@ -146,15 +337,17 @@ function MemberCurrentSection(props) {
             );
 
             // Remove old image
-            promiseArr.push(
-              new Promise((resolve, reject) => {
-                deleteObject(ref(storage, `member/${previousFileName}`))
-                  .then(() => {
-                    resolve();
-                  })
-                  .catch((err) => reject(err));
-              })
-            );
+            if (previousFileName) {
+              promiseArr.push(
+                new Promise((resolve, reject) => {
+                  deleteObject(ref(storage, `member/${previousFileName}`))
+                    .then(() => {
+                      resolve();
+                    })
+                    .catch((err) => reject(err));
+                })
+              );
+            }
 
             // Update img_file_path
             promiseArr.push(
@@ -174,188 +367,87 @@ function MemberCurrentSection(props) {
         });
 
         // Update member - Name
-        const nameInputArr = inputArr.filter((input) => input.id.includes('#name'));
-        nameInputArr.forEach((nameInput) => {
-          const [tableName, id] = nameInput.id.split('#');
-          const name = nameInput.value.trim();
-
-          promiseArr.push(
-            new Promise((resolve, reject) => {
-              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ tableName, id, data: { name } }),
-              })
-                .then(() => resolve())
-                .catch((err) => reject(err));
-            })
-          );
-        });
+        updateMemberName();
 
         // Update member - Rank
-        const rankInputArr = inputArr.filter((input) => input.id.includes('#rank'));
-        rankInputArr.forEach((rankInput) => {
-          const [tableName, id] = rankInput.id.split('#');
-          const rank = rankInput.value.trim();
+        updateMemberRank();
 
-          promiseArr.push(
-            new Promise((resolve, reject) => {
-              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ tableName, id, data: { rank } }),
-              })
-                .then(() => resolve())
-                .catch((err) => reject(err));
-            })
-          );
-        });
+        // Update member - Education Arr
+        updateMemberEducationArr();
 
-        // Update member - Education
-        memberArr
-          .filter((member) => !member.isDeleted)
-          .forEach((member) => {
-            const educationInputArr = inputArr.filter((input) => input.id.includes(`#${member.id}#education_arr`));
-            const educationArr = educationInputArr.map((educationInput) => educationInput.value.trim()).filter((education) => education);
-
-            promiseArr.push(
-              new Promise((resolve, reject) => {
-                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    tableName: 'member',
-                    id: member.id,
-                    data: { educationArr },
-                  }),
-                })
-                  .then(() => resolve())
-                  .catch((err) => reject(err));
-              })
-            );
-          });
-
-        // Update member - Profile link
-        memberArr
-          .filter((member) => !member.isDeleted)
-          .forEach((member) => {
-            const profileLinkIdArr = inputArr
-              .filter(
-                (input, i) =>
-                  input.id.includes(`#${member.id}#profile_link_id_arr`) &&
-                  input.id.endsWith('title') &&
-                  input.value.trim() &&
-                  inputArr[i + 1].value.trim()
-              )
-              .map((input) => input.id.split('#')[3]);
-
-            promiseArr.push(
-              new Promise((resolve, reject) => {
-                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    tableName: 'member',
-                    id: member.id,
-                    data: { profileLinkIdArr },
-                  }),
-                })
-                  .then(() => resolve())
-                  .catch((err) => reject(err));
-              })
-            );
-          });
+        // Update member - Profile link Id Arr
+        updateMemberProfileLinkIdArr();
 
         // Update profile link - title
-        const profileLinkTitleInputArr = inputArr.filter((input) => input.id.includes('#profile_link_id_arr') && input.id.endsWith('title'));
-        profileLinkTitleInputArr.forEach((profileLinkTitleInput) => {
-          const id = profileLinkTitleInput.id.split('#')[3];
-          const title = profileLinkTitleInput.value.trim();
-
-          if (title) {
-            promiseArr.push(
-              new Promise((resolve, reject) => {
-                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ tableName: 'member_profile_link', id, data: { title } }),
-                })
-                  .then(() => resolve())
-                  .catch((err) => reject(err));
-              })
-            );
-          }
-        });
+        updateProfileLinkTitle();
 
         // Update profile link - link
-        const profileLinkLinkInputArr = inputArr.filter((input) => input.id.includes('#profile_link_id_arr') && input.id.endsWith('link'));
-        profileLinkLinkInputArr.forEach((profileLinkLinkInput) => {
-          const id = profileLinkLinkInput.id.split('#')[3];
-          const link = profileLinkLinkInput.value.trim();
-
-          if (link) {
-            promiseArr.push(
-              new Promise((resolve, reject) => {
-                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ tableName: 'member_profile_link', id, data: { link } }),
-                })
-                  .then(() => resolve())
-                  .catch((err) => reject(err));
-              })
-            );
-          }
-        });
+        updateProfileLinkLink();
 
         // Delete empty profile link
-        inputArr.forEach((input, i) => {
-          if (input.id.includes('#title') && !input.value.trim() && !inputArr[i + 1].value.trim()) {
-            const id = input.id.split('#')[3];
-
-            promiseArr.push(
-              new Promise((resolve, reject) => {
-                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ tableName: 'member_profile_link', id }),
-                })
-                  .then(() => resolve())
-                  .catch((err) => reject(err));
-              })
-            );
-          }
-        });
+        deleteEmptyProfileLink();
         break;
       case 'visiting member':
+        insertNewMember();
+
+        insertNewProfileLink();
+
+        deleteMember();
+
+        deleteProfileLink();
+
+        updateMemberName();
+
+        updateMemberEducationArr();
+
+        updateMemberProfileLinkIdArr();
+
+        updateProfileLinkTitle();
+
+        updateProfileLinkLink();
+
+        deleteEmptyProfileLink();
         break;
       case 'graduate student':
+        insertNewMember();
+
+        insertNewProfileLink();
+
+        deleteMember();
+
+        deleteProfileLink();
+
+        updateMemberName();
+
+        updateMemberRank();
+
+        updateMemberProfileLinkIdArr();
+
+        updateProfileLinkTitle();
+
+        updateProfileLinkLink();
+
+        deleteEmptyProfileLink();
         break;
       case 'undergraduate student':
+        insertNewMember();
+
+        deleteMember();
+
+        updateMemberName();
         break;
       default:
         break;
     }
 
-    if (promiseArr.length) {
+    if (firstPromiseArr.length || promiseArr.length) {
       setIsLoading(true);
 
       Promise.all(firstPromiseArr)
-        .then(() => {
+        .catch((err) => {
+          console.log(err.message);
+        })
+        .finally(() => {
           Promise.all(promiseArr)
             .catch((err) => console.log(err.message))
             .finally(() => {
@@ -408,10 +500,6 @@ function MemberCurrentSection(props) {
                 .catch((err) => console.log(err.message))
                 .finally(() => setIsLoading(false));
             });
-        })
-        .catch((err) => {
-          console.log(err.message);
-          setIsLoading(false);
         });
     }
   }

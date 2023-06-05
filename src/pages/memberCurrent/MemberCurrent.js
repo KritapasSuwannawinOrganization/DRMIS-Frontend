@@ -94,7 +94,7 @@ function MemberCurrent() {
                   {member.name}
                   {member.education_arr ? ` (${member.education_arr[0]})` : ''}
                 </p>
-                {member.profile_link_id_arr.length > 0 && (
+                {member.profile_link_id_arr && member.profile_link_id_arr.length > 0 && (
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
                     {member.profile_link_id_arr.map((id) => {
