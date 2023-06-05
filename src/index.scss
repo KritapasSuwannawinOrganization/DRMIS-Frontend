@@ -70,11 +70,13 @@ button {
 a,
 button,
 input,
-textarea {
+textarea,
+select {
   font-family: inherit;
   font-weight: inherit;
   font-size: inherit;
   color: inherit;
+  height: fit-content;
 }
 
 img {

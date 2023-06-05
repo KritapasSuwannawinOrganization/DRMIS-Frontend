@@ -1,9 +1,5 @@
 @import '../../../../scss/main.scss';
 
-.home-section {
+.member-current-section {
   @include admin-section-style;
-
-  .content {
-    max-width: 100rem;
-  }
 }

@@ -1,0 +1,111 @@
+@import '../../../../scss/main.scss';
+
+.member-current-card {
+  @include admin-card-style;
+  font-size: 1.6rem;
+  font-weight: 500;
+
+  label {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  input[type='text'] {
+    width: 40rem;
+    padding: 0.5rem 1rem;
+  }
+
+  &.align-center {
+    align-items: center;
+  }
+
+  &__image-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    img {
+      aspect-ratio: 252/332;
+      object-fit: cover;
+      background: $color-gray;
+      width: 25.2rem * 0.7;
+    }
+
+    input {
+      width: 22rem;
+    }
+  }
+
+  &__name-rank-education-container {
+    & > div {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.7rem;
+
+      label {
+        margin-bottom: -0.2rem;
+      }
+
+      &.flex-row {
+        flex-direction: row;
+        align-items: center;
+        column-gap: 1rem;
+
+        label {
+          margin-bottom: unset;
+        }
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+
+      button {
+        background-color: $color-blue;
+        border-radius: 0.8rem;
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: white;
+        padding: 0.8rem 3rem;
+        width: fit-content;
+      }
+    }
+  }
+
+  &__profile-link-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 0.7rem;
+
+    label {
+      margin-bottom: -0.2rem;
+    }
+
+    .profile-link {
+      .title {
+        width: 15rem;
+        margin-right: 0.7rem;
+      }
+    }
+
+    button {
+      background-color: $color-blue;
+      border-radius: 0.8rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: white;
+      padding: 0.8rem 3rem;
+      width: fit-content;
+    }
+  }
+
+  &__delete-btn {
+    img {
+      background: $color-light-gray;
+      height: fit-content;
+      padding: 0.5rem 0.7rem;
+      border-radius: 1rem;
+    }
+  }
+}

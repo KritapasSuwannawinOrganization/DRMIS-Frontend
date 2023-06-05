@@ -19,6 +19,10 @@ function HomeSection(props) {
     e.preventDefault();
     const form = e.target;
 
+    if (isLoading) {
+      return;
+    }
+
     const promiseArr = [];
 
     Array.from(form)
@@ -31,6 +35,7 @@ function HomeSection(props) {
           const fileName = `${Date.now()}_${file.name}`;
           const previousFileName = imageArr.find((image) => image.id === Number(id)).file_path.split('/')[1];
 
+          // Upload new image
           promiseArr.push(
             new Promise((resolve, reject) => {
               uploadBytes(ref(storage, `home/${fileName}`), file)
@@ -41,6 +46,7 @@ function HomeSection(props) {
             })
           );
 
+          // Remove old image
           promiseArr.push(
             new Promise((resolve, reject) => {
               deleteObject(ref(storage, `home/${previousFileName}`))
@@ -51,6 +57,7 @@ function HomeSection(props) {
             })
           );
 
+          // Update filePath
           promiseArr.push(
             new Promise((resolve, reject) => {
               fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
@@ -102,7 +109,7 @@ function HomeSection(props) {
         <p className="home-section__title">{title}</p>
         {imageArr.map((image, i) => (
           <Fragment key={i}>
-            <HomeCard image={image} id={image.id}></HomeCard>
+            <HomeCard image={image}></HomeCard>
           </Fragment>
         ))}
         <button className="home-section__confirm-btn" type="submit" disabled={isLoading}>

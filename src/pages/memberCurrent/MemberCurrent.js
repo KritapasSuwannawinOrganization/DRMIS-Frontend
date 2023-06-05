@@ -59,11 +59,18 @@ function MemberCurrent() {
                     <li key={i}>{edu}</li>
                   ))}
                 </ul>
-                {member.profile_link_id_arr.length > 0 && (
+                {member.profile_link_id_arr && member.profile_link_id_arr.length > 0 && (
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
                     {member.profile_link_id_arr.map((id) => {
-                      const memberPublication = memberProfileLinkArr.find((memberPublication) => memberPublication.id === id);
+                      const memberPublication = memberProfileLinkArr.find(
+                        (memberPublication) => memberPublication.id === id && memberPublication.title && memberPublication.link
+                      );
+
+                      if (!memberPublication) {
+                        return <React.Fragment key={id}></React.Fragment>;
+                      }
+
                       return (
                         <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
                           {memberPublication.title}
@@ -91,7 +98,9 @@ function MemberCurrent() {
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
                     {member.profile_link_id_arr.map((id) => {
-                      const memberPublication = memberProfileLinkArr.find((memberPublication) => memberPublication.id === id);
+                      const memberPublication = memberProfileLinkArr.find(
+                        (memberPublication) => memberPublication.id === id && memberPublication.title && memberPublication.link
+                      );
                       return (
                         <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
                           {memberPublication.title}
@@ -120,7 +129,9 @@ function MemberCurrent() {
                   <div className="content__publication">
                     <p>Publication:</p>&nbsp;
                     {member.profile_link_id_arr.map((id) => {
-                      const memberPublication = memberProfileLinkArr.find((memberPublication) => memberPublication.id === id);
+                      const memberPublication = memberProfileLinkArr.find(
+                        (memberPublication) => memberPublication.id === id && memberPublication.title && memberPublication.link
+                      );
                       return (
                         <a key={id} target="_blank" rel="noreferrer" href={memberPublication.link}>
                           {memberPublication.title}

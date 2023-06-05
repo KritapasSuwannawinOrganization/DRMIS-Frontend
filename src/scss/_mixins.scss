@@ -53,7 +53,7 @@
 }
 
 @mixin admin-section-style {
-  @include container-style(130rem, 0);
+  @include container-style(160rem, 0);
   margin: 6rem 0;
 
   &__title {
@@ -63,13 +63,22 @@
     margin-bottom: 2.5rem;
   }
 
+  &__add-btn,
   &__confirm-btn {
-    background: $color-red;
     border-radius: 0.8rem;
     font-weight: 600;
     font-size: 1.4rem;
     color: white;
     padding: 1rem 3.8rem;
+  }
+
+  &__add-btn {
+    background-color: $color-blue;
+    margin-right: 2.8rem;
+  }
+
+  &__confirm-btn {
+    background: $color-red;
 
     &:disabled {
       background: $color-gray;
@@ -93,5 +102,6 @@
     font-weight: 600;
     font-size: 2rem;
     color: $color-blue;
+    text-transform: capitalize;
   }
 }

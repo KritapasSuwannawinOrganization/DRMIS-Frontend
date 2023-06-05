@@ -4,42 +4,43 @@
   @include admin-card-style;
 
   &__img-container {
-    width: 42rem;
+    width: 42rem * 0.7;
 
     .home-img-1 {
       aspect-ratio: 320/370;
       object-fit: cover;
-      width: 32rem;
+      width: 32rem * 0.7;
     }
 
     .home-img-2 {
       aspect-ratio: 420/250;
       object-fit: cover;
-      width: 42rem;
+      width: 42rem * 0.7;
     }
 
     .home-img-3 {
       aspect-ratio: 227/227;
       object-fit: cover;
-      width: 22.7rem;
+      width: 22.7rem * 0.7;
     }
 
     .home-img-4 {
       aspect-ratio: 320/370;
       object-fit: cover;
-      width: 32rem;
+      width: 32rem * 0.7;
     }
 
     .home-img-5 {
       aspect-ratio: 227/227;
       object-fit: cover;
-      width: 22.7rem;
+      width: 22.7rem * 0.7;
     }
   }
 
   input {
     font-size: 1.6rem;
     height: fit-content;
+    width: 30rem;
 
     &:hover {
       cursor: pointer;

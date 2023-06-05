@@ -58,8 +58,7 @@ const projectArrTest = [
     author_name: null,
     link: '',
     collaboration: 'Chulalongkorn University and Keio University',
-    scope:
-      'COVID-19 situation in the area of Asia continent especially Thailand and Japan by applying the uses of Social media and Geospatial Data',
+    scope: 'COVID-19 situation in the area of Asia continent especially Thailand and Japan by applying the uses of Social media and Geospatial Data',
     funder: 'JICA Project for AUN/SEED-Net',
     start_date: 'October 2020',
     end_date: 'December 2021',
@@ -402,7 +401,7 @@ const memberProfileLinkArrTest = [
   { id: 14, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=7801358941' },
   { id: 15, title: 'ACM', link: 'https://dl.acm.org/profile/99659607705' },
   { id: 16, title: 'Google Scholar', link: 'https://scholar.google.co.jp/citations?user=JPKLv18AAAAJ' },
-  { id: 17, title: 'IEEEr', link: 'https://ieeexplore.ieee.org/author/37087094961' },
+  { id: 17, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37087094961' },
   { id: 18, title: 'ORCID', link: 'https://orcid.org/0000-0002-4835-1016' },
   { id: 19, title: 'Scopus', link: 'https://www.scopus.com/authid/detail.uri?authorId=57204003984' },
   { id: 20, title: 'IEEE', link: 'https://ieeexplore.ieee.org/author/37088569826' },
@@ -545,6 +544,69 @@ const resourceSlice = createSlice({
     },
     setStudentImageArr(state, action) {
       state.studentImageArr = action.payload || studentImageArrTest;
+    },
+    addMember(state, action) {
+      const { status, type } = action.payload;
+
+      const allMemberArr = JSON.parse(JSON.stringify(state.allMemberArr));
+
+      const newMemberkId = allMemberArr[allMemberArr.length - 1].id + 1;
+      allMemberArr.push({
+        id: newMemberkId,
+        status,
+        type,
+        img_file_path: '',
+        name: '',
+        rank: '',
+        education_arr: [],
+        profile_link_id_arr: [],
+        isNew: true,
+      });
+
+      state.allMemberArr = allMemberArr;
+    },
+    updateMember(state, action) {
+      const { id, profileLinkIdArr, educationArr } = action.payload;
+
+      const allMemberArr = JSON.parse(JSON.stringify(state.allMemberArr));
+
+      const targetMember = allMemberArr.find((member) => member.id === id);
+
+      profileLinkIdArr && (targetMember.profile_link_id_arr = profileLinkIdArr);
+      educationArr && (targetMember.education_arr = educationArr);
+
+      state.allMemberArr = allMemberArr;
+    },
+    deleteMember(state, action) {
+      const { id } = action.payload;
+
+      const allMemberArr = JSON.parse(JSON.stringify(state.allMemberArr));
+      const memberProfileLinkArr = JSON.parse(JSON.stringify(state.memberProfileLinkArr));
+
+      const targetMember = allMemberArr.find((member) => member.id === id);
+      targetMember.isDeleted = true;
+      targetMember.profile_link_id_arr.forEach((profileLinkId) => {
+        const targetProfileLink = memberProfileLinkArr.find((profileLink) => profileLink.id === profileLinkId);
+        targetProfileLink.isDeleted = true;
+      });
+
+      state.allMemberArr = allMemberArr;
+      state.memberProfileLinkArr = memberProfileLinkArr;
+    },
+    addMemberProfileLink(state, action) {
+      const { memberId } = action.payload;
+
+      const memberProfileLinkArr = JSON.parse(JSON.stringify(state.memberProfileLinkArr));
+      const allMemberArr = JSON.parse(JSON.stringify(state.allMemberArr));
+
+      const newMemberProfileLinkId = memberProfileLinkArr[memberProfileLinkArr.length - 1].id + 1;
+      memberProfileLinkArr.push({ id: newMemberProfileLinkId, title: '', link: '', isNew: true });
+
+      const targetMember = allMemberArr.find((member) => member.id === memberId);
+      targetMember.profile_link_id_arr.push(newMemberProfileLinkId);
+
+      state.memberProfileLinkArr = memberProfileLinkArr;
+      state.allMemberArr = allMemberArr;
     },
   },
 });

@@ -1,6 +1,7 @@
 import { useNavigate, Routes, Route, Navigate } from 'react-router-dom';
 
 import AdminHome from '../home/AdminHome';
+import AdminMemberCurrent from '../memberCurrent/AdminMemberCurrent';
 import './AdminMain.scss';
 
 function AdminMain() {
@@ -24,6 +25,7 @@ function AdminMain() {
       </select>
       <Routes>
         <Route path="home" element={<AdminHome></AdminHome>}></Route>
+        <Route path="member-current" element={<AdminMemberCurrent></AdminMemberCurrent>}></Route>
         <Route path="*" element={<Navigate replace to="home"></Navigate>}></Route>
       </Routes>
     </div>
