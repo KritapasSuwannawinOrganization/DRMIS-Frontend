@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { resourceActions } from '../../../store/resourceSlice';
 
-import MemberCurrentSection from '../components/memberCurrentSection/MemberCurrentSection';
+import MemberCurrentSection from '../components/memberCurrent/memberCurrentSection/MemberCurrentSection';
 import './AdminMemberCurrent.scss';
 
 function AdminMemberCurrent() {
@@ -75,7 +75,7 @@ function AdminMemberCurrent() {
         const memberProfileLinkArr = dataArr[1];
         const studentImageArr = dataArr[2];
 
-        dispatch(resourceActions.setAllMember(allMemberArr));
+        dispatch(resourceActions.setAllMemberArr(allMemberArr));
         dispatch(resourceActions.setMemberProfileLinkArr(memberProfileLinkArr));
         dispatch(resourceActions.setStudentImageArr(studentImageArr));
 

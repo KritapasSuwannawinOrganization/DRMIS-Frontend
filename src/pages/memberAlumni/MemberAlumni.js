@@ -10,7 +10,7 @@ function MemberAlumni() {
 
   const allAlumniArr = allMemberArr.filter((member) => member.status === 'alumni');
 
-  const typeArr = ['master', 'bachelor', 'internship'];
+  const typeArr = ['doctor', 'master', 'bachelor', 'internship'];
   const yearArr = [];
 
   allAlumniArr.forEach((alumni) => {

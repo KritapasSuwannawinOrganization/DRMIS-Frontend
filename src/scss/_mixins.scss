@@ -97,11 +97,22 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 2.5rem;
+  font-size: 1.6rem;
+  font-weight: 500;
 
   &__title {
     font-weight: 600;
     font-size: 2rem;
     color: $color-blue;
     text-transform: capitalize;
+  }
+
+  &__delete-btn {
+    img {
+      background: $color-light-gray;
+      height: fit-content;
+      padding: 0.5rem 0.7rem;
+      border-radius: 1rem;
+    }
   }
 }

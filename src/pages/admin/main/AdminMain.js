@@ -2,6 +2,7 @@ import { useNavigate, Routes, Route, Navigate } from 'react-router-dom';
 
 import AdminHome from '../home/AdminHome';
 import AdminMemberCurrent from '../memberCurrent/AdminMemberCurrent';
+import AdminMemberAlumni from '../memberAlumni/AdminMemberAlumni';
 import './AdminMain.scss';
 
 function AdminMain() {
@@ -14,7 +15,7 @@ function AdminMain() {
   return (
     <div className="admin-main">
       <p className="admin-main__title">Please Select Page</p>
-      <select defaultValue="home" onChange={pageChangeHandler}>
+      <select defaultValue="home" onChange={pageChangeHandler} className="admin-main__select">
         <option value="home">Home</option>
         <option value="member-current">Current Member</option>
         <option value="member-alumni">Alumni</option>
@@ -26,6 +27,7 @@ function AdminMain() {
       <Routes>
         <Route path="home" element={<AdminHome></AdminHome>}></Route>
         <Route path="member-current" element={<AdminMemberCurrent></AdminMemberCurrent>}></Route>
+        <Route path="member-alumni" element={<AdminMemberAlumni></AdminMemberAlumni>}></Route>
         <Route path="*" element={<Navigate replace to="home"></Navigate>}></Route>
       </Routes>
     </div>

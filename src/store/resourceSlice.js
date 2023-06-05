@@ -527,7 +527,7 @@ const resourceSlice = createSlice({
     setProjectArr(state, action) {
       state.projectArr = action.payload || projectArrTest;
     },
-    setAllMember(state, action) {
+    setAllMemberArr(state, action) {
       state.allMemberArr = action.payload || allMemberArrTest;
     },
     setMemberProfileLinkArr(state, action) {
@@ -546,7 +546,7 @@ const resourceSlice = createSlice({
       state.studentImageArr = action.payload || studentImageArrTest;
     },
     addMember(state, action) {
-      const { status, type } = action.payload;
+      const { status, type, year } = action.payload;
 
       const allMemberArr = JSON.parse(JSON.stringify(state.allMemberArr));
 
@@ -560,6 +560,7 @@ const resourceSlice = createSlice({
         rank: '',
         education_arr: [],
         profile_link_id_arr: [],
+        year,
         isNew: true,
       });
 
@@ -581,17 +582,22 @@ const resourceSlice = createSlice({
       const { id } = action.payload;
 
       const allMemberArr = JSON.parse(JSON.stringify(state.allMemberArr));
-      const memberProfileLinkArr = JSON.parse(JSON.stringify(state.memberProfileLinkArr));
 
       const targetMember = allMemberArr.find((member) => member.id === id);
       targetMember.isDeleted = true;
-      targetMember.profile_link_id_arr.forEach((profileLinkId) => {
-        const targetProfileLink = memberProfileLinkArr.find((profileLink) => profileLink.id === profileLinkId);
-        targetProfileLink.isDeleted = true;
-      });
 
       state.allMemberArr = allMemberArr;
-      state.memberProfileLinkArr = memberProfileLinkArr;
+
+      if (targetMember.profile_link_id_arr) {
+        const memberProfileLinkArr = JSON.parse(JSON.stringify(state.memberProfileLinkArr));
+
+        targetMember.profile_link_id_arr.forEach((profileLinkId) => {
+          const targetProfileLink = memberProfileLinkArr.find((profileLink) => profileLink.id === profileLinkId);
+          targetProfileLink.isDeleted = true;
+        });
+
+        state.memberProfileLinkArr = memberProfileLinkArr;
+      }
     },
     addMemberProfileLink(state, action) {
       const { memberId } = action.payload;

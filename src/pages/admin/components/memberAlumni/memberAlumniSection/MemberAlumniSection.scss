@@ -1,0 +1,9 @@
+@import '../../../../../scss/main.scss';
+
+.member-alumni-section {
+  @include admin-section-style;
+
+  .content {
+    max-width: 120rem;
+  }
+}

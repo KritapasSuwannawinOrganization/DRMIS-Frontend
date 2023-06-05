@@ -2,8 +2,8 @@ import { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ref, uploadBytes, deleteObject } from 'firebase/storage';
 
-import { storage } from '../../../../utils/firebase';
-import { resourceActions } from '../../../../store/resourceSlice';
+import { storage } from '../../../../../utils/firebase';
+import { resourceActions } from '../../../../../store/resourceSlice';
 
 import HomeCard from '../homeCard/HomeCard';
 import './HomeSection.scss';

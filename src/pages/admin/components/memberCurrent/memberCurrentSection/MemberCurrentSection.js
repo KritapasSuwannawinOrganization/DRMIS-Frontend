@@ -2,10 +2,10 @@ import { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ref, uploadBytes, deleteObject } from 'firebase/storage';
 
-import pathToUrl from '../../../../utils/pathToUrl';
+import pathToUrl from '../../../../../utils/pathToUrl';
 
-import { storage } from '../../../../utils/firebase';
-import { resourceActions } from '../../../../store/resourceSlice';
+import { storage } from '../../../../../utils/firebase';
+import { resourceActions } from '../../../../../store/resourceSlice';
 
 import MemberCurrentCard from '../memberCurrentCard/MemberCurrentCard';
 import './MemberCurrentSection.scss';
@@ -22,6 +22,7 @@ function MemberCurrentSection(props) {
   function confirmHandler(e) {
     e.preventDefault();
     const inputArr = Array.from(e.target).filter((element) => element.tagName === 'INPUT');
+    console.log(inputArr);
 
     if (isLoading) {
       return;
@@ -579,7 +580,7 @@ function MemberCurrentSection(props) {
                   const memberProfileLinkArr = dataArr[1];
                   const studentImageArr = dataArr[2];
 
-                  dispatch(resourceActions.setAllMember(allMemberArr));
+                  dispatch(resourceActions.setAllMemberArr(allMemberArr));
                   dispatch(resourceActions.setMemberProfileLinkArr(memberProfileLinkArr));
                   dispatch(resourceActions.setStudentImageArr(studentImageArr));
                 })

@@ -1,4 +1,4 @@
-@import '../../../../scss/main.scss';
+@import '../../../../../scss/main.scss';
 
 .home-card {
   @include admin-card-style;
@@ -38,7 +38,6 @@
   }
 
   input {
-    font-size: 1.6rem;
     height: fit-content;
     width: 30rem;
 

@@ -35,20 +35,12 @@ function App() {
           throw new Error(message);
         }
 
-        const {
-          researchPublicationArr,
-          projectArr,
-          allMemberArr,
-          memberProfileLinkArr,
-          recruitmentArr,
-          activityArr,
-          homeImageArr,
-          studentImageArr,
-        } = data;
+        const { researchPublicationArr, projectArr, allMemberArr, memberProfileLinkArr, recruitmentArr, activityArr, homeImageArr, studentImageArr } =
+          data;
 
         dispatch(resourceActions.setResearchPublicationArr(researchPublicationArr));
         dispatch(resourceActions.setProjectArr(projectArr));
-        dispatch(resourceActions.setAllMember(allMemberArr));
+        dispatch(resourceActions.setAllMemberArr(allMemberArr));
         dispatch(resourceActions.setMemberProfileLinkArr(memberProfileLinkArr));
         dispatch(resourceActions.setRecruitmentArr(recruitmentArr));
         dispatch(resourceActions.setActivityArr(activityArr));
@@ -59,7 +51,7 @@ function App() {
 
     dispatch(resourceActions.setResearchPublicationArr());
     dispatch(resourceActions.setProjectArr());
-    dispatch(resourceActions.setAllMember());
+    dispatch(resourceActions.setAllMemberArr());
     dispatch(resourceActions.setMemberProfileLinkArr());
     dispatch(resourceActions.setRecruitmentArr());
     dispatch(resourceActions.setActivityArr());

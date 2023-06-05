@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import HomeSection from '../components/homeSection/HomeSection';
+import HomeSection from '../components/home/homeSection/HomeSection';
 import './AdminHome.scss';
 
 function AdminHome() {

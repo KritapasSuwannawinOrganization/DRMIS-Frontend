@@ -1,0 +1,18 @@
+@import '../../../scss/main.scss';
+
+.admin-member-alumni {
+  &__add-more {
+    max-width: 120rem;
+    margin: 6rem auto;
+
+    button {
+      border-radius: 0.8rem;
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: white;
+      padding: 1rem 3.8rem;
+      background-color: $color-blue;
+      margin-right: 2.8rem;
+    }
+  }
+}

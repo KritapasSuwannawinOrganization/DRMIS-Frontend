@@ -1,13 +1,13 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import pathToUrl from '../../../../utils/pathToUrl';
+import pathToUrl from '../../../../../utils/pathToUrl';
 
-import { resourceActions } from '../../../../store/resourceSlice';
+import { resourceActions } from '../../../../../store/resourceSlice';
 
 import './MemberCurrentCard.scss';
 
-import grayBin from '../../../../icons/gray-bin.svg';
+import grayBin from '../../../../../icons/gray-bin.svg';
 
 function MemberCurrentCard(props) {
   const { member, memberProfileLinkArr } = props;

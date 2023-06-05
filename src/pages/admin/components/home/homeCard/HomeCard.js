@@ -1,4 +1,4 @@
-import pathToUrl from '../../../../utils/pathToUrl';
+import pathToUrl from '../../../../../utils/pathToUrl';
 
 import './HomeCard.scss';
 
