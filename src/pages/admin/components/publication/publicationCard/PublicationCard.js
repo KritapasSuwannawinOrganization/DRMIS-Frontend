@@ -60,7 +60,6 @@ function PublicationCard(props) {
           </div>
         </div>
       </div>
-
       <button className="publication-card__delete-btn" type="button" onClick={deleteCardHandler}>
         <img src={grayBin} alt=""></img>
       </button>

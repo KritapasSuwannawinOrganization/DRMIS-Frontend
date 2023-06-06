@@ -16,7 +16,7 @@
     z-index: 1;
 
     .modal {
-      border: 3rem solid $color-gray;
+      border: 2.5rem solid $color-gray;
       border-radius: 1rem;
       position: relative;
 
@@ -27,22 +27,24 @@
 
       .close-btn {
         position: absolute;
-        top: -1.7rem;
-        right: -2.9rem;
+        top: -2.4rem;
+        right: -2.4rem;
+        width: 2.5rem;
+        height: 2.5rem;
 
         &:hover {
           cursor: pointer;
         }
 
         .line {
+          position: absolute;
+          top: 1.1rem;
           background: #61646b;
-          width: 3rem;
+          width: 2.3rem;
           height: 0.3rem;
 
           &.slash {
             transform: rotate(45deg);
-            position: relative;
-            top: 0.3rem;
           }
 
           &.back-slash {
@@ -69,7 +71,7 @@
         cursor: grabbing;
       }
 
-      .activity-card {
+      .activity-img {
         border: 2rem solid $color-gray;
         border-radius: 2rem;
         height: 61.5rem;
@@ -77,6 +79,10 @@
         background: $color-gray;
         display: flex;
         flex-direction: column;
+
+        &.not-show {
+          display: none;
+        }
 
         img {
           height: 100%;

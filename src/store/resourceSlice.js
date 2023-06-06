@@ -640,6 +640,30 @@ const resourceSlice = createSlice({
 
       state.researchPublicationArr = researchPublicationArr;
     },
+    addActivity(state, action) {
+      const activityArr = JSON.parse(JSON.stringify(state.activityArr));
+
+      const newPublicaitonId = activityArr[activityArr.length - 1].id + 1;
+      activityArr.push({
+        id: newPublicaitonId,
+        poster_file_path: '',
+        title: '',
+        link: '',
+        isNew: true,
+      });
+
+      state.activityArr = activityArr;
+    },
+    deleteActivity(state, action) {
+      const { id } = action.payload;
+
+      const activityArr = JSON.parse(JSON.stringify(state.activityArr));
+
+      const targetMember = activityArr.find((activity) => activity.id === id);
+      targetMember.isDeleted = true;
+
+      state.activityArr = activityArr;
+    },
   },
 });
 

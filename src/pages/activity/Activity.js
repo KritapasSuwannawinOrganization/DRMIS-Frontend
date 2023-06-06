@@ -10,6 +10,7 @@ import drmisActivity from '../../icons/drmis-activity.svg';
 function Activity() {
   const activityArr = useSelector((store) => store.resource.activityArr);
 
+  const [show, setShow] = useState(false);
   const [modalImageURL, setModalImageURL] = useState();
 
   function imageClickHandler() {
@@ -18,6 +19,10 @@ function Activity() {
 
   function closeClickHandler() {
     setModalImageURL();
+  }
+
+  function imgLoadHandler(e) {
+    setShow(true);
   }
 
   return (
@@ -40,8 +45,14 @@ function Activity() {
             const posterURL = pathToUrl(activity.poster_file_path);
 
             return (
-              <div key={activity.id} className="activity-card">
-                <img src={posterURL} alt="" className={activity.title ? 'short' : ''} onClick={imageClickHandler.bind(posterURL)}></img>
+              <div key={activity.id} className={`activity-img ${!show ? 'not-show' : ''}`}>
+                <img
+                  src={posterURL}
+                  alt=""
+                  className={activity.title ? 'short' : ''}
+                  onClick={imageClickHandler.bind(posterURL)}
+                  onLoad={imgLoadHandler}
+                ></img>
                 {activity.title &&
                   (activity.link ? (
                     <a href={activity.link} target="_blank" rel="noreferrer">

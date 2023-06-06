@@ -3,16 +3,6 @@
 .member-current-card {
   @include admin-card-style;
 
-  label {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-
-  input[type='text'] {
-    width: 40rem;
-    padding: 0.5rem 1rem;
-  }
-
   &.align-center {
     align-items: center;
   }
@@ -46,13 +36,7 @@
 
   &__name-rank-education-container {
     & > div {
-      display: flex;
-      flex-direction: column;
-      row-gap: 0.7rem;
-
-      label {
-        margin-bottom: -0.2rem;
-      }
+      @include admin-input-container-style;
 
       &.flex-row {
         flex-direction: row;
@@ -81,14 +65,8 @@
   }
 
   &__profile-link-container {
-    display: flex;
-    flex-direction: column;
+    @include admin-input-container-style;
     justify-content: flex-start;
-    row-gap: 0.7rem;
-
-    label {
-      margin-bottom: -0.2rem;
-    }
 
     .profile-link {
       .title {

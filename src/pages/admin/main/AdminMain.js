@@ -4,6 +4,7 @@ import AdminHome from '../home/AdminHome';
 import AdminMemberCurrent from '../memberCurrent/AdminMemberCurrent';
 import AdminMemberAlumni from '../memberAlumni/AdminMemberAlumni';
 import AdminPublication from '../publication/AdminPublication';
+import AdminActivity from '../activity/AdminActivity';
 import './AdminMain.scss';
 
 function AdminMain() {
@@ -30,6 +31,7 @@ function AdminMain() {
         <Route path="member-current" element={<AdminMemberCurrent></AdminMemberCurrent>}></Route>
         <Route path="member-alumni" element={<AdminMemberAlumni></AdminMemberAlumni>}></Route>
         <Route path="publication" element={<AdminPublication></AdminPublication>}></Route>
+        <Route path="activity" element={<AdminActivity></AdminActivity>}></Route>
         <Route path="*" element={<Navigate replace to="home"></Navigate>}></Route>
       </Routes>
     </div>

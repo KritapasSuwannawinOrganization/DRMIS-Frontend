@@ -5,11 +5,11 @@ import { ref, uploadBytes, deleteObject } from 'firebase/storage';
 import { storage } from '../../../../../utils/firebase';
 import { resourceActions } from '../../../../../store/resourceSlice';
 
-import PublicationCard from '../publicationCard/PublicationCard';
-import './PublicationSection.scss';
+import ActivityCard from '../activityCard/ActivityCard';
+import './ActivitySection.scss';
 
-function PublicationSection(props) {
-  const { publicationArr } = props;
+function ActivitySection(props) {
+  const { activityArr } = props;
 
   const dispatch = useDispatch();
 
@@ -27,11 +27,8 @@ function PublicationSection(props) {
     const promiseArr = [];
 
     // New
-    const newPublicationIdArr = publicationArr
-      .filter((publication) => publication.isNew && !publication.isDeleted)
-      .map((publication) => publication.id);
-
-    newPublicationIdArr.forEach((id) => {
+    const newActivityIdArr = activityArr.filter((activity) => activity.isNew && !activity.isDeleted).map((activity) => activity.id);
+    newActivityIdArr.forEach((id) => {
       firstPromiseArr.push(
         new Promise((resolve, reject) => {
           fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
@@ -39,7 +36,7 @@ function PublicationSection(props) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ tableName: 'research_publication', data: { id } }),
+            body: JSON.stringify({ tableName: 'activity', data: { id } }),
           })
             .then(() => resolve())
             .catch((err) => reject(err));
@@ -48,16 +45,13 @@ function PublicationSection(props) {
     });
 
     // Delete
-    const deletePublicationIdArr = publicationArr
-      .filter((publication) => publication.isDeleted && !publication.isNew)
-      .map((publication) => publication.id);
-
-    deletePublicationIdArr.forEach((id) => {
-      const targetPublication = publicationArr.find((publication) => publication.id === id);
+    const deleteActivityIdArr = activityArr.filter((activity) => activity.isDeleted && !activity.isNew).map((activity) => activity.id);
+    deleteActivityIdArr.forEach((id) => {
+      const targetActivity = activityArr.find((activity) => activity.id === id);
 
       let previousFileName;
       try {
-        previousFileName = targetPublication.img_file_path.split('/')[1];
+        previousFileName = targetActivity.poster_file_path.split('/')[1];
       } catch (err) {
         previousFileName = undefined;
       }
@@ -65,7 +59,7 @@ function PublicationSection(props) {
       if (previousFileName) {
         firstPromiseArr.push(
           new Promise((resolve, reject) => {
-            deleteObject(ref(storage, `publication/${previousFileName}`))
+            deleteObject(ref(storage, `activity/${previousFileName}`))
               .then(() => {
                 resolve();
               })
@@ -81,7 +75,7 @@ function PublicationSection(props) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ tableName: 'research_publication', id }),
+            body: JSON.stringify({ tableName: 'activity', id }),
           })
             .then(() => resolve())
             .catch((err) => reject(err));
@@ -90,7 +84,7 @@ function PublicationSection(props) {
     });
 
     // Image
-    const imageInputArr = inputArr.filter((input) => input.id.includes('#img_file_path'));
+    const imageInputArr = inputArr.filter((input) => input.id.includes('#poster_file_path'));
     imageInputArr.forEach((imageInput) => {
       const [tableName, id] = imageInput.id.split('#');
       const file = imageInput.files[0];
@@ -100,7 +94,7 @@ function PublicationSection(props) {
 
         let previousFileName;
         try {
-          previousFileName = publicationArr.find((publication) => publication.id === Number(id)).img_file_path.split('/')[1];
+          previousFileName = activityArr.find((activity) => activity.id === Number(id)).poster_file_path.split('/')[1];
         } catch (err) {
           previousFileName = undefined;
         }
@@ -108,7 +102,7 @@ function PublicationSection(props) {
         // Upload new image
         promiseArr.push(
           new Promise((resolve, reject) => {
-            uploadBytes(ref(storage, `publication/${fileName}`), file)
+            uploadBytes(ref(storage, `activity/${fileName}`), file)
               .then(() => {
                 resolve();
               })
@@ -120,7 +114,7 @@ function PublicationSection(props) {
         if (previousFileName) {
           promiseArr.push(
             new Promise((resolve, reject) => {
-              deleteObject(ref(storage, `publication/${previousFileName}`))
+              deleteObject(ref(storage, `activity/${previousFileName}`))
                 .then(() => {
                   resolve();
                 })
@@ -129,7 +123,7 @@ function PublicationSection(props) {
           );
         }
 
-        // Update img_file_path
+        // Update poster_file_path
         promiseArr.push(
           new Promise((resolve, reject) => {
             fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
@@ -137,55 +131,13 @@ function PublicationSection(props) {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ tableName, id, data: { imgFilePath: `publication/${fileName}` } }),
+              body: JSON.stringify({ tableName, id, data: { posterFilePath: `activity/${fileName}` } }),
             })
               .then(() => resolve())
               .catch((err) => reject(err));
           })
         );
       }
-    });
-
-    // Name
-    const nameInputArr = inputArr.filter((input) => input.id.includes('#full_name'));
-    nameInputArr.forEach((nameInput) => {
-      const [tableName, id] = nameInput.id.split('#');
-      const fullName = nameInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { fullName } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Category
-    const categoryInputArr = inputArr.filter((input) => input.id.includes('#category_name'));
-    categoryInputArr.forEach((categoryInput) => {
-      const [tableName, id] = categoryInput.id.split('#');
-      const categoryName = categoryInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { categoryName } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
     });
 
     // Title
@@ -230,27 +182,6 @@ function PublicationSection(props) {
       );
     });
 
-    // Year
-    const yearInputArr = inputArr.filter((input) => input.id.includes('#year'));
-    yearInputArr.forEach((yearInput) => {
-      const [tableName, id] = yearInput.id.split('#');
-      const year = yearInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { year } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
     if (firstPromiseArr.length || promiseArr.length) {
       setIsLoading(true);
 
@@ -264,7 +195,7 @@ function PublicationSection(props) {
             .finally(() => {
               inputArr.filter((input) => input.type === 'file').forEach((input) => (input.value = ''));
 
-              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/publication`)
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/activity`)
                 .then((res) => res.json())
                 .then((result) => {
                   const { status, data, message } = result;
@@ -273,9 +204,9 @@ function PublicationSection(props) {
                     throw new Error(message);
                   }
 
-                  const { researchPublicationArr } = data;
+                  const { activityArr } = data;
 
-                  dispatch(resourceActions.setResearchPublicationArr(researchPublicationArr));
+                  dispatch(resourceActions.setActivityArr(activityArr));
                 })
                 .catch((err) => console.log(err.message))
                 .finally(() => setIsLoading(false));
@@ -285,22 +216,22 @@ function PublicationSection(props) {
   }
 
   function addMoreHandler() {
-    dispatch(resourceActions.addResearchPublication());
+    dispatch(resourceActions.addActivity());
   }
 
   return (
-    <form className="publication-section" onSubmit={confirmHandler}>
+    <form className="activity-section" onSubmit={confirmHandler}>
       <div className="content">
-        <p className="publication-section__title">Research Publication</p>
-        {publicationArr.map((publication, i) => (
+        <p className="activity-section__title">Activity</p>
+        {activityArr.map((activity, i) => (
           <React.Fragment key={i}>
-            <PublicationCard publication={publication}></PublicationCard>
+            <ActivityCard activity={activity}></ActivityCard>
           </React.Fragment>
         ))}
-        <button className="publication-section__add-btn" type="button" onClick={addMoreHandler}>
+        <button className="activity-section__add-btn" type="button" onClick={addMoreHandler}>
           Add More
         </button>
-        <button className="publication-section__confirm-btn" type="submit" disabled={isLoading}>
+        <button className="activity-section__confirm-btn" type="submit" disabled={isLoading}>
           {isLoading ? 'Updating' : 'Confirm'}
         </button>
       </div>
@@ -308,4 +239,4 @@ function PublicationSection(props) {
   );
 }
 
-export default PublicationSection;
+export default ActivitySection;
