@@ -1,0 +1,43 @@
+@import '../../../../../scss/main.scss';
+
+.project-card {
+  @include admin-card-style;
+
+  &__image-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    img {
+      aspect-ratio: 370/230;
+      object-fit: cover;
+      background: $color-gray;
+      width: 40rem * 0.7;
+    }
+
+    input {
+      width: 40rem * 0.7;
+    }
+  }
+
+  &__detail-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+
+    .row {
+      display: flex;
+      column-gap: 2.5rem;
+
+      & > div {
+        @include admin-input-container-style;
+      }
+
+      .fill {
+        input {
+          width: 82.5rem;
+        }
+      }
+    }
+  }
+}

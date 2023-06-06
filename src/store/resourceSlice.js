@@ -643,9 +643,9 @@ const resourceSlice = createSlice({
     addActivity(state, action) {
       const activityArr = JSON.parse(JSON.stringify(state.activityArr));
 
-      const newPublicaitonId = activityArr[activityArr.length - 1].id + 1;
+      const newActivityId = activityArr[activityArr.length - 1].id + 1;
       activityArr.push({
-        id: newPublicaitonId,
+        id: newActivityId,
         poster_file_path: '',
         title: '',
         link: '',
@@ -663,6 +663,37 @@ const resourceSlice = createSlice({
       targetMember.isDeleted = true;
 
       state.activityArr = activityArr;
+    },
+    addProject(state, action) {
+      const projectArr = JSON.parse(JSON.stringify(state.projectArr));
+
+      const newProjectId = projectArr[projectArr.length - 1].id + 1;
+      projectArr.push({
+        id: newProjectId,
+        category_name: '',
+        img_file_path: '',
+        title: '',
+        link: '',
+        collaboration: '',
+        scope: '',
+        funder: '',
+        start_date: '',
+        end_date: '',
+        description: '',
+        isNew: true,
+      });
+
+      state.projectArr = projectArr;
+    },
+    deleteProject(state, action) {
+      const { id } = action.payload;
+
+      const projectArr = JSON.parse(JSON.stringify(state.projectArr));
+
+      const targetMember = projectArr.find((project) => project.id === id);
+      targetMember.isDeleted = true;
+
+      state.projectArr = projectArr;
     },
   },
 });
