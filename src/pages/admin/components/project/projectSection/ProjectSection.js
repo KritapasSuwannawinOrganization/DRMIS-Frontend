@@ -24,7 +24,6 @@ function ProjectSection(props) {
     }
 
     const firstPromiseArr = [];
-    const promiseArr = [];
 
     // New
     const newProjectIdArr = projectArr.filter((project) => project.isNew && !project.isDeleted).map((project) => project.id);
@@ -83,283 +82,283 @@ function ProjectSection(props) {
       );
     });
 
-    // Image
-    const imageInputArr = inputArr.filter((input) => input.id.includes('#img_file_path'));
-    imageInputArr.forEach((imageInput) => {
-      const [tableName, id] = imageInput.id.split('#');
-      const file = imageInput.files[0];
+    setIsLoading(true);
 
-      if (file) {
-        const fileName = `${Date.now()}_${file.name}`;
+    Promise.all(firstPromiseArr)
+      .catch((err) => {
+        console.log(err.message);
+      })
+      .finally(() => {
+        const promiseArr = [];
 
-        let previousFileName;
-        try {
-          previousFileName = projectArr.find((project) => project.id === Number(id)).img_file_path.split('/')[1];
-        } catch (err) {
-          previousFileName = undefined;
-        }
+        // Image
+        const imageInputArr = inputArr.filter((input) => input.id.includes('#img_file_path'));
+        imageInputArr.forEach((imageInput) => {
+          const [tableName, id] = imageInput.id.split('#');
+          const file = imageInput.files[0];
 
-        // Upload new image
-        promiseArr.push(
-          new Promise((resolve, reject) => {
-            uploadBytes(ref(storage, `project/${fileName}`), file)
-              .then(() => {
-                resolve();
+          if (file) {
+            const fileName = `${Date.now()}_${file.name}`;
+
+            let previousFileName;
+            try {
+              previousFileName = projectArr.find((project) => project.id === Number(id)).img_file_path.split('/')[1];
+            } catch (err) {
+              previousFileName = undefined;
+            }
+
+            // Upload new image
+            promiseArr.push(
+              new Promise((resolve, reject) => {
+                uploadBytes(ref(storage, `project/${fileName}`), file)
+                  .then(() => {
+                    resolve();
+                  })
+                  .catch((err) => reject(err));
               })
-              .catch((err) => reject(err));
-          })
-        );
+            );
 
-        // Remove old image
-        if (previousFileName) {
+            // Remove old image
+            if (previousFileName) {
+              promiseArr.push(
+                new Promise((resolve, reject) => {
+                  deleteObject(ref(storage, `project/${previousFileName}`))
+                    .then(() => {
+                      resolve();
+                    })
+                    .catch((err) => reject(err));
+                })
+              );
+            }
+
+            // Update img_file_path
+            promiseArr.push(
+              new Promise((resolve, reject) => {
+                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ tableName, id, data: { imgFilePath: `project/${fileName}` } }),
+                })
+                  .then(() => resolve())
+                  .catch((err) => reject(err));
+              })
+            );
+          }
+        });
+
+        // Category
+        const categoryInputArr = inputArr.filter((input) => input.id.includes('#category_name'));
+        categoryInputArr.forEach((categoryInput) => {
+          const [tableName, id] = categoryInput.id.split('#');
+          const categoryName = categoryInput.value.trim();
+
           promiseArr.push(
             new Promise((resolve, reject) => {
-              deleteObject(ref(storage, `project/${previousFileName}`))
-                .then(() => {
-                  resolve();
-                })
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { categoryName } }),
+              })
+                .then(() => resolve())
                 .catch((err) => reject(err));
             })
           );
-        }
-
-        // Update img_file_path
-        promiseArr.push(
-          new Promise((resolve, reject) => {
-            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ tableName, id, data: { imgFilePath: `project/${fileName}` } }),
-            })
-              .then(() => resolve())
-              .catch((err) => reject(err));
-          })
-        );
-      }
-    });
-
-    // Category
-    const categoryInputArr = inputArr.filter((input) => input.id.includes('#category_name'));
-    categoryInputArr.forEach((categoryInput) => {
-      const [tableName, id] = categoryInput.id.split('#');
-      const categoryName = categoryInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { categoryName } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Title
-    const titleInputArr = inputArr.filter((input) => input.id.includes('#title'));
-    titleInputArr.forEach((titleInput) => {
-      const [tableName, id] = titleInput.id.split('#');
-      const title = titleInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { title } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Description
-    const descriptionInputArr = inputArr.filter((input) => input.id.includes('#description'));
-    descriptionInputArr.forEach((descriptionInput) => {
-      const [tableName, id] = descriptionInput.id.split('#');
-      const description = descriptionInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { description } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Collaboration
-    const collaborationInputArr = inputArr.filter((input) => input.id.includes('#collaboration'));
-    collaborationInputArr.forEach((collaborationInput) => {
-      const [tableName, id] = collaborationInput.id.split('#');
-      const collaboration = collaborationInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { collaboration } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Funder
-    const funderInputArr = inputArr.filter((input) => input.id.includes('#funder'));
-    funderInputArr.forEach((funderInput) => {
-      const [tableName, id] = funderInput.id.split('#');
-      const funder = funderInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { funder } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Link
-    const linkInputArr = inputArr.filter((input) => input.id.includes('#link'));
-    linkInputArr.forEach((linkInput) => {
-      const [tableName, id] = linkInput.id.split('#');
-      const link = linkInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { link } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Start Date
-    const startDateInputArr = inputArr.filter((input) => input.id.includes('#start_date'));
-    startDateInputArr.forEach((startDateInput) => {
-      const [tableName, id] = startDateInput.id.split('#');
-      const startDate = startDateInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { startDate } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // End Date
-    const endDateInputArr = inputArr.filter((input) => input.id.includes('#end_date'));
-    endDateInputArr.forEach((endDateInput) => {
-      const [tableName, id] = endDateInput.id.split('#');
-      const endDate = endDateInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { endDate } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Scope
-    const scopeInputArr = inputArr.filter((input) => input.id.includes('#scope'));
-    scopeInputArr.forEach((scopeInput) => {
-      const [tableName, id] = scopeInput.id.split('#');
-      const scope = scopeInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { scope } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    if (firstPromiseArr.length || promiseArr.length) {
-      setIsLoading(true);
-
-      Promise.all(firstPromiseArr)
-        .catch((err) => {
-          console.log(err.message);
-        })
-        .finally(() => {
-          Promise.all(promiseArr)
-            .catch((err) => console.log(err.message))
-            .finally(() => {
-              inputArr.filter((input) => input.type === 'file').forEach((input) => (input.value = ''));
-
-              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/project`)
-                .then((res) => res.json())
-                .then((result) => {
-                  const { status, data, message } = result;
-
-                  if (status !== 'success') {
-                    throw new Error(message);
-                  }
-
-                  const { projectArr } = data;
-
-                  dispatch(resourceActions.setProjectArr(projectArr));
-                })
-                .catch((err) => console.log(err.message))
-                .finally(() => setIsLoading(false));
-            });
         });
-    }
+
+        // Title
+        const titleInputArr = inputArr.filter((input) => input.id.includes('#title'));
+        titleInputArr.forEach((titleInput) => {
+          const [tableName, id] = titleInput.id.split('#');
+          const title = titleInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { title } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // Description
+        const descriptionInputArr = inputArr.filter((input) => input.id.includes('#description'));
+        descriptionInputArr.forEach((descriptionInput) => {
+          const [tableName, id] = descriptionInput.id.split('#');
+          const description = descriptionInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { description } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // Collaboration
+        const collaborationInputArr = inputArr.filter((input) => input.id.includes('#collaboration'));
+        collaborationInputArr.forEach((collaborationInput) => {
+          const [tableName, id] = collaborationInput.id.split('#');
+          const collaboration = collaborationInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { collaboration } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // Funder
+        const funderInputArr = inputArr.filter((input) => input.id.includes('#funder'));
+        funderInputArr.forEach((funderInput) => {
+          const [tableName, id] = funderInput.id.split('#');
+          const funder = funderInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { funder } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // Link
+        const linkInputArr = inputArr.filter((input) => input.id.includes('#link'));
+        linkInputArr.forEach((linkInput) => {
+          const [tableName, id] = linkInput.id.split('#');
+          const link = linkInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { link } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // Start Date
+        const startDateInputArr = inputArr.filter((input) => input.id.includes('#start_date'));
+        startDateInputArr.forEach((startDateInput) => {
+          const [tableName, id] = startDateInput.id.split('#');
+          const startDate = startDateInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { startDate } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // End Date
+        const endDateInputArr = inputArr.filter((input) => input.id.includes('#end_date'));
+        endDateInputArr.forEach((endDateInput) => {
+          const [tableName, id] = endDateInput.id.split('#');
+          const endDate = endDateInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { endDate } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // Scope
+        const scopeInputArr = inputArr.filter((input) => input.id.includes('#scope'));
+        scopeInputArr.forEach((scopeInput) => {
+          const [tableName, id] = scopeInput.id.split('#');
+          const scope = scopeInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { scope } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        Promise.all(promiseArr)
+          .catch((err) => console.log(err.message))
+          .finally(() => {
+            inputArr.filter((input) => input.type === 'file').forEach((input) => (input.value = ''));
+
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/project`)
+              .then((res) => res.json())
+              .then((result) => {
+                const { status, data, message } = result;
+
+                if (status !== 'success') {
+                  throw new Error(message);
+                }
+
+                const { projectArr } = data;
+
+                dispatch(resourceActions.setProjectArr(projectArr));
+              })
+              .catch((err) => console.log(err.message))
+              .finally(() => setIsLoading(false));
+          });
+      });
   }
 
   function addMoreHandler() {

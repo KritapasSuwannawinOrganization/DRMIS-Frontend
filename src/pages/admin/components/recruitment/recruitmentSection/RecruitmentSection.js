@@ -24,7 +24,6 @@ function RecruitmentSection(props) {
     }
 
     const firstPromiseArr = [];
-    const promiseArr = [];
 
     // New
     const newRecruitmentIdArr = recruitmentArr
@@ -89,178 +88,178 @@ function RecruitmentSection(props) {
       );
     });
 
-    // Image
-    const imageInputArr = inputArr.filter((input) => input.id.includes('#poster_file_path'));
-    imageInputArr.forEach((imageInput) => {
-      const [tableName, id] = imageInput.id.split('#');
-      const file = imageInput.files[0];
+    setIsLoading(true);
 
-      if (file) {
-        const fileName = `${Date.now()}_${file.name}`;
+    Promise.all(firstPromiseArr)
+      .catch((err) => {
+        console.log(err.message);
+      })
+      .finally(() => {
+        const promiseArr = [];
 
-        let previousFileName;
-        try {
-          previousFileName = recruitmentArr.find((recruitment) => recruitment.id === Number(id)).poster_file_path.split('/')[1];
-        } catch (err) {
-          previousFileName = undefined;
-        }
+        // Image
+        const imageInputArr = inputArr.filter((input) => input.id.includes('#poster_file_path'));
+        imageInputArr.forEach((imageInput) => {
+          const [tableName, id] = imageInput.id.split('#');
+          const file = imageInput.files[0];
 
-        // Upload new image
-        promiseArr.push(
-          new Promise((resolve, reject) => {
-            uploadBytes(ref(storage, `recruitment/${fileName}`), file)
-              .then(() => {
-                resolve();
+          if (file) {
+            const fileName = `${Date.now()}_${file.name}`;
+
+            let previousFileName;
+            try {
+              previousFileName = recruitmentArr.find((recruitment) => recruitment.id === Number(id)).poster_file_path.split('/')[1];
+            } catch (err) {
+              previousFileName = undefined;
+            }
+
+            // Upload new image
+            promiseArr.push(
+              new Promise((resolve, reject) => {
+                uploadBytes(ref(storage, `recruitment/${fileName}`), file)
+                  .then(() => {
+                    resolve();
+                  })
+                  .catch((err) => reject(err));
               })
-              .catch((err) => reject(err));
-          })
-        );
+            );
 
-        // Remove old image
-        if (previousFileName) {
+            // Remove old image
+            if (previousFileName) {
+              promiseArr.push(
+                new Promise((resolve, reject) => {
+                  deleteObject(ref(storage, `recruitment/${previousFileName}`))
+                    .then(() => {
+                      resolve();
+                    })
+                    .catch((err) => reject(err));
+                })
+              );
+            }
+
+            // Update poster_file_path
+            promiseArr.push(
+              new Promise((resolve, reject) => {
+                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ tableName, id, data: { posterFilePath: `recruitment/${fileName}` } }),
+                })
+                  .then(() => resolve())
+                  .catch((err) => reject(err));
+              })
+            );
+          }
+        });
+
+        // Title
+        const titleInputArr = inputArr.filter((input) => input.id.includes('#title'));
+        titleInputArr.forEach((titleInput) => {
+          const [tableName, id] = titleInput.id.split('#');
+          const title = titleInput.value.trim();
+
           promiseArr.push(
             new Promise((resolve, reject) => {
-              deleteObject(ref(storage, `recruitment/${previousFileName}`))
-                .then(() => {
-                  resolve();
-                })
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { title } }),
+              })
+                .then(() => resolve())
                 .catch((err) => reject(err));
             })
           );
-        }
-
-        // Update poster_file_path
-        promiseArr.push(
-          new Promise((resolve, reject) => {
-            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ tableName, id, data: { posterFilePath: `recruitment/${fileName}` } }),
-            })
-              .then(() => resolve())
-              .catch((err) => reject(err));
-          })
-        );
-      }
-    });
-
-    // Title
-    const titleInputArr = inputArr.filter((input) => input.id.includes('#title'));
-    titleInputArr.forEach((titleInput) => {
-      const [tableName, id] = titleInput.id.split('#');
-      const title = titleInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { title } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Number
-    const numberInputArr = inputArr.filter((input) => input.id.includes('#number'));
-    numberInputArr.forEach((numberInput) => {
-      const [tableName, id] = numberInput.id.split('#');
-      const number = Math.round(Number(numberInput.value));
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { number } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Period
-    const periodInputArr = inputArr.filter((input) => input.id.includes('#period'));
-    periodInputArr.forEach((periodInput) => {
-      const [tableName, id] = periodInput.id.split('#');
-      const period = periodInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { period } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    // Contact
-    const contactInputArr = inputArr.filter((input) => input.id.includes('#contact'));
-    contactInputArr.forEach((contactInput) => {
-      const [tableName, id] = contactInput.id.split('#');
-      const contact = contactInput.value.trim();
-
-      promiseArr.push(
-        new Promise((resolve, reject) => {
-          fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ tableName, id, data: { contact } }),
-          })
-            .then(() => resolve())
-            .catch((err) => reject(err));
-        })
-      );
-    });
-
-    if (firstPromiseArr.length || promiseArr.length) {
-      setIsLoading(true);
-
-      Promise.all(firstPromiseArr)
-        .catch((err) => {
-          console.log(err.message);
-        })
-        .finally(() => {
-          Promise.all(promiseArr)
-            .catch((err) => console.log(err.message))
-            .finally(() => {
-              inputArr.filter((input) => input.type === 'file').forEach((input) => (input.value = ''));
-
-              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/recruitment`)
-                .then((res) => res.json())
-                .then((result) => {
-                  const { status, data, message } = result;
-
-                  if (status !== 'success') {
-                    throw new Error(message);
-                  }
-
-                  const { recruitmentArr } = data;
-
-                  dispatch(resourceActions.setRecruitmentArr(recruitmentArr));
-                })
-                .catch((err) => console.log(err.message))
-                .finally(() => setIsLoading(false));
-            });
         });
-    }
+
+        // Number
+        const numberInputArr = inputArr.filter((input) => input.id.includes('#number'));
+        numberInputArr.forEach((numberInput) => {
+          const [tableName, id] = numberInput.id.split('#');
+          const number = Math.round(Number(numberInput.value));
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { number } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // Period
+        const periodInputArr = inputArr.filter((input) => input.id.includes('#period'));
+        periodInputArr.forEach((periodInput) => {
+          const [tableName, id] = periodInput.id.split('#');
+          const period = periodInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { period } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        // Contact
+        const contactInputArr = inputArr.filter((input) => input.id.includes('#contact'));
+        contactInputArr.forEach((contactInput) => {
+          const [tableName, id] = contactInput.id.split('#');
+          const contact = contactInput.value.trim();
+
+          promiseArr.push(
+            new Promise((resolve, reject) => {
+              fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tableName, id, data: { contact } }),
+              })
+                .then(() => resolve())
+                .catch((err) => reject(err));
+            })
+          );
+        });
+
+        Promise.all(promiseArr)
+          .catch((err) => console.log(err.message))
+          .finally(() => {
+            inputArr.filter((input) => input.type === 'file').forEach((input) => (input.value = ''));
+
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/recruitment`)
+              .then((res) => res.json())
+              .then((result) => {
+                const { status, data, message } = result;
+
+                if (status !== 'success') {
+                  throw new Error(message);
+                }
+
+                const { recruitmentArr } = data;
+
+                dispatch(resourceActions.setRecruitmentArr(recruitmentArr));
+              })
+              .catch((err) => console.log(err.message))
+              .finally(() => setIsLoading(false));
+          });
+      });
   }
 
   function addMoreHandler() {

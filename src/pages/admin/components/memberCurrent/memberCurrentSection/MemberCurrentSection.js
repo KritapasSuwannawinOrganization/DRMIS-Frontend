@@ -394,84 +394,6 @@ function MemberCurrentSection(props) {
 
         // Deleted profile link
         deleteProfileLink();
-
-        // Update member - Image
-        const imageInputArr = inputArr.filter((input) => input.id.includes('#img_file_path'));
-        imageInputArr.forEach((imageInput) => {
-          const [tableName, id] = imageInput.id.split('#');
-          const file = imageInput.files[0];
-
-          if (file) {
-            const fileName = `${Date.now()}_${file.name}`;
-
-            let previousFileName;
-            try {
-              previousFileName = memberArr.find((member) => member.id === Number(id)).img_file_path.split('/')[1];
-            } catch (err) {
-              previousFileName = undefined;
-            }
-
-            // Upload new image
-            promiseArr.push(
-              new Promise((resolve, reject) => {
-                uploadBytes(ref(storage, `member/${fileName}`), file)
-                  .then(() => {
-                    resolve();
-                  })
-                  .catch((err) => reject(err));
-              })
-            );
-
-            // Remove old image
-            if (previousFileName) {
-              promiseArr.push(
-                new Promise((resolve, reject) => {
-                  deleteObject(ref(storage, `member/${previousFileName}`))
-                    .then(() => {
-                      resolve();
-                    })
-                    .catch((err) => reject(err));
-                })
-              );
-            }
-
-            // Update img_file_path
-            promiseArr.push(
-              new Promise((resolve, reject) => {
-                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ tableName, id, data: { imgFilePath: `member/${fileName}` } }),
-                })
-                  .then(() => resolve())
-                  .catch((err) => reject(err));
-              })
-            );
-          }
-        });
-
-        // Update member - Name
-        updateMemberName();
-
-        // Update member - Rank
-        updateMemberRank();
-
-        // Update member - Education Arr
-        updateMemberEducationArr();
-
-        // Update member - Profile link Id Arr
-        updateMemberProfileLinkIdArr();
-
-        // Update profile link - title
-        updateProfileLinkTitle();
-
-        // Update profile link - link
-        updateProfileLinkLink();
-
-        // Delete empty profile link
-        deleteEmptyProfileLink();
         break;
       case 'visiting member':
         insertNewMember();
@@ -481,18 +403,6 @@ function MemberCurrentSection(props) {
         deleteMember();
 
         deleteProfileLink();
-
-        updateMemberName();
-
-        updateMemberEducationArr();
-
-        updateMemberProfileLinkIdArr();
-
-        updateProfileLinkTitle();
-
-        updateProfileLinkLink();
-
-        deleteEmptyProfileLink();
         break;
       case 'graduate student':
         insertNewMember();
@@ -502,115 +412,212 @@ function MemberCurrentSection(props) {
         deleteMember();
 
         deleteProfileLink();
-
-        updateMemberName();
-
-        updateMemberRank();
-
-        updateMemberProfileLinkIdArr();
-
-        updateProfileLinkTitle();
-
-        updateProfileLinkLink();
-
-        deleteEmptyProfileLink();
-
-        updateStudentImage();
         break;
       case 'undergraduate student':
         insertNewMember();
 
         deleteMember();
-
-        updateMemberName();
-
-        updateStudentImage();
         break;
       default:
         break;
     }
 
-    if (firstPromiseArr.length || promiseArr.length) {
-      setIsLoading(true);
+    setIsLoading(true);
 
-      Promise.all(firstPromiseArr)
-        .catch((err) => {
-          console.log(err.message);
-        })
-        .finally(() => {
-          Promise.all(promiseArr)
-            .catch((err) => console.log(err.message))
-            .finally(() => {
-              inputArr.filter((input) => input.type === 'file').forEach((input) => (input.value = ''));
+    Promise.all(firstPromiseArr)
+      .catch((err) => {
+        console.log(err.message);
+      })
+      .finally(() => {
+        switch (type) {
+          case 'member':
+            // Update member - Image
+            const imageInputArr = inputArr.filter((input) => input.id.includes('#img_file_path'));
+            imageInputArr.forEach((imageInput) => {
+              const [tableName, id] = imageInput.id.split('#');
+              const file = imageInput.files[0];
 
-              const promiseArr = [];
+              if (file) {
+                const fileName = `${Date.now()}_${file.name}`;
 
-              promiseArr.push(
-                new Promise((resolve, reject) => {
-                  fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/all-member`)
-                    .then((res) => res.json())
-                    .then((result) => {
-                      const { status, data, message } = result;
+                let previousFileName;
+                try {
+                  previousFileName = memberArr.find((member) => member.id === Number(id)).img_file_path.split('/')[1];
+                } catch (err) {
+                  previousFileName = undefined;
+                }
 
-                      if (status !== 'success') {
-                        throw new Error(message);
-                      }
+                // Upload new image
+                promiseArr.push(
+                  new Promise((resolve, reject) => {
+                    uploadBytes(ref(storage, `member/${fileName}`), file)
+                      .then(() => {
+                        resolve();
+                      })
+                      .catch((err) => reject(err));
+                  })
+                );
 
-                      resolve(data.allMemberArr);
+                // Remove old image
+                if (previousFileName) {
+                  promiseArr.push(
+                    new Promise((resolve, reject) => {
+                      deleteObject(ref(storage, `member/${previousFileName}`))
+                        .then(() => {
+                          resolve();
+                        })
+                        .catch((err) => reject(err));
                     })
-                    .catch((err) => reject(err));
-                })
-              );
+                  );
+                }
 
-              promiseArr.push(
-                new Promise((resolve, reject) => {
-                  fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/member-profile-link`)
-                    .then((res) => res.json())
-                    .then((result) => {
-                      const { status, data, message } = result;
-
-                      if (status !== 'success') {
-                        throw new Error(message);
-                      }
-
-                      resolve(data.memberProfileLinkArr);
+                // Update img_file_path
+                promiseArr.push(
+                  new Promise((resolve, reject) => {
+                    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource`, {
+                      method: 'PUT',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ tableName, id, data: { imgFilePath: `member/${fileName}` } }),
                     })
-                    .catch((err) => reject(err.message));
-                })
-              );
-
-              promiseArr.push(
-                new Promise((resolve, reject) => {
-                  fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/student-image`)
-                    .then((res) => res.json())
-                    .then((result) => {
-                      const { status, data, message } = result;
-
-                      if (status !== 'success') {
-                        throw new Error(message);
-                      }
-
-                      resolve(data.studentImageArr);
-                    })
-                    .catch((err) => reject(err.message));
-                })
-              );
-
-              Promise.all(promiseArr)
-                .then((dataArr) => {
-                  const allMemberArr = dataArr[0];
-                  const memberProfileLinkArr = dataArr[1];
-                  const studentImageArr = dataArr[2];
-
-                  dispatch(resourceActions.setAllMemberArr(allMemberArr));
-                  dispatch(resourceActions.setMemberProfileLinkArr(memberProfileLinkArr));
-                  dispatch(resourceActions.setStudentImageArr(studentImageArr));
-                })
-                .catch((err) => console.log(err.message))
-                .finally(() => setIsLoading(false));
+                      .then(() => resolve())
+                      .catch((err) => reject(err));
+                  })
+                );
+              }
             });
-        });
-    }
+
+            // Update member - Name
+            updateMemberName();
+
+            // Update member - Rank
+            updateMemberRank();
+
+            // Update member - Education Arr
+            updateMemberEducationArr();
+
+            // Update member - Profile link Id Arr
+            updateMemberProfileLinkIdArr();
+
+            // Update profile link - title
+            updateProfileLinkTitle();
+
+            // Update profile link - link
+            updateProfileLinkLink();
+
+            // Delete empty profile link
+            deleteEmptyProfileLink();
+            break;
+          case 'visiting member':
+            updateMemberName();
+
+            updateMemberEducationArr();
+
+            updateMemberProfileLinkIdArr();
+
+            updateProfileLinkTitle();
+
+            updateProfileLinkLink();
+
+            deleteEmptyProfileLink();
+            break;
+          case 'graduate student':
+            updateMemberName();
+
+            updateMemberRank();
+
+            updateMemberProfileLinkIdArr();
+
+            updateProfileLinkTitle();
+
+            updateProfileLinkLink();
+
+            deleteEmptyProfileLink();
+
+            updateStudentImage();
+            break;
+          case 'undergraduate student':
+            updateMemberName();
+
+            updateStudentImage();
+            break;
+          default:
+            break;
+        }
+
+        Promise.all(promiseArr)
+          .catch((err) => console.log(err.message))
+          .finally(() => {
+            inputArr.filter((input) => input.type === 'file').forEach((input) => (input.value = ''));
+
+            const lastPromiseArr = [];
+
+            lastPromiseArr.push(
+              new Promise((resolve, reject) => {
+                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/all-member`)
+                  .then((res) => res.json())
+                  .then((result) => {
+                    const { status, data, message } = result;
+
+                    if (status !== 'success') {
+                      throw new Error(message);
+                    }
+
+                    resolve(data.allMemberArr);
+                  })
+                  .catch((err) => reject(err));
+              })
+            );
+
+            lastPromiseArr.push(
+              new Promise((resolve, reject) => {
+                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/member-profile-link`)
+                  .then((res) => res.json())
+                  .then((result) => {
+                    const { status, data, message } = result;
+
+                    if (status !== 'success') {
+                      throw new Error(message);
+                    }
+
+                    resolve(data.memberProfileLinkArr);
+                  })
+                  .catch((err) => reject(err.message));
+              })
+            );
+
+            lastPromiseArr.push(
+              new Promise((resolve, reject) => {
+                fetch(`${process.env.REACT_APP_BACKEND_URL}/api/resource/student-image`)
+                  .then((res) => res.json())
+                  .then((result) => {
+                    const { status, data, message } = result;
+
+                    if (status !== 'success') {
+                      throw new Error(message);
+                    }
+
+                    resolve(data.studentImageArr);
+                  })
+                  .catch((err) => reject(err.message));
+              })
+            );
+
+            Promise.all(lastPromiseArr)
+              .then((dataArr) => {
+                const allMemberArr = dataArr[0];
+                const memberProfileLinkArr = dataArr[1];
+                const studentImageArr = dataArr[2];
+
+                dispatch(resourceActions.setAllMemberArr(allMemberArr));
+                dispatch(resourceActions.setMemberProfileLinkArr(memberProfileLinkArr));
+                dispatch(resourceActions.setStudentImageArr(studentImageArr));
+              })
+              .catch((err) => console.log(err.message))
+              .finally(() => setIsLoading(false));
+          });
+      });
   }
 
   function addMoreHandler() {
