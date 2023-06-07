@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import ScrollContainer from 'react-indiana-drag-scroll';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 import pathToUrl from '../../utils/pathToUrl';
 import './Activity.scss';
@@ -13,6 +14,23 @@ function Activity() {
   const [show, setShow] = useState(false);
   const [modalImageURL, setModalImageURL] = useState();
 
+  const ref1 = useRef(null);
+
+  const isInView1 = useInView(ref1, { once: true });
+  const mainControl1 = useAnimation();
+
+  const variants = {
+    hidden: { opacity: 0, y: 75 },
+    visible: { opacity: 1, y: 0 },
+  };
+  const transition = { duration: 0.5 };
+
+  useEffect(() => {
+    if (isInView1) {
+      mainControl1.start('visible');
+    }
+  }, [isInView1, mainControl1]);
+
   function imageClickHandler() {
     setModalImageURL(this);
   }
@@ -21,7 +39,7 @@ function Activity() {
     setModalImageURL();
   }
 
-  function imgLoadHandler(e) {
+  function imgLoadHandler() {
     setShow(true);
   }
 
@@ -38,14 +56,14 @@ function Activity() {
           </div>
         </div>
       )}
-      <img className="activity__title" src={drmisActivity} alt=""></img>
-      <div className="activity__container">
+      <motion.div className="activity__container" variants={variants} initial="hidden" animate={mainControl1} transition={transition} ref={ref1}>
+        <img className="activity__title" src={drmisActivity} alt=""></img>
         <ScrollContainer className="content">
           {activityArr.map((activity) => {
             const posterURL = pathToUrl(activity.poster_file_path);
 
             return (
-              <div key={activity.id} className={`activity-img ${!show ? 'not-show' : ''}`}>
+              <div key={activity.id} className={`activity-img ${show ? 'show' : ''}`}>
                 <img
                   src={posterURL}
                   alt=""
@@ -65,7 +83,7 @@ function Activity() {
             );
           })}
         </ScrollContainer>
-      </div>
+      </motion.div>
     </div>
   );
 }

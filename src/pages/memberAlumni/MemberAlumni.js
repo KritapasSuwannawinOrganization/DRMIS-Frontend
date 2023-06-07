@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 import './MemberAlumni.scss';
 
@@ -7,6 +8,23 @@ import drmisAlumni from '../../icons/drmis-alumni.svg';
 
 function MemberAlumni() {
   const allMemberArr = useSelector((store) => store.resource.allMemberArr);
+
+  const ref1 = useRef(null);
+
+  const isInView1 = useInView(ref1, { once: true });
+  const mainControl1 = useAnimation();
+
+  const variants = {
+    hidden: { opacity: 0, y: 75 },
+    visible: { opacity: 1, y: 0 },
+  };
+  const transition = { duration: 0.5 };
+
+  useEffect(() => {
+    if (isInView1) {
+      mainControl1.start('visible');
+    }
+  }, [isInView1, mainControl1]);
 
   const allAlumniArr = allMemberArr.filter((member) => member.status === 'alumni');
 
@@ -40,8 +58,15 @@ function MemberAlumni() {
 
   return (
     <div className="member-alumni">
-      <img className="member-alumni__title" src={drmisAlumni} alt=""></img>
-      <div className="member-alumni__alumni-container">
+      <motion.div
+        className="member-alumni__alumni-container"
+        variants={variants}
+        initial="hidden"
+        animate={mainControl1}
+        transition={transition}
+        ref={ref1}
+      >
+        <img className="member-alumni__title" src={drmisAlumni} alt=""></img>
         <div>
           {yearArr.map((year) => (
             <div key={year} className="alumni-year">
@@ -50,7 +75,7 @@ function MemberAlumni() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

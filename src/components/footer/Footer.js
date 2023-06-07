@@ -64,9 +64,9 @@ function Footer() {
             <div className="right__row">
               <img src={yellowAddress} alt=""></img>
               <p>
-                <span>Postal Address:</span> Assoc. Prof. Natt Leelawat, D.Eng., Disaster and Risk Management Information Systems
-                Laboratory, Department of Industrial Engineering, Faculty of Engineering, Chulalongkorn University, 254 Phayathai Road,
-                Wangmai, Pathumwan, Bangkok 10330, Thailand
+                <span>Postal Address:</span> Assoc. Prof. Natt Leelawat, D.Eng., Disaster and Risk Management Information Systems Laboratory,
+                Department of Industrial Engineering, Faculty of Engineering, Chulalongkorn University, 254 Phayathai Road, Wangmai, Pathumwan,
+                Bangkok 10330, Thailand
               </p>
             </div>
             <a href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer" className="right__row link">

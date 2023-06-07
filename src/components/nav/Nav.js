@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Transition } from 'react-transition-group';
+
 // import { initializeApp } from 'firebase/app';
 // import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +32,20 @@ import redSearch from '../../icons/red-search.svg';
 // const auth = getAuth(app);
 // const provider = new GoogleAuthProvider();
 
+const duration = 100;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-out`,
+  opacity: 0,
+};
+
+const transitionStyles = {
+  entering: { opacity: 1 },
+  entered: { opacity: 1 },
+  exiting: { opacity: 0 },
+  exited: { opacity: 0 },
+};
+
 function Nav() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -42,6 +58,11 @@ function Nav() {
   const [searchIsActive, setSearchIsActive] = useState(false);
   const [menuIsActive, setMenuIsActive] = useState(false);
   const [searchIsInvalid, setSearchIsInvalid] = useState(false);
+
+  const memberLinkContainerRef = useRef(null);
+  const accomplishmentLinkContainerRef = useRef(null);
+  const searchContainerRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   useEffect(() => {
     setMemberIsActive(false);
@@ -178,22 +199,40 @@ function Nav() {
             <div className="btn-container">
               <div>
                 <button onClick={navClickHandler.bind('member')}>Members</button>
-                {memberIsActive && (
-                  <div className="link-container">
-                    <Link to="/member-current">Current</Link>
-                    <Link to="/member-alumni">Alumni</Link>
-                  </div>
-                )}
+                <Transition nodeRef={memberLinkContainerRef} in={memberIsActive} timeout={duration} mountOnEnter unmountOnExit>
+                  {(state) => (
+                    <div
+                      className="link-container"
+                      ref={memberLinkContainerRef}
+                      style={{
+                        ...defaultStyle,
+                        ...transitionStyles[state],
+                      }}
+                    >
+                      <Link to="/member-current">Current</Link>
+                      <Link to="/member-alumni">Alumni</Link>
+                    </div>
+                  )}
+                </Transition>
               </div>
               <div>
                 <button onClick={navClickHandler.bind('accomplishment')}>Accomplishments</button>
-                {accomplishmentIsActive && (
-                  <div className="link-container">
-                    <Link to="/publication">Publications</Link>
-                    <Link to="/activity">Activities</Link>
-                    <Link to="/project">Projects</Link>
-                  </div>
-                )}
+                <Transition nodeRef={accomplishmentLinkContainerRef} in={accomplishmentIsActive} timeout={duration} mountOnEnter unmountOnExit>
+                  {(state) => (
+                    <div
+                      className="link-container"
+                      ref={accomplishmentLinkContainerRef}
+                      style={{
+                        ...defaultStyle,
+                        ...transitionStyles[state],
+                      }}
+                    >
+                      <Link to="/publication">Publications</Link>
+                      <Link to="/activity">Activities</Link>
+                      <Link to="/project">Projects</Link>
+                    </div>
+                  )}
+                </Transition>
               </div>
               <div>
                 <Link to="/recruitment">Recruitment</Link>
@@ -208,36 +247,51 @@ function Nav() {
               <img src={blueSearch} alt=""></img>
               <p>Search</p>
             </button>
-            {searchIsActive && (
-              <form className="input-container" onSubmit={searchSubmitHandler}>
-                <div className="input">
-                  <input
-                    placeholder="Search"
-                    className={searchIsInvalid ? 'invalid' : ''}
-                    onChange={() => setSearchIsInvalid(false)}
-                  ></input>
-                  <button type="submit">
-                    <img src={searchIsInvalid ? redSearch : whiteSearch} alt=""></img>
-                  </button>
-                </div>
-              </form>
-            )}
+            <Transition nodeRef={searchContainerRef} in={searchIsActive} timeout={duration} mountOnEnter unmountOnExit>
+              {(state) => (
+                <form
+                  className="input-container"
+                  onSubmit={searchSubmitHandler}
+                  ref={searchContainerRef}
+                  style={{
+                    ...defaultStyle,
+                    ...transitionStyles[state],
+                  }}
+                >
+                  <div className="input">
+                    <input placeholder="Search" className={searchIsInvalid ? 'invalid' : ''} onChange={() => setSearchIsInvalid(false)}></input>
+                    <button type="submit">
+                      <img src={searchIsInvalid ? redSearch : whiteSearch} alt=""></img>
+                    </button>
+                  </div>
+                </form>
+              )}
+            </Transition>
           </div>
           <div className={`nav-menu ${menuIsActive ? 'active' : ''}`} onClick={menuClickHandler}>
             <div className="nav-menu__line top"></div>
             <div className="nav-menu__line middle"></div>
             <div className="nav-menu__line bottom"></div>
-            {menuIsActive && (
-              <div className="nav-menu__link-container">
-                <Link to="/member-current">Current Member</Link>
-                <Link to="/member-alumni">Alumni</Link>
-                <Link to="/publication">Publications</Link>
-                <Link to="/activity">Activities</Link>
-                <Link to="/project">Projects</Link>
-                <Link to="/recruitment">Recruitment</Link>
-                <Link to="/contact-us">Contact Us</Link>
-              </div>
-            )}
+            <Transition nodeRef={mobileMenuRef} in={menuIsActive} timeout={duration} mountOnEnter unmountOnExit>
+              {(state) => (
+                <div
+                  className="nav-menu__link-container"
+                  ref={mobileMenuRef}
+                  style={{
+                    ...defaultStyle,
+                    ...transitionStyles[state],
+                  }}
+                >
+                  <Link to="/member-current">Current Member</Link>
+                  <Link to="/member-alumni">Alumni</Link>
+                  <Link to="/publication">Publications</Link>
+                  <Link to="/activity">Activities</Link>
+                  <Link to="/project">Projects</Link>
+                  <Link to="/recruitment">Recruitment</Link>
+                  <Link to="/contact-us">Contact Us</Link>
+                </div>
+              )}
+            </Transition>
           </div>
         </div>
       </div>

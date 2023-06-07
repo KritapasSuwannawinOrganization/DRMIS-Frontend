@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 import pathToUrl from '../../utils/pathToUrl';
 
@@ -17,6 +18,51 @@ function MemberCurrent() {
   const allMemberArr = useSelector((store) => store.resource.allMemberArr);
   const memberProfileLinkArr = useSelector((store) => store.resource.memberProfileLinkArr);
   const studentImageArr = useSelector((store) => store.resource.studentImageArr);
+
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
+  const ref3 = useRef(null);
+  const ref4 = useRef(null);
+
+  const isInView1 = useInView(ref1, { once: true });
+  const isInView2 = useInView(ref2, { once: true });
+  const isInView3 = useInView(ref3, { once: true });
+  const isInView4 = useInView(ref4, { once: true });
+
+  const mainControl1 = useAnimation();
+  const mainControl2 = useAnimation();
+  const mainControl3 = useAnimation();
+  const mainControl4 = useAnimation();
+
+  const variants = {
+    hidden: { opacity: 0, y: 75 },
+    visible: { opacity: 1, y: 0 },
+  };
+  const transition = { duration: 0.5 };
+
+  useEffect(() => {
+    if (isInView1) {
+      mainControl1.start('visible');
+    }
+  }, [isInView1, mainControl1]);
+
+  useEffect(() => {
+    if (isInView2) {
+      mainControl2.start('visible');
+    }
+  }, [isInView2, mainControl2]);
+
+  useEffect(() => {
+    if (isInView3) {
+      mainControl3.start('visible');
+    }
+  }, [isInView3, mainControl3]);
+
+  useEffect(() => {
+    if (isInView4) {
+      mainControl4.start('visible');
+    }
+  }, [isInView4, mainControl4]);
 
   const memberArr = allMemberArr.filter((member) => member.status === 'current' && member.type === 'member');
   const visitingMemberArr = allMemberArr.filter((member) => member.status === 'current' && member.type === 'visiting member');
@@ -43,8 +89,15 @@ function MemberCurrent() {
 
   return (
     <div className="member-current">
-      <img className="member-current__title" src={drmisMember} alt=""></img>
-      <div className="member-current__member-container">
+      <motion.div
+        className="member-current__member-container"
+        variants={variants}
+        initial="hidden"
+        animate={mainControl1}
+        transition={transition}
+        ref={ref1}
+      >
+        <img className="member-current__title" src={drmisMember} alt=""></img>
         <div className="content">
           {memberArr.map((member, i) => (
             <React.Fragment key={member.id}>
@@ -83,9 +136,16 @@ function MemberCurrent() {
             </React.Fragment>
           ))}
         </div>
-      </div>
-      <img className="member-current__title sub" id="visiting-member" src={drmisVisitingMember} alt=""></img>
-      <div className="member-current__member-container">
+      </motion.div>
+      <motion.div
+        className="member-current__member-container"
+        variants={variants}
+        initial="hidden"
+        animate={mainControl2}
+        transition={transition}
+        ref={ref2}
+      >
+        <img className="member-current__title sub" id="visiting-member" src={drmisVisitingMember} alt=""></img>
         <div className="content">
           <ol>
             {visitingMemberArr.map((member, i) => (
@@ -113,9 +173,16 @@ function MemberCurrent() {
             ))}
           </ol>
         </div>
-      </div>
-      <img className="member-current__title sub" id="graduate-student" src={drmisGraduateStudent} alt=""></img>
-      <div className="member-current__member-container">
+      </motion.div>
+      <motion.div
+        className="member-current__member-container"
+        variants={variants}
+        initial="hidden"
+        animate={mainControl3}
+        transition={transition}
+        ref={ref3}
+      >
+        <img className="member-current__title sub" id="graduate-student" src={drmisGraduateStudent} alt=""></img>
         <div className="content">
           <img src={imgURLFromId(1)} alt="" className="full-width"></img>
           <ol>
@@ -144,9 +211,16 @@ function MemberCurrent() {
             ))}
           </ol>
         </div>
-      </div>
-      <img className="member-current__title long" id="undergraduate-student" src={drmisUndergraduateStudent} alt=""></img>
-      <div className="member-current__member-container">
+      </motion.div>
+      <motion.div
+        className="member-current__member-container"
+        variants={variants}
+        initial="hidden"
+        animate={mainControl4}
+        transition={transition}
+        ref={ref4}
+      >
+        <img className="member-current__title long" id="undergraduate-student" src={drmisUndergraduateStudent} alt=""></img>
         <div className="content">
           <img src={imgURLFromId(2)} alt="" className="full-width"></img>
           <div>
@@ -159,7 +233,7 @@ function MemberCurrent() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

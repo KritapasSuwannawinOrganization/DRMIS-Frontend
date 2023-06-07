@@ -57,6 +57,9 @@
 
   &__container {
     @include container-style(170rem, 0, 8rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .content {
       display: flex;
@@ -79,9 +82,11 @@
         background: $color-gray;
         display: flex;
         flex-direction: column;
+        opacity: 0;
+        transition: opacity 0.3s ease;
 
-        &.not-show {
-          display: none;
+        &.show {
+          opacity: 1;
         }
 
         img {

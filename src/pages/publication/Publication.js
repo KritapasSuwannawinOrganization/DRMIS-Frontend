@@ -1,4 +1,6 @@
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 import './Publication.scss';
 
@@ -6,6 +8,23 @@ import drmisPublication from '../../icons/drmis-publication.svg';
 
 function Publication() {
   const researchPublicationArr = useSelector((store) => store.resource.researchPublicationArr);
+
+  const ref1 = useRef(null);
+
+  const isInView1 = useInView(ref1, { once: true });
+  const mainControl1 = useAnimation();
+
+  const variants = {
+    hidden: { opacity: 0, y: 75 },
+    visible: { opacity: 1, y: 0 },
+  };
+  const transition = { duration: 0.5 };
+
+  useEffect(() => {
+    if (isInView1) {
+      mainControl1.start('visible');
+    }
+  }, [isInView1, mainControl1]);
 
   const yearArr = [];
 
@@ -17,8 +36,8 @@ function Publication() {
 
   return (
     <div className="publication">
-      <img className="publication__title" src={drmisPublication} alt=""></img>
-      <div className="publication__container">
+      <motion.div className="publication__container" variants={variants} initial="hidden" animate={mainControl1} transition={transition} ref={ref1}>
+        <img className="publication__title" src={drmisPublication} alt=""></img>
         <div className="content">
           {yearArr.map((year) => (
             <div key={year}>
@@ -37,7 +56,7 @@ function Publication() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

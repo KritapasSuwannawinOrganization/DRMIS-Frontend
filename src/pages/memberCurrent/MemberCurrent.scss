@@ -5,6 +5,9 @@
 
   &__member-container {
     @include container-style(135rem, 0, 8rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .content {
       font-size: 2rem;

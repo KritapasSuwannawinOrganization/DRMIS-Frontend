@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 import pathToUrl from '../../utils/pathToUrl';
 
@@ -17,6 +18,23 @@ function Slider(props) {
   const [showingDataArr, setShowingDataArr] = useState([]);
   const [hasMore, setHasMore] = useState();
   const [startingIndex, setStartingIndex] = useState(0);
+
+  const ref1 = useRef(null);
+
+  const isInView1 = useInView(ref1, { once: true });
+  const mainControl1 = useAnimation();
+
+  const variants = {
+    hidden: { opacity: 0, y: 75 },
+    visible: { opacity: 1, y: 0 },
+  };
+  const transition = { duration: 0.5 };
+
+  useEffect(() => {
+    if (isInView1) {
+      mainControl1.start('visible');
+    }
+  }, [isInView1, mainControl1]);
 
   useEffect(() => {
     setCategoryArr(Array.from(new Set(dataArr.map((data) => data.category_name))).filter((cat) => cat !== ''));
@@ -70,7 +88,7 @@ function Slider(props) {
           </button>
         ))}
       </div>
-      <div className={`slider__body ${type}`}>
+      <motion.div className={`slider__body ${type}`} variants={variants} initial="hidden" animate={mainControl1} transition={transition} ref={ref1}>
         {hasMore && (
           <button onClick={previousClickHandler} className={`${showingDataArr[0].id === categorizedDataArr[0].id ? 'hide' : ''}`}>
             <img className="invert" src={type === 'dark-bg' ? yellowArrowRight : blueArrowRight} alt=""></img>
@@ -120,7 +138,7 @@ function Slider(props) {
             </button>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

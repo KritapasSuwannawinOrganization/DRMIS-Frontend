@@ -1,4 +1,6 @@
+import { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 import pathToUrl from '../../utils/pathToUrl';
 
@@ -16,6 +18,33 @@ function Home() {
   const homeImageArr = useSelector((store) => store.resource.homeImageArr);
   const researchPublicationArr = useSelector((store) => store.resource.researchPublicationArr);
   const projectArr = useSelector((store) => store.resource.projectArr);
+
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
+
+  const isInView1 = useInView(ref1, { once: true });
+  const isInView2 = useInView(ref2, { once: true });
+
+  const mainControl1 = useAnimation();
+  const mainControl2 = useAnimation();
+
+  const variants = {
+    hidden: { opacity: 0, y: 75 },
+    visible: { opacity: 1, y: 0 },
+  };
+  const transition = { duration: 0.5 };
+
+  useEffect(() => {
+    if (isInView1) {
+      mainControl1.start('visible');
+    }
+  }, [isInView1, mainControl1]);
+
+  useEffect(() => {
+    if (isInView2) {
+      mainControl2.start('visible');
+    }
+  }, [isInView2, mainControl2]);
 
   function imgURLFromId(id) {
     if (homeImageArr.length > 0) {
@@ -49,7 +78,7 @@ function Home() {
       </div>
       <div className="home__about-us">
         <div className="content">
-          <div className="upper">
+          <motion.div className="upper" variants={variants} initial="hidden" animate={mainControl1} transition={transition} ref={ref1}>
             <div className="img-container">
               <img src={imgURLFromId(1)} alt=""></img>
               <img src={imgURLFromId(2)} alt=""></img>
@@ -65,8 +94,8 @@ function Home() {
                 systems, business continuity management, and data analysis related to disasters.
               </p>
             </div>
-          </div>
-          <div className="lower">
+          </motion.div>
+          <motion.div className="lower" variants={variants} initial="hidden" animate={mainControl2} transition={transition} ref={ref2}>
             <div className="img-container">
               <img src={imgURLFromId(4)} alt=""></img>
               <img src={imgURLFromId(5)} alt=""></img>
@@ -85,7 +114,7 @@ function Home() {
                 </li>
               </ul>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
       <div className="home__research-publication">

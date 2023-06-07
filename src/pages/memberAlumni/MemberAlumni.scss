@@ -5,6 +5,9 @@
 
   &__alumni-container {
     @include container-style(fit-content, 0, 8rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .alumni-year {
       &:not(:last-child) {
