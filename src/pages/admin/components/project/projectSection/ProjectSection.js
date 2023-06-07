@@ -47,11 +47,11 @@ function ProjectSection(props) {
     // Delete
     const deleteProjectIdArr = projectArr.filter((project) => project.isDeleted && !project.isNew).map((project) => project.id);
     deleteProjectIdArr.forEach((id) => {
-      const targetPublication = projectArr.find((project) => project.id === id);
+      const targetProject = projectArr.find((project) => project.id === id);
 
       let previousFileName;
       try {
-        previousFileName = targetPublication.img_file_path.split('/')[1];
+        previousFileName = targetProject.img_file_path.split('/')[1];
       } catch (err) {
         previousFileName = undefined;
       }

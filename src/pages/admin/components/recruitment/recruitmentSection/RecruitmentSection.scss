@@ -1,0 +1,9 @@
+@import '../../../../../scss/main.scss';
+
+.recruitment-section {
+  @include admin-section-style;
+
+  .content {
+    max-width: 130rem;
+  }
+}

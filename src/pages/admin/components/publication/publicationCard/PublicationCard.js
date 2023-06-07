@@ -55,7 +55,7 @@ function PublicationCard(props) {
             </div>
             <div className="year-container">
               <label>Year</label>
-              <input id={`research_publication#${id}#year`} type="text" defaultValue={year} placeholder="Year" required></input>
+              <input id={`research_publication#${id}#year`} type="number" defaultValue={year} placeholder="Year" required></input>
             </div>
           </div>
         </div>

@@ -105,7 +105,8 @@
     font-weight: 600;
   }
 
-  input[type='text'] {
+  input[type='text'],
+  input[type='number'] {
     width: 40rem;
     padding: 0.5rem 1rem;
   }

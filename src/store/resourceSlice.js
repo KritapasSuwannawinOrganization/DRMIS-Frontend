@@ -635,8 +635,8 @@ const resourceSlice = createSlice({
 
       const researchPublicationArr = JSON.parse(JSON.stringify(state.researchPublicationArr));
 
-      const targetMember = researchPublicationArr.find((publication) => publication.id === id);
-      targetMember.isDeleted = true;
+      const targetPublication = researchPublicationArr.find((publication) => publication.id === id);
+      targetPublication.isDeleted = true;
 
       state.researchPublicationArr = researchPublicationArr;
     },
@@ -659,8 +659,8 @@ const resourceSlice = createSlice({
 
       const activityArr = JSON.parse(JSON.stringify(state.activityArr));
 
-      const targetMember = activityArr.find((activity) => activity.id === id);
-      targetMember.isDeleted = true;
+      const targetActivity = activityArr.find((activity) => activity.id === id);
+      targetActivity.isDeleted = true;
 
       state.activityArr = activityArr;
     },
@@ -690,10 +690,35 @@ const resourceSlice = createSlice({
 
       const projectArr = JSON.parse(JSON.stringify(state.projectArr));
 
-      const targetMember = projectArr.find((project) => project.id === id);
-      targetMember.isDeleted = true;
+      const targetProject = projectArr.find((project) => project.id === id);
+      targetProject.isDeleted = true;
 
       state.projectArr = projectArr;
+    },
+    addRecruitment(state, action) {
+      const recruitmentArr = JSON.parse(JSON.stringify(state.recruitmentArr));
+
+      const newRecruitmentId = recruitmentArr[recruitmentArr.length - 1].id + 1;
+      recruitmentArr.push({
+        id: newRecruitmentId,
+        poster_file_path: '',
+        title: '',
+        period: '',
+        contact: '',
+        isNew: true,
+      });
+
+      state.recruitmentArr = recruitmentArr;
+    },
+    deleteRecruitment(state, action) {
+      const { id } = action.payload;
+
+      const recruitmentArr = JSON.parse(JSON.stringify(state.recruitmentArr));
+
+      const targetRecruitment = recruitmentArr.find((recruitment) => recruitment.id === id);
+      targetRecruitment.isDeleted = true;
+
+      state.recruitmentArr = recruitmentArr;
     },
   },
 });

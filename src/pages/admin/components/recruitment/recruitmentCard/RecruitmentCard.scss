@@ -1,0 +1,30 @@
+@import '../../../../../scss/main.scss';
+
+.recruitment-card {
+  @include admin-card-style;
+
+  &__image-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    img {
+      background: $color-gray;
+      width: 40rem;
+    }
+
+    input {
+      width: 40rem;
+    }
+  }
+
+  &__detail-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+
+    & > div {
+      @include admin-input-container-style;
+    }
+  }
+}
