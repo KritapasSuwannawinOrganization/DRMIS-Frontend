@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 
 import './Footer.scss';
 
@@ -77,26 +78,29 @@ function Footer() {
                 Bangkok 10330, Thailand
               </p>
             </div>
-            {/* <a href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer" className="right__row link">
-              <img src={blueFacebook} alt="" className="bg-yellow"></img>
-              <p>
-                <span>Facebook:</span> Disaster and Risk Management Information Systems, Chulalongkorn University
-              </p>
-            </a> */}
-            <div className="right__row">
-              <img src={blueFacebook} alt="" className="bg-yellow"></img>
-              <iframe
-                title="facebook"
-                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FDRMISChula&tabs&width=340&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-                width="340"
-                height="130"
-                style={{ border: 'none', overflow: 'hidden' }}
-                scrolling="no"
-                frameBorder="0"
-                allowFullScreen={true}
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              ></iframe>
-            </div>
+            {isMobile ? (
+              <a href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer" className="right__row link">
+                <img src={blueFacebook} alt="" className="bg-yellow"></img>
+                <p>
+                  <span>Facebook:</span> Disaster and Risk Management Information Systems, Chulalongkorn University
+                </p>
+              </a>
+            ) : (
+              <div className="right__row">
+                <img src={blueFacebook} alt="" className="bg-yellow"></img>
+                <iframe
+                  title="facebook"
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FDRMISChula&tabs&width=340&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                  width="340"
+                  height="130"
+                  style={{ border: 'none', overflow: 'hidden' }}
+                  scrolling="no"
+                  frameBorder="0"
+                  allowFullScreen={true}
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                ></iframe>
+              </div>
+            )}
             {/* <div className="right__row">
               <a className="yellow" href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer">
                 <img src={blueFacebook} alt=""></img>
