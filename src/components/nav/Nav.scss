@@ -53,9 +53,12 @@
 
   &__lower {
     @include container-style(158rem, 0.6rem);
-    background: url('../../backgrounds/nav-white.png');
+    background: url('../../backgrounds/nav-white.png') white;
     background-size: cover;
     background-position: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 
     .content {
       font-weight: 600;
@@ -245,11 +248,13 @@
 @media (max-width: 500px) {
   .nav {
     &__lower {
-      padding: 2.5rem $padding-container-horizontal 2rem;
+      padding: 2rem $padding-container-horizontal;
+      position: static;
 
       .content {
         .logo {
           margin: 0 -1rem;
+          height: 5rem;
         }
 
         .btn-container {

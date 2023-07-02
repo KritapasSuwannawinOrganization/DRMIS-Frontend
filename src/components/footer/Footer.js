@@ -4,6 +4,7 @@ import './Footer.scss';
 
 import blueFacebook from '../../icons/blue-facebook.svg';
 import blueMouseUp from '../../icons/blue-mouse-up.svg';
+import blueChevronUp from '../../icons/blue-chevron-up.svg';
 // import whiteLinkedIn from '../../icons/white-linkedin.svg';
 import yellowAddress from '../../icons/yellow-address.svg';
 import yellowLocationBase from '../../icons/yellow-location-base.svg';
@@ -27,6 +28,10 @@ function Footer() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     }).catch((err) => console.log(err.message));
+  }
+
+  function scrollToTop() {
+    window.scrollTo(0, 0);
   }
 
   if (pathname.startsWith('/admin')) {
@@ -58,7 +63,10 @@ function Footer() {
             <div className="right__row">
               <img src={yellowLocationBase} alt=""></img>
               <p>
-                <span>Location:</span> Room 511, 5F, Engineering Building 4, Faculty of Engineering, Chulalongkorn University
+                <span>Location:</span>{' '}
+                <a href="https://goo.gl/maps/JHJ7zsZJJe8nHgSm7" target="_blank" rel="noreferrer">
+                  Room 511, 5F, Engineering Building 4, Faculty of Engineering, Chulalongkorn University
+                </a>
               </p>
             </div>
             <div className="right__row">
@@ -69,12 +77,26 @@ function Footer() {
                 Bangkok 10330, Thailand
               </p>
             </div>
-            <a href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer" className="right__row link">
+            {/* <a href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer" className="right__row link">
               <img src={blueFacebook} alt="" className="bg-yellow"></img>
               <p>
                 <span>Facebook:</span> Disaster and Risk Management Information Systems, Chulalongkorn University
               </p>
-            </a>
+            </a> */}
+            <div className="right__row">
+              <img src={blueFacebook} alt="" className="bg-yellow"></img>
+              <iframe
+                title="facebook"
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FDRMISChula&tabs&width=340&height=130&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                width="340"
+                height="130"
+                style={{ border: 'none', overflow: 'hidden' }}
+                scrolling="no"
+                frameBorder="0"
+                allowFullScreen={true}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              ></iframe>
+            </div>
             {/* <div className="right__row">
               <a className="yellow" href="https://www.facebook.com/DRMISChula" target="_blank" rel="noreferrer">
                 <img src={blueFacebook} alt=""></img>
@@ -98,6 +120,9 @@ function Footer() {
               Policy
             </a>
           </div> */}
+          <button onClick={scrollToTop}>
+            <img src={blueChevronUp} alt=""></img>
+          </button>
         </div>
       </div>
     </div>

@@ -60,7 +60,7 @@
 
             img {
               padding: 2rem 2.3rem;
-              background: #ffc550;
+              background: $color-yellow;
               border-radius: 0.2rem;
               width: 6rem;
               height: 6rem;
@@ -99,36 +99,40 @@
               height: 2.5rem;
               border-radius: 50%;
               padding: 0.5rem;
-              background-color: #ffc550;
+              background-color: $color-yellow;
             }
           }
 
           a {
-            width: 4rem;
-            height: 4rem;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &:not(:last-child) {
-              margin-right: 0.8rem;
-            }
-
-            &.yellow {
-              padding: 1.2rem;
-              background-color: #ffc550;
-            }
-
-            &.blue {
-              padding: 1.3rem;
-              background: rgba($color: white, $alpha: 0.15);
-            }
-
-            img {
-              height: 100%;
-            }
+            text-decoration: underline;
           }
+
+          // a {
+          //   width: 4rem;
+          //   height: 4rem;
+          //   border-radius: 50%;
+          //   display: flex;
+          //   justify-content: center;
+          //   align-items: center;
+
+          //   &:not(:last-child) {
+          //     margin-right: 0.8rem;
+          //   }
+
+          //   &.yellow {
+          //     padding: 1.2rem;
+          //     background-color: $color-yellow;
+          //   }
+
+          //   &.blue {
+          //     padding: 1.3rem;
+          //     background: rgba($color: white, $alpha: 0.15);
+          //   }
+
+          //   img {
+          //     height: 100%;
+          //   }
+          // }
         }
       }
     }
@@ -151,6 +155,20 @@
               margin-left: 1.5rem;
             }
           }
+        }
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        background-color: $color-yellow;
+
+        img {
+          width: 2rem;
         }
       }
     }

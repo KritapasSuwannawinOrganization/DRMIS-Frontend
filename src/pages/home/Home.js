@@ -19,6 +19,9 @@ function Home() {
   const researchPublicationArr = useSelector((store) => store.resource.researchPublicationArr);
   const projectArr = useSelector((store) => store.resource.projectArr);
 
+  const researchRef = useRef();
+  const projectRef = useRef();
+
   const ref1 = useRef(null);
   const ref2 = useRef(null);
 
@@ -88,7 +91,7 @@ function Home() {
               <p className="title">About Us</p>
               <p>
                 <span>DRMIS</span> is a research unit at Chulalongkorn University. DRMIS laboratory has been established as the research group since
-                2018 by Asst. Prof. Natt Leelawat, D.Eng., and his kind colleagues from the Department of Industrial Engineering, Department of Water
+                2018 by Assoc. Prof. Natt Leelawat, D.Eng., and his kind colleagues from the Department of Industrial Engineering, Department of Water
                 Resources Engineering, Department of Civil Engineering, and the International School of Engineering, Chulalongkorn University. DRMIS
                 has been upgraded to a research unit since 2021. Currently, we are doing research on disaster management, management information
                 systems, business continuity management, and data analysis related to disasters.
@@ -117,11 +120,11 @@ function Home() {
           </motion.div>
         </div>
       </div>
-      <div className="home__research-publication">
-        <Slider title="Research Publications - Journal Articles" dataArr={researchPublicationArr} type="dark-bg"></Slider>
+      <div className="home__research-publication" ref={researchRef}>
+        <Slider title="Research Publications - Journal Articles" dataArr={researchPublicationArr} type="dark-bg" sliderRef={researchRef}></Slider>
       </div>
-      <div className="home__project">
-        <Slider title="Selected DRMIS projects" dataArr={projectArr} type="light-bg"></Slider>
+      <div className="home__project" ref={projectRef}>
+        <Slider title="Selected DRMIS projects" dataArr={projectArr} type="light-bg" sliderRef={projectRef}></Slider>
       </div>
       <div className="home__partner">
         <p>Our Partners</p>

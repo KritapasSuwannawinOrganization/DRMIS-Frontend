@@ -168,7 +168,7 @@ function Nav() {
   // }
 
   return (
-    <div className="nav">
+    <>
       <div className="nav__upper">
         <div className="content">
           {/* <div className="blank"></div> */}
@@ -295,7 +295,7 @@ function Nav() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

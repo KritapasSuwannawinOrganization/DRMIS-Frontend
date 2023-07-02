@@ -10,7 +10,7 @@ import blueArrowRight from '../../icons/blue-arrow-right.svg';
 // import blackEye from '../../icons/black-eye.svg';
 
 function Slider(props) {
-  const { title, dataArr, type } = props;
+  const { title, dataArr, type, sliderRef } = props;
 
   const [categoryArr, setCategoryArr] = useState([]);
   const [currentCategory, setCurrentCategory] = useState();
@@ -57,6 +57,12 @@ function Slider(props) {
     setCurrentCategory(this);
   }
 
+  function scrollIntoView() {
+    if (window.innerWidth <= 500 && sliderRef) {
+      sliderRef.current.scrollIntoView();
+    }
+  }
+
   function nextClickHandler() {
     // if (showingDataArr[showingDataArr.length - 1].id === categorizedDataArr[categorizedDataArr.length - 1].id) {
     //   setStartingIndex(0);
@@ -64,6 +70,7 @@ function Slider(props) {
     // }
 
     setStartingIndex((prev) => prev + 6);
+    scrollIntoView();
   }
 
   function previousClickHandler() {
@@ -73,10 +80,11 @@ function Slider(props) {
     // }
 
     setStartingIndex((prev) => prev - 6);
+    scrollIntoView();
   }
 
   return (
-    <div className="slider">
+    <div className="slider" ref={sliderRef}>
       <p className={`slider__title ${type}`}>{title}</p>
       <div className={`slider__nav ${type}`}>
         <button onClick={categoryChangeHandler} className={!currentCategory ? 'current' : ''}>
