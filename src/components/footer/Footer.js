@@ -58,7 +58,7 @@ function Footer() {
             <div className="right__row">
               <img src={yellowPhone} alt=""></img>
               <p>
-                <span>Tel:</span> 097 953 5266
+                <span>Tel:</span> (+66) 097 953 5266
               </p>
             </div>
             <div className="right__row">
