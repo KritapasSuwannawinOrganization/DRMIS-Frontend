@@ -90,11 +90,14 @@ function Home() {
             <div className="right">
               <p className="title">About Us</p>
               <p>
-                <span>DRMIS</span> is a research unit at Chulalongkorn University. DRMIS laboratory has been established as the research group since
-                2018 by Assoc. Prof. Natt Leelawat, D.Eng., and his kind colleagues from the Department of Industrial Engineering, Department of Water
-                Resources Engineering, Department of Civil Engineering, and the International School of Engineering, Chulalongkorn University. DRMIS
-                has been upgraded to a research unit since 2021. Currently, we are doing research on disaster management, management information
-                systems, business continuity management, and data analysis related to disasters.
+                <span>DRMIS</span> is a Center of Excellence at Chulalongkorn University, established on 1 April 2025. 
+                Originally founded in 2018 as a research group by Assoc. Prof. Natt Leelawat, D.Eng., 
+                along with colleagues from the Department of Industrial Engineering, Department of Water Resources Engineering, 
+                Department of Civil Engineering, and the International School of Engineering, 
+                DRMIS was later upgraded to a research unit in 2021 before attaining its current status. 
+                The center focuses on research in disaster management, management information systems, business continuity management, 
+                and data analysis related to disasters.
+.
               </p>
             </div>
           </motion.div>
