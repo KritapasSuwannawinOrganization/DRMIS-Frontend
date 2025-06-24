@@ -58,7 +58,7 @@ function Footer() {
             <div className="right__row">
               <img src={yellowPhone} alt=""></img>
               <p>
-                <span>Tel:</span> (+66) 097 953 5266  Email: drmis@eng.chula.ac.th
+                <span>Tel:</span> (+66) 097 953 5266  Email: drmis@eng.chula.ac.th (Main)
               </p>
             </div>
             <div className="right__row">
