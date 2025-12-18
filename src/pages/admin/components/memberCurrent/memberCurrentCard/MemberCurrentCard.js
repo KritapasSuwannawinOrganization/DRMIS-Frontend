@@ -98,7 +98,7 @@ function MemberCurrentCard(props) {
           <label>Profile Link</label>
           {profile_link_id_arr &&
             profile_link_id_arr.map((profileLinkId, i) => {
-              const { title, link } = memberProfileLinkArr.find((memberProfileLink) => memberProfileLink.id === profileLinkId);
+              const { title, link } = memberProfileLinkArr.find((memberProfileLink) => memberProfileLink.id === profileLinkId) || {};
               return (
                 <div key={i} className="profile-link">
                   <input
